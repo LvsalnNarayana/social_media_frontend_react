@@ -1,8 +1,23 @@
-import { Typography } from "@mui/material"
+import React from "react";
+
+import { Container } from "@mui/material";
+
+import "./App.css";
+import Post from "./components/Post/Post";
+import Header from "./components/Header/Header";
+
 const App = () => {
   return (
-    <Typography variant="h2">Social Media</Typography>
-  )
-}
+    <>
+      {/* <Header /> */}
+      <Container
+        sx={{ py: 4, display: "flex", justifyContent: "center" }}
+        disableGutters
+      >
+        <Post />
+      </Container>
+    </>
+  );
+};
 
-export default App
+export default App;
