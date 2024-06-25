@@ -7,14 +7,17 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import {
   Fade,
   Stack,
-  Avatar,
   Popper,
   IconButton,
   Typography,
   ClickAwayListener,
 } from "@mui/material";
 
-function PostHeader() {
+import useDate from "../../hooks/useDate";
+import UserAvatar from "../shared/UserAvatar";
+
+const PostHeader = (props) => {
+  const { post } = props;
   const [postMenuAnchor, setPostMenuAnchor] = useState(null);
   const [postMenuOpen, setPostMenuOpen] = useState(false);
   const handlePostMenuOpen = (event) => {
@@ -25,6 +28,7 @@ function PostHeader() {
     setPostMenuAnchor(null);
     setPostMenuOpen(false);
   };
+
   return (
     <Stack
       width="100%"
@@ -38,7 +42,7 @@ function PostHeader() {
         alignItems="center"
         gap={2}
       >
-        <Avatar sx={{ width: 40, height: 40, fontSize: "18px" }}>N</Avatar>
+        <UserAvatar username={post.user.username} />
         <Stack
           direction="column"
           justifyContent="flex-start"
@@ -54,14 +58,17 @@ function PostHeader() {
               component="p"
               sx={{ fontWeight: 600, fontSize: "14px" }}
             >
-              Jhon Doe
+              {post.user.firstname} {post.user.lastname}
             </Typography>
             <Typography
               variant="body1"
               component="p"
               sx={{ fontWeight: 500, fontSize: "14px" }}
             >
-              &nbsp;is at <strong>London, England</strong>
+              &nbsp;is at{" "}
+              <strong style={{ fontWeight: 600 }}>
+                {post.location.city}, {post.location.country}
+              </strong>
             </Typography>
           </Stack>
           <Typography
@@ -69,7 +76,7 @@ function PostHeader() {
             component="p"
             sx={{ fontWeight: 500, fontSize: "12px" }}
           >
-            8 June at 09:54
+            {useDate(post.published_at)}
           </Typography>
         </Stack>
       </Stack>
@@ -78,104 +85,110 @@ function PostHeader() {
       </IconButton>
 
       <Popper
-        sx={{ zIndex: 1200, width: 150 }}
+        sx={{ width: 150, zIndex: 1200 }}
         open={postMenuOpen}
         anchorEl={postMenuAnchor}
         placement="bottom-end"
         transition
       >
-        {({ TransitionProps }) => (
-          <ClickAwayListener onClickAway={handlePostMenuClose}>
-            <Fade {...TransitionProps} timeout={350}>
-              <Stack
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                gap={1}
-                sx={{
-                  p: 1,
-                  border: 1,
-                  width: "100%",
-                  borderRadius: 2,
-                  borderColor: "#00000020",
-                  backgroundColor: "white",
-                }}
-              >
+        {({ TransitionProps }) => {
+          return (
+            <ClickAwayListener onClickAway={handlePostMenuClose}>
+              <Fade {...TransitionProps} timeout={350}>
                 <Stack
-                  onClick={handlePostMenuClose}
-                  direction="row"
-                  component="div"
-                  alignItems="center"
+                  direction="column"
                   justifyContent="flex-start"
+                  alignItems="flex-start"
+                  gap={1}
                   sx={{
-                    px: 1,
+                    p: 1,
+                    border: 1,
                     width: "100%",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: "#00000010",
-                    },
+                    borderRadius: 2,
+                    borderColor: "#00000020",
+                    backgroundColor: "white",
                   }}
                 >
-                  <BookmarkBorderIcon fontSize="small" />
-                  <Typography
+                  <Stack
+                    onClick={handlePostMenuClose}
+                    direction="row"
+                    component="div"
+                    alignItems="center"
+                    justifyContent="flex-start"
                     sx={{
-                      p: 1,
-                      fontSize: "14px",
-                      fontWeight: 500,
+                      px: 1,
+                      width: "100%",
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "#00000010",
+                      },
                     }}
                   >
-                    Save
-                  </Typography>
+                    <BookmarkBorderIcon fontSize="small" />
+                    <Typography
+                      sx={{
+                        p: 1,
+                        fontWeight: 500,
+                        fontSize: "14px",
+                      }}
+                    >
+                      Save
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    onClick={handlePostMenuClose}
+                    direction="row"
+                    component="div"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    flexGrow={1}
+                    sx={{
+                      px: 1,
+                      width: "100%",
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "#00000010",
+                      },
+                    }}
+                  >
+                    <CancelPresentationIcon fontSize="small" />
+                    <Typography
+                      sx={{ p: 1, fontWeight: 500, fontSize: "14px" }}
+                    >
+                      Unfollow
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    onClick={handlePostMenuClose}
+                    direction="row"
+                    component="div"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    flexGrow={1}
+                    sx={{
+                      px: 1,
+                      width: "100%",
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "#00000010",
+                      },
+                    }}
+                  >
+                    <DoNotDisturbIcon fontSize="small" />
+                    <Typography
+                      sx={{ p: 1, fontWeight: 500, fontSize: "14px" }}
+                    >
+                      Block
+                    </Typography>
+                  </Stack>
                 </Stack>
-                <Stack
-                  onClick={handlePostMenuClose}
-                  direction="row"
-                  component="div"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  flexGrow={1}
-                  sx={{
-                    px: 1,
-                    width: "100%",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: "#00000010",
-                    },
-                  }}
-                >
-                  <CancelPresentationIcon fontSize="small" />
-                  <Typography sx={{ p: 1, fontSize: "14px", fontWeight: 500 }}>
-                    Unfollow
-                  </Typography>
-                </Stack>
-                <Stack
-                  onClick={handlePostMenuClose}
-                  direction="row"
-                  component="div"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  flexGrow={1}
-                  sx={{
-                    px: 1,
-                    width: "100%",
-                    cursor: "pointer",
-                    "&:hover": {
-                      backgroundColor: "#00000010",
-                    },
-                  }}
-                >
-                  <DoNotDisturbIcon fontSize="small" />
-                  <Typography sx={{ p: 1, fontSize: "14px", fontWeight: 500 }}>
-                    Block
-                  </Typography>
-                </Stack>
-              </Stack>
-            </Fade>
-          </ClickAwayListener>
-        )}
+              </Fade>
+            </ClickAwayListener>
+          );
+        }}
       </Popper>
     </Stack>
   );
-}
+};
 
 export default PostHeader;

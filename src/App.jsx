@@ -1,22 +1,27 @@
 import React from "react";
 
-import { Container } from "@mui/material";
+import { Stack, Divider, Container, Typography } from "@mui/material";
 
 import "./App.css";
 import Post from "./components/Post/Post";
-import Header from "./components/Header/Header";
 
 const App = () => {
   return (
-    <>
-      {/* <Header /> */}
-      <Container
-        sx={{ py: 4, display: "flex", justifyContent: "center" }}
-        disableGutters
+    <Container
+      sx={{ py: 4, display: "flex", justifyContent: "center" }}
+      disableGutters
+    >
+      <Stack
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        gap={2}
       >
+        <Typography variant="h4">Post Component</Typography>
+        <Divider sx={{ width: "100%" }} />
         <Post />
-      </Container>
-    </>
+      </Stack>
+    </Container>
   );
 };
 

@@ -10,7 +10,9 @@ import {
   AvatarGroup,
 } from "@mui/material";
 
-const PostReactions = () => {
+import ReactionUserCard from "./ReactionUserCard";
+
+const PostReactions = ({ post }) => {
   const [reactionsDialogOpen, setReactionsDialogOpen] = useState(false);
   const handleReactionsDialogOpen = () => {
     setReactionsDialogOpen(true);
@@ -28,42 +30,59 @@ const PostReactions = () => {
         justifyContent="flex-start"
         alignItems="center"
         gap={0.3}
-        sx={{ cursor: "pointer" }}
       >
         <AvatarGroup max={4}>
-          <Avatar
-            sx={{ width: 18, height: 18 }}
-            alt="Remy Sharp"
-            src="/emoji/face-with-head-bandage-img.png"
-          />
-          <Avatar
-            sx={{ width: 18, height: 18 }}
-            alt="Remy Sharp"
-            src="/emoji/smiling-face-with-star-eyes-img.png"
-          />
-          <Avatar
-            sx={{ width: 18, height: 18 }}
-            alt="Remy Sharp"
-            src="/emoji/grinning-face-img.png"
-          />
-          <Avatar
-            sx={{ width: 18, height: 18 }}
-            alt="Remy Sharp"
-            src="/emoji/smiling-face-with-heart-eyes-img.png"
-          />
+          {post?.engagement?.reactions?.users
+            ?.slice(0, 4)
+            .map((user, index) => {
+              return (
+                <Avatar
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  sx={{ width: 18, height: 18 }}
+                  alt="Remy Sharp"
+                  src={`/emoji/reactions/${user?.reaction_name}.png`}
+                />
+              );
+            })}
         </AvatarGroup>
-        <Typography variant="body1" sx={{ fontSize: "12px" }}>
-          23, 456 people reacted
-        </Typography>
+        {post?.engagement?.reaction_count > 0 ? (
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: "12px",
+              cursor: "pointer",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            {`${post?.engagement?.reactions?.users[0].firstname} ${post?.engagement?.reactions?.users[0].lastname}`}{" "}
+            and {post?.engagement?.reaction_count} others reacted
+          </Typography>
+        ) : (
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: "12px",
+              cursor: "pointer",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Be the first to like this
+          </Typography>
+        )}
       </Stack>
       <Dialog
         PaperProps={{
           elevation: 0,
           sx: {
-            p: 2,
-            width: "40vw",
+            pb: 2,
+            width: "35vw",
             maxWidth: "80vw",
-            minHeight: "60vh",
+            position: "relative",
             backgroundColor: "#fff",
           },
         }}
@@ -74,7 +93,15 @@ const PostReactions = () => {
           direction="row"
           justifyContent="space-between"
           alignItems="flex-start"
-          sx={{ width: "100%" }}
+          sx={{
+            p: 2,
+            pb: 0,
+            top: 0,
+            zIndex: 1000,
+            width: "100%",
+            position: "sticky",
+            backgroundColor: "#fff",
+          }}
         >
           <Stack
             direction="row"
@@ -85,7 +112,7 @@ const PostReactions = () => {
               pb: 2,
               position: "relative",
               "& >div": {
-                minWidth: "30px",
+                minWidth: "50px",
               },
             }}
           >
@@ -94,6 +121,9 @@ const PostReactions = () => {
               justifyContent="center"
               alignItems="center"
               gap={0.5}
+              sx={{
+                cursor: "pointer",
+              }}
             >
               <Typography
                 variant="body1"
@@ -107,6 +137,9 @@ const PostReactions = () => {
               justifyContent="center"
               alignItems="center"
               gap={0.5}
+              sx={{
+                cursor: "pointer",
+              }}
             >
               <Avatar
                 sx={{ width: 24, height: 24, overflow: "visible" }}
@@ -125,6 +158,9 @@ const PostReactions = () => {
               justifyContent="center"
               alignItems="center"
               gap={0.5}
+              sx={{
+                cursor: "pointer",
+              }}
             >
               <Avatar
                 sx={{ width: 24, height: 24, overflow: "visible" }}
@@ -143,6 +179,9 @@ const PostReactions = () => {
               justifyContent="center"
               alignItems="center"
               gap={0.5}
+              sx={{
+                cursor: "pointer",
+              }}
             >
               <Avatar
                 sx={{ width: 24, height: 24, overflow: "visible" }}
@@ -161,6 +200,9 @@ const PostReactions = () => {
               justifyContent="center"
               alignItems="center"
               gap={0.5}
+              sx={{
+                cursor: "pointer",
+              }}
             >
               <Avatar
                 sx={{ width: 24, height: 24, overflow: "visible" }}
@@ -176,9 +218,9 @@ const PostReactions = () => {
             </Stack>
             <span
               style={{
-                left: 53,
+                left: 74,
                 bottom: 0,
-                width: "40px",
+                width: "50px",
                 height: "4px",
                 position: "absolute",
                 borderRadius: "10px",
@@ -189,6 +231,32 @@ const PostReactions = () => {
           <IconButton onClick={handleReactionsDialogClose} size="small">
             <Close fontSize="small" />
           </IconButton>
+        </Stack>
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          gap={2}
+          sx={{
+            p: 2,
+            pb: 0,
+            width: "100%",
+            height: "80vh",
+            overflowY: "auto",
+            maxHeight: "80vh",
+          }}
+        >
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
+          <ReactionUserCard />
         </Stack>
       </Dialog>
     </>

@@ -20,7 +20,7 @@ const Comment = () => {
       justifyContent="flex-start"
       alignItems="flex-start"
       direction="column"
-      sx={{ my: 1 }}
+      sx={{ my: 2 }}
       gap={0}
     >
       <Stack

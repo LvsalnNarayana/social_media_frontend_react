@@ -40,9 +40,7 @@
 		"array-callback-return": [
 			"error"
 		],
-		"array-element-newline": [
-			"error"
-		],
+		"array-element-newline": 0,
 		"arrow-body-style": [
 			"error",
 			"always"
@@ -943,6 +941,7 @@
 						"builtin",
 						"external"
 					],
+					"multiavatar",
 					"custom-mui",
 					"custom-routes",
 					"custom-hooks",
@@ -961,6 +960,7 @@
 				],
 				"custom-groups": {
 					"value": {
+						"multiavatar": "@multiavatar/**",
 						"custom-mui": "@mui/**",
 						"custom-routes": "src/routes/**",
 						"custom-hooks": "src/hooks/**",
