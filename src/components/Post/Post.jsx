@@ -29,8 +29,8 @@ const Post = () => {
       <PostMedia post={post} />
       <PostReactions post={post} />
       <Divider sx={{ width: "100%" }} />
-      <PostActions />
-      <CommentContainer />
+      <PostActions post={post} />
+      <CommentContainer post={post} />
     </Stack>
   );
 };

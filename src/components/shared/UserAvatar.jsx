@@ -6,7 +6,7 @@ import multiavatar from "@multiavatar/multiavatar/esm";
 import { Avatar } from "@mui/material";
 
 const UserAvatar = (props) => {
-  const { username } = props;
+  const { width, height, username } = props;
   const avatarRef = useRef(null);
 
   useEffect(() => {
@@ -20,10 +20,24 @@ const UserAvatar = (props) => {
   return (
     <>
       {username ? (
-        <div style={{ width: 40, height: 40 }} ref={avatarRef} />
+        <div
+          style={{
+            width,
+            height,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          ref={avatarRef}
+        />
       ) : (
         <Avatar
-          sx={{ p: 0.5, width: 42, height: 42, backgroundColor: "#00000040" }}
+          sx={{
+            p: 0.5,
+            width: width + 2,
+            height: height + 2,
+            backgroundColor: "#00000040",
+          }}
           src="/ape.png"
         />
       )}

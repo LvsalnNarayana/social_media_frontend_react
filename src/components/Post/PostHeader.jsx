@@ -42,7 +42,7 @@ const PostHeader = (props) => {
         alignItems="center"
         gap={2}
       >
-        <UserAvatar username={post.user.username} />
+        <UserAvatar username={post.user.username} width={40} height={40} />
         <Stack
           direction="column"
           justifyContent="flex-start"

@@ -103,7 +103,7 @@ export const generateThemeOptions = (appTheme) => {
             },
 
             "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-              width: "12px",
+              width: "8px",
               backgroundColor: "#dadada",
             },
 

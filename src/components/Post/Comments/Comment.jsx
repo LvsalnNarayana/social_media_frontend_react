@@ -1,18 +1,36 @@
+/* eslint-disable max-statements-per-line */
+/* eslint-disable no-shadow */
+/* eslint-disable multiline-ternary */
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unsafe-optional-chaining */
 import React, { useState } from "react";
 
 import ReplyIcon from "@mui/icons-material/Reply";
-import { Stack, Avatar, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import CommentInput from "./CommentInput";
+import CommentReply from "./CommentReply";
+import useDate from "../../../hooks/useDate";
+import UserAvatar from "../../shared/UserAvatar";
 
-const Comment = () => {
+const Comment = ({ comment }) => {
   const [showReplyInput, setShowReplyInput] = useState(false);
+  const [replySlice, setReplySlice] = useState(1);
   const handleShowReplyInput = () => {
     setShowReplyInput(true);
   };
   const handleCloseReplyInput = () => {
     setShowReplyInput(false);
+  };
+  const handleViewMoreReplies = () => {
+    setReplySlice((prevReplySlice) => {
+      const remainingReplies = comment?.replies?.length - prevReplySlice;
+
+      return remainingReplies > 5
+        ? prevReplySlice + 5
+        : prevReplySlice + remainingReplies;
+    });
   };
 
   return (
@@ -20,60 +38,79 @@ const Comment = () => {
       justifyContent="flex-start"
       alignItems="flex-start"
       direction="column"
-      sx={{ my: 2 }}
+      sx={{ width: "100%" }}
       gap={0}
     >
       <Stack
-        justifyContent="flex-start"
-        alignItems="center"
         direction="row"
-        sx={{ my: 1 }}
-        gap={1.5}
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ my: 1, width: "100%" }}
       >
-        <Avatar
-          sx={{
-            width: 32,
-            height: 32,
-          }}
-        >
-          N
-        </Avatar>
         <Stack
           justifyContent="flex-start"
-          alignItems="flex-start"
-          direction="column"
+          alignItems="center"
+          direction="row"
+          gap={1.5}
         >
-          <Typography
+          <UserAvatar
+            username={comment?.user?.username}
+            width={32}
+            height={32}
+          />
+          <Stack
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            direction="column"
+          >
+            <Typography
+              sx={{
+                fontWeight: 600,
+                fontSize: "13px",
+                cursor: "pointer",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+              variant="body1"
+              component="p"
+            >
+              {comment?.user?.firstname} {comment?.user?.lastname}
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: 500,
+                fontSize: "11px",
+              }}
+              variant="body1"
+              component="p"
+            >
+              {useDate(comment.commented_at)}
+            </Typography>
+          </Stack>
+        </Stack>
+        {comment?.engagement?.reaction_count > 0 && (
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={0.5}
             sx={{
-              fontWeight: 600,
-              fontSize: "14px",
               cursor: "pointer",
               "&:hover": {
                 textDecoration: "underline",
               },
             }}
-            variant="body1"
-            component="p"
           >
-            Jhon Doe
-          </Typography>
-          <Typography
-            sx={{
-              fontWeight: 500,
-              fontSize: "12px",
-            }}
-            variant="body1"
-            component="p"
-          >
-            8 June at 09:54
-          </Typography>
-        </Stack>
+            <FavoriteBorderIcon fontSize="small" sx={{ fontSize: "16px" }} />
+            <Typography variant="body1" sx={{ fontSize: "14px" }}>
+              {comment?.engagement?.reaction_count}
+            </Typography>
+          </Stack>
+        )}
       </Stack>
       <Typography sx={{ fontSize: "13px" }} variant="body1">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consectetur a,
-        voluptas quibusdam debitis aut similique. Modi, voluptates! Incidunt qui
-        ullam, dolore amet omnis, quis deleniti veritatis voluptas vero nemo
-        animi.
+        {comment?.comment}
       </Typography>
       <Stack
         justifyContent="flex-start"
@@ -120,94 +157,40 @@ const Comment = () => {
           Reply
         </Typography>
       </Stack>
-      <Stack sx={{ px: 4 }} gap={2}>
+      <Stack sx={{ px: 4, width: "100%" }} gap={2}>
         {showReplyInput && (
           <CommentInput closeReply={handleCloseReplyInput} type="reply" />
         )}
-        <Stack
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          direction="column"
-          gap={1}
-        >
-          <Stack
-            justifyContent="flex-start"
-            alignItems="flex-start"
-            direction="column"
-          >
-            <Stack
-              justifyContent="flex-start"
-              alignItems="center"
-              direction="row"
-              sx={{ my: 1 }}
-              gap={1.5}
-            >
-              <Avatar
+        {comment?.replies?.length > 0 && replySlice >= 1 && (
+          <>
+            {comment?.replies?.slice(0, replySlice)?.map((reply, index) => {
+              return (
+                // eslint-disable-next-line react/no-array-index-key
+                <CommentReply key={index} reply={reply} />
+              );
+            })}
+          </>
+        )}
+        {
+          // eslint-disable-next-line operator-linebreak
+          comment?.replies?.length > 0 &&
+            replySlice < comment?.replies?.length && (
+              <Typography
+                onClick={handleViewMoreReplies}
                 sx={{
-                  width: 28,
-                  height: 28,
-                  fontSize: "14px",
+                  my: 1,
+                  fontSize: "12px",
+                  cursor: "pointer",
+                  color: "dodgerblue",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
                 }}
               >
-                N
-              </Avatar>
-              <Stack
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                direction="column"
-              >
-                <Typography
-                  sx={{
-                    fontWeight: 600,
-                    fontSize: "13px",
-                    cursor: "pointer",
-                    "&:hover": {
-                      textDecoration: "underline",
-                    },
-                  }}
-                  variant="body1"
-                  component="p"
-                >
-                  Jhon Doe
-                </Typography>
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    fontSize: "11px",
-                  }}
-                  variant="body1"
-                  component="p"
-                >
-                  8 June at 09:54
-                </Typography>
-              </Stack>
-            </Stack>
-            <Typography
-              sx={{
-                fontSize: "12px",
-              }}
-              variant="body1"
-            >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Consectetur a, voluptas quibusdam debitis aut similique. Modi,
-              voluptates! Incidunt qui ullam, dolore amet omnis, quis deleniti
-              veritatis voluptas vero nemo animi.
-            </Typography>
-          </Stack>
-          <Typography
-            sx={{
-              my: 1,
-              fontSize: "12px",
-              cursor: "pointer",
-              color: "dodgerblue",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            }}
-          >
-            + View 2 more replies
-          </Typography>
-        </Stack>
+                + View {comment?.replies?.length - replySlice} more replies
+              </Typography>
+            )
+        }
       </Stack>
     </Stack>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import { TextField, InputAdornment } from "@mui/material";
 
-const CommentTextArea = () => {
+const CommentTextArea = ({ type }) => {
   return (
     <TextField
       size="small"
@@ -18,13 +18,16 @@ const CommentTextArea = () => {
           </InputAdornment>
         ),
       }}
-      placeholder="Add a comment..."
+      placeholder={type === "reply" ? "Add a reply..." : "Add a comment..."}
       sx={{
         width: "100%",
         border: "none",
         outline: "none",
         "& .MuiInputBase-root": {
-          fontSize: "14px",
+          fontSize: "12px",
+        },
+        "& .MuiInputBase-root:placeholder": {
+          fontSize: "12px",
         },
         "&  .MuiInputBase-root:focus": {
           border: 0,

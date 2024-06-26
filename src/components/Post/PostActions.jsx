@@ -41,7 +41,9 @@ const PostActions = () => {
         padding: 10,
         width: "auto",
         color: "#fff",
+        borderRadius: "10px",
         backgroundColor: "#fff",
+        maxWidth: "100% !important",
         border: "1px solid #dadde9",
         fontSize: theme.typography.pxToRem(12),
         "&.MuiTooltip-tooltip": {
@@ -74,9 +76,13 @@ const PostActions = () => {
                 height: 36,
                 cursor: "pointer",
                 overflow: "visible",
+                transition: "all 0.1s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                },
               }}
-              alt="Remy Sharp"
-              src="/emoji/face-with-head-bandage-img.png"
+              alt="like"
+              src="/emoji/reactions/like.png"
             />
             <Avatar
               component="div"
@@ -86,9 +92,13 @@ const PostActions = () => {
                 height: 36,
                 cursor: "pointer",
                 overflow: "visible",
+                transition: "all 0.1s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                },
               }}
-              alt="Remy Sharp"
-              src="/emoji/smiling-face-with-star-eyes-img.png"
+              alt="love"
+              src="/emoji/reactions/love.png"
             />
             <Avatar
               component="div"
@@ -98,9 +108,13 @@ const PostActions = () => {
                 height: 36,
                 cursor: "pointer",
                 overflow: "visible",
+                transition: "all 0.1s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                },
               }}
-              alt="Remy Sharp"
-              src="/emoji/grinning-face-img.png"
+              alt="haha"
+              src="/emoji/reactions/haha.png"
             />
             <Avatar
               component="div"
@@ -110,9 +124,45 @@ const PostActions = () => {
                 height: 36,
                 cursor: "pointer",
                 overflow: "visible",
+                transition: "all 0.1s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                },
               }}
-              alt="Remy Sharp"
-              src="/emoji/smiling-face-with-heart-eyes-img.png"
+              alt="cry"
+              src="/emoji/reactions/cry.png"
+            />
+            <Avatar
+              component="div"
+              onClick={handleCloseLikeActionTooltip}
+              sx={{
+                width: 36,
+                height: 36,
+                cursor: "pointer",
+                overflow: "visible",
+                transition: "all 0.1s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                },
+              }}
+              alt="angry"
+              src="/emoji/reactions/angry.png"
+            />
+            <Avatar
+              component="div"
+              onClick={handleCloseLikeActionTooltip}
+              sx={{
+                width: 36,
+                height: 36,
+                cursor: "pointer",
+                overflow: "visible",
+                transition: "all 0.1s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                },
+              }}
+              alt="flower"
+              src="/emoji/reactions/flower.png"
             />
           </Stack>
         }
