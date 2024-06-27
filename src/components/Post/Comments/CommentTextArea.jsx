@@ -1,9 +1,20 @@
-import React from "react";
+/* eslint-disable no-console */
+import React, { useState } from "react";
 
 import SendIcon from "@mui/icons-material/Send";
 import { TextField, InputAdornment } from "@mui/material";
 
 const CommentTextArea = ({ type }) => {
+  const [textInput, setTextInput] = useState("");
+
+  const handleTextInputAction = () => {
+    if (type === "comment") {
+      console.log(`Comment Submitted : ${textInput}`);
+    } else if (type === "reply") {
+      console.log(`Reply Submitted : ${textInput}`);
+    }
+  };
+
   return (
     <TextField
       size="small"
@@ -11,12 +22,20 @@ const CommentTextArea = ({ type }) => {
       multiline
       maxRows={3}
       minRows={1}
+      value={textInput}
       InputProps={{
         endAdornment: (
-          <InputAdornment position="start">
+          <InputAdornment
+            sx={{ cursor: "pointer" }}
+            position="start"
+            onClick={handleTextInputAction}
+          >
             <SendIcon fontSize="small" />
           </InputAdornment>
         ),
+      }}
+      onInput={(e) => {
+        return setTextInput(e.target.value);
       }}
       placeholder={type === "reply" ? "Add a reply..." : "Add a comment..."}
       sx={{

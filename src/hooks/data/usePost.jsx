@@ -202,7 +202,7 @@ const usePost = () => {
           reaction_count: 2,
           reaction_name: "like",
           reacted_at: "2022-12-12",
-          users: [
+          reactions: [
             {
               id: "user_1235",
               lastname: "Smith",
@@ -301,7 +301,7 @@ const usePost = () => {
           reaction_count: 2,
           reaction_name: "love",
           reacted_at: "2022-12-13",
-          users: [
+          reactions: [
             {
               id: "user_1240",
               lastname: "Lee",

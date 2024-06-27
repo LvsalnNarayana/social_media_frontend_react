@@ -5,7 +5,7 @@ import { Stack } from "@mui/material";
 import Comment from "./Comment";
 import CommentInput from "./CommentInput";
 
-const CommentContainer = ({ post }) => {
+const CommentContainer = ({ post, enableCommentInput }) => {
   return (
     <Stack
       direction="column"
@@ -13,7 +13,7 @@ const CommentContainer = ({ post }) => {
       alignItems="flex-start"
       sx={{ width: "100%" }}
     >
-      <CommentInput />
+      {enableCommentInput && <CommentInput type="comment" />}
       <Stack
         direction="column"
         justifyContent="flex-start"

@@ -13,7 +13,7 @@ import {
   tooltipClasses,
 } from "@mui/material";
 
-const PostActions = () => {
+const PostActions = ({ enableCommentInput }) => {
   const [openLikeActionTooltip, setOpenLikeActionTooltip] = useState(false);
 
   const handleOpenLikeActionTooltip = () => {
@@ -23,7 +23,18 @@ const PostActions = () => {
   const handleCloseLikeActionTooltip = () => {
     setOpenLikeActionTooltip(false);
   };
-  const HtmlTooltip = styled(({ className, ...props }) => {
+
+  const handlePostReaction = (reactionName) => {
+    // eslint-disable-next-line no-console
+    console.log(`Post Reaction :  ${reactionName}`);
+    setOpenLikeActionTooltip(false);
+  };
+
+  const enableComment = () => {
+    enableCommentInput(true);
+  };
+
+  const LikeActionTooltip = styled(({ className, ...props }) => {
     return (
       <Tooltip
         {...props}
@@ -60,7 +71,7 @@ const PostActions = () => {
       justifyContent="flex-start"
       alignItems="center"
     >
-      <HtmlTooltip
+      <LikeActionTooltip
         title={
           <Stack
             gap={2}
@@ -70,7 +81,9 @@ const PostActions = () => {
           >
             <Avatar
               component="div"
-              onClick={handleCloseLikeActionTooltip}
+              onClick={() => {
+                return handlePostReaction("like");
+              }}
               sx={{
                 width: 36,
                 height: 36,
@@ -86,7 +99,9 @@ const PostActions = () => {
             />
             <Avatar
               component="div"
-              onClick={handleCloseLikeActionTooltip}
+              onClick={() => {
+                return handlePostReaction("love");
+              }}
               sx={{
                 width: 36,
                 height: 36,
@@ -102,7 +117,9 @@ const PostActions = () => {
             />
             <Avatar
               component="div"
-              onClick={handleCloseLikeActionTooltip}
+              onClick={() => {
+                return handlePostReaction("haha");
+              }}
               sx={{
                 width: 36,
                 height: 36,
@@ -118,7 +135,9 @@ const PostActions = () => {
             />
             <Avatar
               component="div"
-              onClick={handleCloseLikeActionTooltip}
+              onClick={() => {
+                return handlePostReaction("cry");
+              }}
               sx={{
                 width: 36,
                 height: 36,
@@ -134,7 +153,9 @@ const PostActions = () => {
             />
             <Avatar
               component="div"
-              onClick={handleCloseLikeActionTooltip}
+              onClick={() => {
+                return handlePostReaction("angry");
+              }}
               sx={{
                 width: 36,
                 height: 36,
@@ -150,7 +171,9 @@ const PostActions = () => {
             />
             <Avatar
               component="div"
-              onClick={handleCloseLikeActionTooltip}
+              onClick={() => {
+                return handlePostReaction("flower");
+              }}
               sx={{
                 width: 36,
                 height: 36,
@@ -179,8 +202,9 @@ const PostActions = () => {
           <FavoriteBorderIcon fontSize="small" />
           Like
         </Button>
-      </HtmlTooltip>
+      </LikeActionTooltip>
       <Button
+        onClick={enableComment}
         sx={{
           gap: 1,
           width: "100%",

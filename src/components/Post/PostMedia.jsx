@@ -1,15 +1,15 @@
 import React from "react";
 
-function PostMedia() {
+const PostMedia = () => {
   return (
     <div
       style={{
-        width: "100%",
         height: 250,
+        width: "100%",
         backgroundColor: "#ccc",
       }}
     />
   );
-}
+};
 
 export default PostMedia;

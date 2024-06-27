@@ -6,17 +6,18 @@ import {
   Stack,
   Avatar,
   Dialog,
+  Divider,
   Typography,
   IconButton,
   AvatarGroup,
-  Divider,
 } from "@mui/material";
 
 import ReactionUserCard from "./ReactionUserCard";
 
 const PostReactions = ({ post }) => {
-  const [reactionsDialogOpen, setReactionsDialogOpen] = useState(false);
   const [reactionCategory, setReactionCategory] = useState(0);
+  const [reactionsDialogOpen, setReactionsDialogOpen] = useState(false);
+
   const handleReactionsDialogOpen = () => {
     setReactionsDialogOpen(true);
   };

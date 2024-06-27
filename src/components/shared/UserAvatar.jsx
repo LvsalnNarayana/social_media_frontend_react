@@ -24,6 +24,7 @@ const UserAvatar = (props) => {
           style={{
             width,
             height,
+            flexShrink: 0,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -34,6 +35,7 @@ const UserAvatar = (props) => {
         <Avatar
           sx={{
             p: 0.5,
+            flexShrink: 0,
             width: width + 2,
             height: height + 2,
             backgroundColor: "#00000040",

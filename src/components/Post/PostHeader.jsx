@@ -18,13 +18,32 @@ import UserAvatar from "../shared/UserAvatar";
 
 const PostHeader = (props) => {
   const { post } = props;
-  const [postMenuAnchor, setPostMenuAnchor] = useState(null);
   const [postMenuOpen, setPostMenuOpen] = useState(false);
+  const [postMenuAnchor, setPostMenuAnchor] = useState(null);
+
   const handlePostMenuOpen = (event) => {
     setPostMenuAnchor(event.currentTarget);
     setPostMenuOpen(true);
   };
   const handlePostMenuClose = () => {
+    setPostMenuAnchor(null);
+    setPostMenuOpen(false);
+  };
+  const handlePostSave = () => {
+    // eslint-disable-next-line no-console
+    console.log("Post Saved");
+    setPostMenuAnchor(null);
+    setPostMenuOpen(false);
+  };
+  const handleUnfollowUser = () => {
+    // eslint-disable-next-line no-console
+    console.log("Unfollowed User");
+    setPostMenuAnchor(null);
+    setPostMenuOpen(false);
+  };
+  const hanldeBlockUser = () => {
+    // eslint-disable-next-line no-console
+    console.log("User Blocked");
     setPostMenuAnchor(null);
     setPostMenuOpen(false);
   };
@@ -35,6 +54,7 @@ const PostHeader = (props) => {
       direction="row"
       justifyContent="space-between"
       alignItems="flex-start"
+      gap={2}
     >
       <Stack
         direction="row"
@@ -47,24 +67,24 @@ const PostHeader = (props) => {
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
+          gap={0.5}
+          sx={{ width: "100%" }}
         >
           <Stack
             direction="row"
             justifyContent="flex-start"
             alignItems="center"
+            sx={{ width: "100%" }}
           >
             <Typography
               variant="body1"
               component="p"
-              sx={{ fontWeight: 600, fontSize: "14px" }}
+              flexShrink={0}
+              sx={{ width: "100%", fontSize: "14px" }}
             >
-              {post.user.firstname} {post.user.lastname}
-            </Typography>
-            <Typography
-              variant="body1"
-              component="p"
-              sx={{ fontWeight: 500, fontSize: "14px" }}
-            >
+              <span style={{ fontWeight: 600 }}>
+                {post.user.firstname} {post.user.lastname}
+              </span>{" "}
               &nbsp;is at{" "}
               <strong style={{ fontWeight: 600 }}>
                 {post.location.city}, {post.location.country}
@@ -80,8 +100,8 @@ const PostHeader = (props) => {
           </Typography>
         </Stack>
       </Stack>
-      <IconButton disableTouchRipple onClick={handlePostMenuOpen}>
-        <MoreVertIcon />
+      <IconButton disableTouchRipple onClick={handlePostMenuOpen} size="small">
+        <MoreVertIcon fontSize="small" />
       </IconButton>
 
       <Popper
@@ -110,7 +130,7 @@ const PostHeader = (props) => {
                   }}
                 >
                   <Stack
-                    onClick={handlePostMenuClose}
+                    onClick={handlePostSave}
                     direction="row"
                     component="div"
                     alignItems="center"
@@ -136,7 +156,7 @@ const PostHeader = (props) => {
                     </Typography>
                   </Stack>
                   <Stack
-                    onClick={handlePostMenuClose}
+                    onClick={handleUnfollowUser}
                     direction="row"
                     component="div"
                     justifyContent="flex-start"
@@ -159,7 +179,7 @@ const PostHeader = (props) => {
                     </Typography>
                   </Stack>
                   <Stack
-                    onClick={handlePostMenuClose}
+                    onClick={hanldeBlockUser}
                     direction="row"
                     component="div"
                     justifyContent="flex-start"

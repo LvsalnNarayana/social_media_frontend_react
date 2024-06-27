@@ -8,6 +8,19 @@ import { Stack, Button, Typography } from "@mui/material";
 import UserAvatar from "../shared/UserAvatar";
 
 const ReactionUserCard = ({ user }) => {
+  const handleReactionUserInteraction = () => {
+    if (user?.friendship_status === "friends") {
+      // eslint-disable-next-line no-console
+      console.log("you are already friends");
+    } else if (user?.friendship_status === "not_friends") {
+      // eslint-disable-next-line no-console
+      console.log("add friend");
+    } else if (user?.friendship_status === "request_sent") {
+      // eslint-disable-next-line no-console
+      console.log("request already sent");
+    }
+  };
+
   return (
     <Stack
       direction="row"
@@ -39,54 +52,37 @@ const ReactionUserCard = ({ user }) => {
           </Typography>
         </Stack>
       </Stack>
-      {user?.friendship_status === "not_friends" && (
-        <Button
-          sx={{
-            py: 0.5,
-            fontSize: "12px",
-            minWidth: "150px",
-          }}
-          color="primary"
-          variant="contained"
-          disableElevation
-          size="small"
-        >
-          <AddIcon fontSize="small" />
-          &nbsp;Add Friend
-        </Button>
-      )}
-      {user?.friendship_status === "friends" && (
-        <Button
-          sx={{
-            py: 0.5,
-            fontSize: "12px",
-            minWidth: "150px",
-          }}
-          color="primary"
-          variant="contained"
-          disableElevation
-          size="small"
-        >
-          <GroupsIcon fontSize="small" />
-          &nbsp;Friends
-        </Button>
-      )}
-      {user?.friendship_status === "request_sent" && (
-        <Button
-          sx={{
-            py: 0.5,
-            fontSize: "12px",
-            minWidth: "150px",
-          }}
-          color="primary"
-          variant="contained"
-          disableElevation
-          size="small"
-        >
-          <PersonAddIcon fontSize="small" />
-          &nbsp;Request sent
-        </Button>
-      )}
+      <Button
+        onClick={handleReactionUserInteraction}
+        sx={{
+          py: 0.5,
+          fontSize: "12px",
+          minWidth: "150px",
+        }}
+        color="primary"
+        variant="contained"
+        disableElevation
+        size="small"
+      >
+        {user?.friendship_status === "not_friends" && (
+          <>
+            <AddIcon fontSize="small" />
+            &nbsp;&nbsp;Add Friend
+          </>
+        )}
+        {user?.friendship_status === "friends" && (
+          <>
+            <GroupsIcon fontSize="small" />
+            &nbsp;&nbsp;Friends
+          </>
+        )}
+        {user?.friendship_status === "request_sent" && (
+          <>
+            <PersonAddIcon fontSize="small" />
+            &nbsp;&nbsp;Request sent
+          </>
+        )}
+      </Button>
     </Stack>
   );
 };

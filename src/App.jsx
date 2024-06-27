@@ -4,6 +4,7 @@ import { Stack, Divider, Container, Typography } from "@mui/material";
 
 import "./App.css";
 import Post from "./components/Post/Post";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 const App = () => {
   return (
@@ -15,11 +16,17 @@ const App = () => {
         direction="column"
         justifyContent="flex-start"
         alignItems="flex-start"
-        gap={2}
+        gap={4}
+        sx={{
+          py: 6,
+        }}
       >
         <Typography variant="h4">Post Component</Typography>
         <Divider sx={{ width: "100%" }} />
         <Post />
+        <Typography variant="h4">Search Component</Typography>
+        <Divider sx={{ width: "100%" }} />
+        <SearchBar />
       </Stack>
     </Container>
   );

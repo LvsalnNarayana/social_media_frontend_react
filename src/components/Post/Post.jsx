@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Stack, Divider } from "@mui/material";
 
@@ -11,6 +11,7 @@ import CommentContainer from "./Comments/CommentContainer";
 
 const Post = () => {
   const post = usePost();
+  const [commentInputField, setCommentInputField] = useState(false);
 
   return (
     <Stack
@@ -29,8 +30,8 @@ const Post = () => {
       <PostMedia post={post} />
       <PostReactions post={post} />
       <Divider sx={{ width: "100%" }} />
-      <PostActions post={post} />
-      <CommentContainer post={post} />
+      <PostActions post={post} enableCommentInput={setCommentInputField} />
+      <CommentContainer post={post} enableCommentInput={commentInputField} />
     </Stack>
   );
 };

@@ -5,9 +5,16 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import React, { useState } from "react";
 
+import { styled } from "@mui/material/styles";
 import ReplyIcon from "@mui/icons-material/Reply";
-import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import {
+  Zoom,
+  Stack,
+  Tooltip,
+  Typography,
+  tooltipClasses,
+} from "@mui/material";
 
 import CommentInput from "./CommentInput";
 import CommentReply from "./CommentReply";
@@ -15,8 +22,34 @@ import useDate from "../../../hooks/useDate";
 import UserAvatar from "../../shared/UserAvatar";
 
 const Comment = ({ comment }) => {
-  const [showReplyInput, setShowReplyInput] = useState(false);
   const [replySlice, setReplySlice] = useState(1);
+  const [showReplyInput, setShowReplyInput] = useState(false);
+  const ReactionListTooltip = styled(({ className, ...props }) => {
+    return (
+      <Tooltip
+        {...props}
+        placement="top-start"
+        TransitionComponent={Zoom}
+        classes={{ popper: className }}
+      />
+    );
+  })(({ theme }) => {
+    return {
+      [`& .${tooltipClasses.tooltip}`]: {
+        padding: 7,
+        width: "auto",
+        color: "#000",
+        borderRadius: "10px",
+        backgroundColor: "#fff",
+        maxWidth: "100% !important",
+        border: "1px solid #dadde9",
+        fontSize: theme.typography.pxToRem(12),
+        "&.MuiTooltip-tooltip": {
+          marginBottom: "0px",
+        },
+      },
+    };
+  });
   const handleShowReplyInput = () => {
     setShowReplyInput(true);
   };
@@ -31,6 +64,10 @@ const Comment = ({ comment }) => {
         ? prevReplySlice + 5
         : prevReplySlice + remainingReplies;
     });
+  };
+  const handleCommentLike = () => {
+    // eslint-disable-next-line no-console
+    console.log("Liked Comment");
   };
 
   return (
@@ -90,23 +127,52 @@ const Comment = ({ comment }) => {
           </Stack>
         </Stack>
         {comment?.engagement?.reaction_count > 0 && (
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            gap={0.5}
-            sx={{
-              cursor: "pointer",
-              "&:hover": {
-                textDecoration: "underline",
-              },
-            }}
+          <ReactionListTooltip
+            title={
+              <>
+                {comment?.engagement?.reactions?.map((reaction, index) => {
+                  return (
+                    <Stack
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      gap={1}
+                      sx={{ my: 1 }}
+                    >
+                      <UserAvatar
+                        username={reaction?.username}
+                        width={20}
+                        height={20}
+                      />
+                      <Typography sx={{ fontSize: "14px" }}>
+                        {reaction?.firstname} {reaction?.lastname}
+                      </Typography>
+                    </Stack>
+                  );
+                })}
+              </>
+            }
           >
-            <FavoriteBorderIcon fontSize="small" sx={{ fontSize: "16px" }} />
-            <Typography variant="body1" sx={{ fontSize: "14px" }}>
-              {comment?.engagement?.reaction_count}
-            </Typography>
-          </Stack>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              gap={0.5}
+              sx={{
+                cursor: "pointer",
+                "&:hover": {
+                  textDecoration: "underline",
+                },
+              }}
+            >
+              <FavoriteBorderIcon fontSize="small" sx={{ fontSize: "16px" }} />
+              <Typography variant="body1" sx={{ fontSize: "14px" }}>
+                {comment?.engagement?.reaction_count}
+              </Typography>
+            </Stack>
+          </ReactionListTooltip>
         )}
       </Stack>
       <Typography sx={{ fontSize: "13px" }} variant="body1">
@@ -120,6 +186,7 @@ const Comment = ({ comment }) => {
         gap={2}
       >
         <Typography
+          onClick={handleCommentLike}
           sx={{
             gap: 0.5,
             display: "flex",
