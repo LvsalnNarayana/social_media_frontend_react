@@ -5,6 +5,8 @@ import { Stack, Divider, Container, Typography } from "@mui/material";
 import "./App.css";
 import Post from "./components/Post/Post";
 import SearchBar from "./components/SearchBar/SearchBar";
+import MessageBox from "./components/MessageBox/MessageBox";
+import WhatsOnyourMind from "./components/CreatePost/CreatePost";
 
 const App = () => {
   return (
@@ -27,6 +29,12 @@ const App = () => {
         <Typography variant="h4">Search Component</Typography>
         <Divider sx={{ width: "100%" }} />
         <SearchBar />
+        <Typography variant="h4">Message Box Component</Typography>
+        <Divider sx={{ width: "100%" }} />
+        <MessageBox />
+        <Typography variant="h4">Create Post Component</Typography>
+        <Divider sx={{ width: "100%" }} />
+        <WhatsOnyourMind />
       </Stack>
     </Container>
   );

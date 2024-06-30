@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 
-import { Grow, Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
+
+import SearchResults from "./SearchResults";
 
 const SearchBar = () => {
   const searchBarRef = useRef(null);
@@ -8,11 +10,9 @@ const SearchBar = () => {
   const [searchBarFocus, setSearchBarFocus] = useState(false);
 
   useEffect(() => {
-    console.log("searchBarFocus", searchBarFocus);
-    console.log("searchInput", searchInput);
-
     const handleClickOutside = (event) => {
       if (
+        // eslint-disable-next-line operator-linebreak
         searchBarRef.current &&
         !searchBarRef.current.contains(event.target)
       ) {
@@ -69,40 +69,23 @@ const SearchBar = () => {
           "& .MuiInputBase-root:placeholder": {
             fontSize: "14px",
           },
-          "&  .MuiInputBase-root:focus": {
+          "& .MuiInputBase-root:focus": {
             border: 0,
             outline: "none",
           },
-          "&  .MuiInputBase-root:focusVisible": {
+          "& .MuiInputBase-root:focusVisible": {
             border: 0,
             outline: "none",
           },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+              border: 1,
+              borderColor: "dodgerblue",
+            },
         }}
       />
 
-      <Grow in={searchBarFocus}>
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          width="100%"
-          sx={{
-            p: 2,
-            left: 0,
-            top: "140%",
-            width: "100%",
-            height: "auto",
-            overflowY: "auto",
-            maxHeight: "300px",
-            borderRadius: "8px",
-            background: "white",
-            position: "absolute",
-            border: "1px solid #00000010",
-          }}
-        >
-          <Typography>Hello</Typography>
-        </Stack>
-      </Grow>
+      <SearchResults focus={searchBarFocus} />
     </Stack>
   );
 };

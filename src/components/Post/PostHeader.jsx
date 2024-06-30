@@ -1,52 +1,103 @@
-import React, { useState } from "react";
+import React from "react";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Stack, IconButton, Typography } from "@mui/material";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import {
-  Fade,
-  Stack,
-  Popper,
-  IconButton,
-  Typography,
-  ClickAwayListener,
-} from "@mui/material";
 
 import useDate from "../../hooks/useDate";
 import UserAvatar from "../shared/UserAvatar";
+import CustomMenu from "../shared/CustomMenu";
 
 const PostHeader = (props) => {
   const { post } = props;
-  const [postMenuOpen, setPostMenuOpen] = useState(false);
-  const [postMenuAnchor, setPostMenuAnchor] = useState(null);
 
-  const handlePostMenuOpen = (event) => {
-    setPostMenuAnchor(event.currentTarget);
-    setPostMenuOpen(true);
-  };
-  const handlePostMenuClose = () => {
-    setPostMenuAnchor(null);
-    setPostMenuOpen(false);
-  };
   const handlePostSave = () => {
     // eslint-disable-next-line no-console
     console.log("Post Saved");
-    setPostMenuAnchor(null);
-    setPostMenuOpen(false);
   };
   const handleUnfollowUser = () => {
     // eslint-disable-next-line no-console
     console.log("Unfollowed User");
-    setPostMenuAnchor(null);
-    setPostMenuOpen(false);
   };
   const hanldeBlockUser = () => {
     // eslint-disable-next-line no-console
     console.log("User Blocked");
-    setPostMenuAnchor(null);
-    setPostMenuOpen(false);
   };
+  const postMenu = [
+    <Stack
+      key="save"
+      onClick={handlePostSave}
+      direction="row"
+      component="div"
+      alignItems="center"
+      justifyContent="flex-start"
+      sx={{
+        px: 1,
+        width: "100%",
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "#00000010",
+        },
+      }}
+    >
+      <BookmarkBorderIcon fontSize="small" />
+      <Typography
+        sx={{
+          p: 1,
+          fontWeight: 500,
+          fontSize: "14px",
+        }}
+      >
+        Save
+      </Typography>
+    </Stack>,
+    <Stack
+      key="unfollow"
+      onClick={handleUnfollowUser}
+      direction="row"
+      component="div"
+      justifyContent="flex-start"
+      alignItems="center"
+      flexGrow={1}
+      sx={{
+        px: 1,
+        width: "100%",
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "#00000010",
+        },
+      }}
+    >
+      <CancelPresentationIcon fontSize="small" />
+      <Typography sx={{ p: 1, fontWeight: 500, fontSize: "14px" }}>
+        Unfollow
+      </Typography>
+    </Stack>,
+    <Stack
+      key="block"
+      onClick={hanldeBlockUser}
+      direction="row"
+      component="div"
+      justifyContent="flex-start"
+      alignItems="center"
+      flexGrow={1}
+      sx={{
+        px: 1,
+        width: "100%",
+        cursor: "pointer",
+        "&:hover": {
+          backgroundColor: "#00000010",
+        },
+      }}
+    >
+      <DoNotDisturbIcon fontSize="small" />
+      <Typography sx={{ p: 1, fontWeight: 500, fontSize: "14px" }}>
+        Block
+      </Typography>
+    </Stack>,
+  ];
 
   return (
     <Stack
@@ -100,113 +151,15 @@ const PostHeader = (props) => {
           </Typography>
         </Stack>
       </Stack>
-      <IconButton disableTouchRipple onClick={handlePostMenuOpen} size="small">
-        <MoreVertIcon fontSize="small" />
-      </IconButton>
 
-      <Popper
-        sx={{ width: 150, zIndex: 1200 }}
-        open={postMenuOpen}
-        anchorEl={postMenuAnchor}
-        placement="bottom-end"
-        transition
-      >
-        {({ TransitionProps }) => {
-          return (
-            <ClickAwayListener onClickAway={handlePostMenuClose}>
-              <Fade {...TransitionProps} timeout={350}>
-                <Stack
-                  direction="column"
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                  gap={1}
-                  sx={{
-                    p: 1,
-                    border: 1,
-                    width: "100%",
-                    borderRadius: 2,
-                    borderColor: "#00000020",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <Stack
-                    onClick={handlePostSave}
-                    direction="row"
-                    component="div"
-                    alignItems="center"
-                    justifyContent="flex-start"
-                    sx={{
-                      px: 1,
-                      width: "100%",
-                      cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor: "#00000010",
-                      },
-                    }}
-                  >
-                    <BookmarkBorderIcon fontSize="small" />
-                    <Typography
-                      sx={{
-                        p: 1,
-                        fontWeight: 500,
-                        fontSize: "14px",
-                      }}
-                    >
-                      Save
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    onClick={handleUnfollowUser}
-                    direction="row"
-                    component="div"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    flexGrow={1}
-                    sx={{
-                      px: 1,
-                      width: "100%",
-                      cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor: "#00000010",
-                      },
-                    }}
-                  >
-                    <CancelPresentationIcon fontSize="small" />
-                    <Typography
-                      sx={{ p: 1, fontWeight: 500, fontSize: "14px" }}
-                    >
-                      Unfollow
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    onClick={hanldeBlockUser}
-                    direction="row"
-                    component="div"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    flexGrow={1}
-                    sx={{
-                      px: 1,
-                      width: "100%",
-                      cursor: "pointer",
-                      "&:hover": {
-                        backgroundColor: "#00000010",
-                      },
-                    }}
-                  >
-                    <DoNotDisturbIcon fontSize="small" />
-                    <Typography
-                      sx={{ p: 1, fontWeight: 500, fontSize: "14px" }}
-                    >
-                      Block
-                    </Typography>
-                  </Stack>
-                </Stack>
-              </Fade>
-            </ClickAwayListener>
-          );
-        }}
-      </Popper>
+      <CustomMenu
+        trigger={
+          <IconButton disableTouchRipple size="small">
+            <MoreVertIcon fontSize="small" />
+          </IconButton>
+        }
+        menu={postMenu}
+      />
     </Stack>
   );
 };
