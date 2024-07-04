@@ -2,12 +2,15 @@ import React from "react";
 
 import { TextField } from "@mui/material";
 
-const PostInput = ({ user }) => {
+const PostInput = ({ user, handleCreatePostOpen }) => {
   return (
     <TextField
       size="small"
       id="whats_on_you_mind_input"
       placeholder={`what's on your mind, ${user?.firstname}?`}
+      onFocus={() => {
+        return handleCreatePostOpen(true);
+      }}
       sx={{
         width: "100%",
         border: "none",
