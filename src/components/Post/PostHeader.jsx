@@ -138,7 +138,8 @@ const PostHeader = (props) => {
               </span>{" "}
               &nbsp;is at{" "}
               <strong style={{ fontWeight: 600 }}>
-                {post.location.city}, {post.location.country}
+                {post?.location?.place}, {post?.location?.city},{" "}
+                {post?.location?.country}
               </strong>
             </Typography>
           </Stack>

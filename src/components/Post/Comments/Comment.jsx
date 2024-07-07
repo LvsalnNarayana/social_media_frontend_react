@@ -5,51 +5,67 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import React, { useState } from "react";
 
-import { styled } from "@mui/material/styles";
 import ReplyIcon from "@mui/icons-material/Reply";
+import { Chip, Link, Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import {
-  Zoom,
-  Stack,
-  Tooltip,
-  Typography,
-  tooltipClasses,
-} from "@mui/material";
 
 import CommentInput from "./CommentInput";
 import CommentReply from "./CommentReply";
 import useDate from "../../../hooks/useDate";
 import UserAvatar from "../../shared/UserAvatar";
+import CustomTooltip from "../../shared/CustomTooltip";
 
 const Comment = ({ comment }) => {
   const [replySlice, setReplySlice] = useState(1);
   const [showReplyInput, setShowReplyInput] = useState(false);
-  const ReactionListTooltip = styled(({ className, ...props }) => {
-    return (
-      <Tooltip
-        {...props}
-        placement="top-start"
-        TransitionComponent={Zoom}
-        classes={{ popper: className }}
-      />
-    );
-  })(({ theme }) => {
-    return {
-      [`& .${tooltipClasses.tooltip}`]: {
-        padding: 7,
-        width: "auto",
-        color: "#000",
-        borderRadius: "10px",
-        backgroundColor: "#fff",
-        maxWidth: "100% !important",
-        border: "1px solid #dadde9",
-        fontSize: theme.typography.pxToRem(12),
-        "&.MuiTooltip-tooltip": {
-          marginBottom: "0px",
-        },
-      },
-    };
-  });
+
+  const renderComment = (comment) => {
+    if (!comment) return null;
+
+    // eslint-disable-next-line prefer-named-capture-group, require-unicode-regexp
+    const parts = comment.split(/(@\w+|#\w+)/g).filter(Boolean);
+
+    return parts.map((part, index) => {
+      if (part.startsWith("@")) {
+        return (
+          <Chip
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            label={part}
+            sx={{
+              p: 0,
+              height: "auto",
+              margin: "0 2px",
+              cursor: "pointer",
+              "& .MuiChip-label": {
+                px: "8px",
+              },
+            }}
+            component="span"
+          />
+        );
+      }
+      if (part.startsWith("#")) {
+        return (
+          <Link
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            href={`/hashtag/${part.slice(1)}`}
+            sx={{
+              color: "blue",
+              margin: "0 4px",
+              textDecoration: "none",
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            {part}
+          </Link>
+        );
+      }
+
+      return part;
+    });
+  };
   const handleShowReplyInput = () => {
     setShowReplyInput(true);
   };
@@ -127,7 +143,10 @@ const Comment = ({ comment }) => {
           </Stack>
         </Stack>
         {comment?.engagement?.reaction_count > 0 && (
-          <ReactionListTooltip
+          <CustomTooltip
+            arrow
+            placement="top"
+            color="#000"
             title={
               <>
                 {comment?.engagement?.reactions?.map((reaction, index) => {
@@ -172,11 +191,11 @@ const Comment = ({ comment }) => {
                 {comment?.engagement?.reaction_count}
               </Typography>
             </Stack>
-          </ReactionListTooltip>
+          </CustomTooltip>
         )}
       </Stack>
       <Typography sx={{ fontSize: "13px" }} variant="body1">
-        {comment?.comment}
+        {renderComment(comment?.comment)}
       </Typography>
       <Stack
         justifyContent="flex-start"

@@ -3,32 +3,33 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import { Zoom, Tooltip, tooltipClasses } from "@mui/material";
 
-const CustomTooltip = styled(({ color, padding, className, ...props }) => {
-  return (
-    <Tooltip
-      {...props}
-      arrow
-      placement="bottom"
-      TransitionComponent={Zoom}
-      classes={{ popper: className }}
-      PopperProps={{
-        modifiers: [
-          {
-            name: "flip",
-            enabled: true,
-          },
-          {
-            enabled: true,
-            name: "preventOverflow",
-            options: {
-              boundary: "viewport",
+const CustomTooltip = styled(
+  ({ color, margin, padding, className, ...props }) => {
+    return (
+      <Tooltip
+        {...props}
+        arrow
+        TransitionComponent={Zoom}
+        classes={{ popper: className }}
+        PopperProps={{
+          modifiers: [
+            {
+              name: "flip",
+              enabled: true,
             },
-          },
-        ],
-      }}
-    />
-  );
-})(({ theme, color, padding }) => {
+            {
+              enabled: true,
+              name: "preventOverflow",
+              options: {
+                boundary: "viewport",
+              },
+            },
+          ],
+        }}
+      />
+    );
+  },
+)(({ theme, color, margin, padding }) => {
   return {
     [`& .${tooltipClasses.tooltip}`]: {
       width: "auto",
@@ -39,13 +40,13 @@ const CustomTooltip = styled(({ color, padding, className, ...props }) => {
       maxWidth: "100% !important",
       border: "1px solid #dadde9",
       fontSize: theme.typography.pxToRem(12),
-      "&.MuiTooltip-tooltip": {
-        marginTop: "7px",
-        marginBottom: "0px",
-      },
       "& .MuiTooltip-arrow:before": {
         color: "#fff",
         border: "1px solid #dadde9",
+      },
+      "&.MuiTooltip-tooltip": {
+        marginTop: margin || "7px",
+        marginBottom: margin || "7px",
       },
     },
   };

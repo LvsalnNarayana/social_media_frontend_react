@@ -32,9 +32,9 @@ const ReactionUserCard = ({ user }) => {
         direction="row"
         justifyContent="flex-start"
         alignItems="center"
-        gap={2}
+        gap={1.5}
       >
-        <UserAvatar username={user?.username} />
+        <UserAvatar username={user?.username} width={38} />
         <Stack>
           <Typography
             variant="body1"

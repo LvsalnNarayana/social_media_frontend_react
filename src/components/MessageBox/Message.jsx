@@ -12,14 +12,13 @@ import {
   AvatarGroup,
 } from "@mui/material";
 
+import useDate from "../../hooks/useDate";
 import UserAvatar from "../shared/UserAvatar";
 import CustomMenu from "../shared/CustomMenu";
-import useUser from "../../hooks/data/useUser";
 import CustomTooltip from "../shared/CustomTooltip";
 import ReactionsTooltip from "../shared/ReactionsTooltip";
 
-const Message = ({ role }) => {
-  const user = useUser();
+const Message = ({ message }) => {
   const messageRef = useRef(null);
   const [showMessageReaction, setShowMessageReaction] = useState(false);
   const handleMessageMenuClick = (menuItem) => {
@@ -33,10 +32,12 @@ const Message = ({ role }) => {
         handleMessageMenuClick("delete");
       }}
       sx={{
+        px: 1,
         p: 0.5,
         width: "100%",
         fontSize: "13px",
         cursor: "pointer",
+        borderRadius: "4px",
         "&:hover": {
           backgroundColor: "#00000010",
         },
@@ -48,11 +49,11 @@ const Message = ({ role }) => {
 
   return (
     <Stack
-      direction={role === "user" ? `row` : `row-reverse`}
+      direction={message?.user?.is_logged_in ? `row-reverse` : `row`}
       justifyContent="flex-start"
       alignItems="flex-start"
       gap={1}
-      sx={{ p: 1, my: 1, width: "100%" }}
+      sx={{ p: 1, width: "100%" }}
       ref={messageRef}
       onMouseEnter={() => {
         return setShowMessageReaction(true);
@@ -61,38 +62,30 @@ const Message = ({ role }) => {
         setShowMessageReaction(false);
       }}
     >
-      <UserAvatar username={user?.username} width={32} height={32} />
+      <UserAvatar username={message?.user?.username} width={32} height={32} />
       <Stack
         direction="column"
         justifyContent="flex-start"
-        alignItems={role === "user" ? `flex-start` : `flex-end`}
+        alignItems={message?.user?.is_logged_in ? `flex-end` : `flex-start`}
         sx={{
           mt: -1,
           width: "100%",
         }}
       >
         <Stack
-          direction={role === "user" ? `row-reverse` : `row`}
+          direction={message?.user?.is_logged_in ? `row` : `row-reverse`}
           justifyContent="flex-start"
           alignItems="flex-start"
           gap={2}
         >
           {showMessageReaction ? (
             <Stack
-              direction={role === "user" ? `row-reverse` : `row`}
+              direction={message?.user?.is_logged_in ? `row` : `row-reverse`}
               justifyContent="flex-start"
               alignItems="center"
               gap={1}
             >
-              {role === "user" ? (
-                <div
-                  style={{
-                    flexShrink: 0,
-                    width: "30px",
-                    height: "30px",
-                  }}
-                />
-              ) : (
+              {message?.user?.is_logged_in ? (
                 <CustomMenu
                   trigger={
                     <IconButton disableTouchRipple size="small" sx={{ mt: 1 }}>
@@ -100,6 +93,14 @@ const Message = ({ role }) => {
                     </IconButton>
                   }
                   menu={menu}
+                />
+              ) : (
+                <div
+                  style={{
+                    flexShrink: 0,
+                    width: "30px",
+                    height: "30px",
+                  }}
                 />
               )}
               <ReactionsTooltip width={28} type="message">
@@ -135,42 +136,60 @@ const Message = ({ role }) => {
           <Stack
             direction="column"
             justifyContent="flex-start"
-            alignItems={role === "user" ? `flex-end` : `flex-start`}
+            alignItems={message?.user?.is_logged_in ? `flex-start` : `flex-end`}
           >
-            <CustomTooltip title="09 : 30 AM" color="#000">
-              <Typography
-                variant="body1"
-                sx={{
-                  p: 1.5,
-                  fontSize: "13px",
-                  borderRadius: "8px",
-                  border: "1px solid #00000030",
-                }}
-              >
-                hello
-              </Typography>
-            </CustomTooltip>
+            <Typography
+              variant="body1"
+              sx={{
+                p: 1.5,
+                fontSize: "13px",
+                borderRadius: "8px",
+                border: "1px solid #00000030",
+              }}
+            >
+              {message?.message}
+            </Typography>
+
             <Stack
               direction="row"
-              justifyContent={role === "user" ? `flex-start` : `flex-end`}
+              justifyContent={
+                // eslint-disable-next-line multiline-ternary
+                message?.engagement?.reactions?.length > 0
+                  ? `space-between`
+                  : `flex-start`
+              }
               alignItems="center"
               sx={{ my: 0.5, width: "100%" }}
             >
+              <Typography
+                variant="body1"
+                sx={{
+                  pl: 1,
+                  fontSize: "10px",
+                  color: "#00000040",
+                }}
+              >
+                {useDate(message?.timestamp, "message")}
+              </Typography>
               <AvatarGroup sx={{ flexShrink: 0 }}>
-                <CustomTooltip title="hello" color="#000">
-                  <Avatar
-                    sx={{ width: 18, height: 18 }}
-                    alt="like"
-                    src="/emoji/reactions/like.png"
-                  />
-                </CustomTooltip>
-                <CustomTooltip title="hello" color="#000">
-                  <Avatar
-                    sx={{ width: 18, height: 18 }}
-                    alt="love"
-                    src="/emoji/reactions/haha.png"
-                  />
-                </CustomTooltip>
+                {message?.engagement?.reactions?.map((reaction, index) => {
+                  return (
+                    <CustomTooltip
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      margin={10}
+                      padding={4}
+                      title={`${reaction?.firstname} ${reaction?.lastname}`}
+                      color="#000"
+                    >
+                      <Avatar
+                        sx={{ width: 18, height: 18 }}
+                        alt="like"
+                        src={`/emoji/reactions/${reaction?.reaction}.png`}
+                      />
+                    </CustomTooltip>
+                  );
+                })}
               </AvatarGroup>
             </Stack>
           </Stack>

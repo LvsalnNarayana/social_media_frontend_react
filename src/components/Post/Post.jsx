@@ -6,11 +6,12 @@ import PostMedia from "./PostMedia";
 import PostHeader from "./PostHeader";
 import PostActions from "./PostActions";
 import PostReactions from "./PostReactions";
-import usePost from "../../hooks/data/usePost";
+import useData from "../../hooks/data/useData";
+import PostDescription from "./PostDescription";
 import CommentContainer from "./Comments/CommentContainer";
 
 const Post = () => {
-  const post = usePost();
+  const { post } = useData();
   const [commentInputField, setCommentInputField] = useState(false);
 
   return (
@@ -27,6 +28,7 @@ const Post = () => {
       }}
     >
       <PostHeader post={post} />
+      <PostDescription post={post} />
       <PostMedia post={post} />
       <PostReactions post={post} />
       <Divider sx={{ width: "100%" }} />

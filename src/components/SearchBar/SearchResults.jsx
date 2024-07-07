@@ -3,11 +3,11 @@ import React from "react";
 import { Fade, Stack, useTheme, Typography } from "@mui/material";
 
 import SearchResult from "./SearchResult";
-import useSearchHistory from "../../hooks/data/useSearchHistory";
+import useData from "../../hooks/data/useData";
 
 const SearchResults = ({ focus }) => {
   const theme = useTheme();
-  const searchHistoryResults = useSearchHistory();
+  const { historyResults } = useData();
 
   return (
     <Fade in={focus} easing={theme?.transitions?.easing?.easeIn}>
@@ -32,7 +32,7 @@ const SearchResults = ({ focus }) => {
           border: "1px solid #00000050",
         }}
       >
-        {searchHistoryResults?.length > 0 ? (
+        {historyResults?.length > 0 ? (
           <Stack
             direction="column"
             justifyContent="flex-start"
@@ -42,7 +42,7 @@ const SearchResults = ({ focus }) => {
               width: "100%",
             }}
           >
-            {searchHistoryResults?.map((result, index) => {
+            {historyResults?.map((result, index) => {
               // eslint-disable-next-line react/no-array-index-key
               return <SearchResult key={index} result={result} />;
             })}

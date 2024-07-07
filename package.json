@@ -43,6 +43,7 @@
 		"eslint-plugin-unused-imports": "^4.0.0",
 		"globals": "^15.6.0",
 		"prettier": "^3.3.2",
+		"react-json-view": "^1.21.3",
 		"vite": "^5.2.0"
 	},
 	"Transform": "AWS::Serverless-2016-10-31",

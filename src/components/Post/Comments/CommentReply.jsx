@@ -1,45 +1,13 @@
 import React from "react";
 
-import { styled } from "@mui/material/styles";
+import { Stack, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import {
-  Zoom,
-  Stack,
-  Tooltip,
-  Typography,
-  tooltipClasses,
-} from "@mui/material";
 
 import useDate from "../../../hooks/useDate";
 import UserAvatar from "../../shared/UserAvatar";
+import CustomTooltip from "../../shared/CustomTooltip";
 
 const CommentReply = ({ reply }) => {
-  const ReactionListTooltip = styled(({ className, ...props }) => {
-    return (
-      <Tooltip
-        {...props}
-        placement="top-start"
-        TransitionComponent={Zoom}
-        classes={{ popper: className }}
-      />
-    );
-  })(({ theme }) => {
-    return {
-      [`& .${tooltipClasses.tooltip}`]: {
-        padding: 7,
-        width: "auto",
-        color: "#000",
-        borderRadius: "10px",
-        backgroundColor: "#fff",
-        maxWidth: "100% !important",
-        border: "1px solid #dadde9",
-        fontSize: theme.typography.pxToRem(12),
-        "&.MuiTooltip-tooltip": {
-          marginBottom: "0px",
-        },
-      },
-    };
-  });
   const handleCommentReplyLike = () => {
     // eslint-disable-next-line no-console
     console.log("Liked Comment Reply");
@@ -102,7 +70,10 @@ const CommentReply = ({ reply }) => {
           </Stack>
         </Stack>
         {reply?.engagement?.reaction_count > 0 && (
-          <ReactionListTooltip
+          <CustomTooltip
+            arrow
+            color="#000"
+            placement="top"
             title={
               <>
                 {reply?.engagement?.reactions?.map((reaction, index) => {
@@ -147,7 +118,7 @@ const CommentReply = ({ reply }) => {
                 {reply?.engagement?.reaction_count}
               </Typography>
             </Stack>
-          </ReactionListTooltip>
+          </CustomTooltip>
         )}
       </Stack>
       <Typography

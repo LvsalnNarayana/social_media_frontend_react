@@ -7,12 +7,12 @@ import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 
 import PostInput from "./PostInput";
 import UserAvatar from "../shared/UserAvatar";
-import useUser from "../../hooks/data/useUser";
+import useData from "../../hooks/data/useData";
 import CreatePostDialog from "./CreatePostDialog";
 
 const CreatePost = () => {
-  const user = useUser();
-  const [createPostDialogOpen, setCreatePostDialogOpen] = useState(true);
+  const { user } = useData();
+  const [createPostDialogOpen, setCreatePostDialogOpen] = useState(false);
 
   return (
     <>
@@ -40,8 +40,8 @@ const CreatePost = () => {
           <UserAvatar username={user.username} width={38} height={38} />
           <PostInput
             user={user}
-            handleCreatePostOpen={(value) => {
-              return setCreatePostDialogOpen(value);
+            handleCreatePostOpen={() => {
+              return setCreatePostDialogOpen(true);
             }}
           />
         </Stack>
@@ -52,15 +52,15 @@ const CreatePost = () => {
           alignItems="center"
           sx={{ width: "100%" }}
         >
-          <Button sx={{ gap: 1, width: "100%" }}>
+          <Button sx={{ gap: 1, width: "100%", color: "#000" }}>
             <VideoCallIcon sx={{ color: "red" }} />
             Live Video
           </Button>
-          <Button sx={{ gap: 1, width: "100%" }}>
+          <Button sx={{ gap: 1, width: "100%", color: "#000" }}>
             <CollectionsIcon sx={{ color: "purple" }} />
             Photo/Video
           </Button>
-          <Button sx={{ gap: 1, width: "100%" }}>
+          <Button sx={{ gap: 1, width: "100%", color: "#000" }}>
             <InsertEmoticonIcon sx={{ color: "orange" }} />
             Feeling/activity
           </Button>
@@ -68,8 +68,8 @@ const CreatePost = () => {
       </Stack>
       <CreatePostDialog
         dialogOpen={createPostDialogOpen}
-        handleDialogClose={(value) => {
-          return setCreatePostDialogOpen(value);
+        handleCreatePostClose={() => {
+          setCreatePostDialogOpen(false);
         }}
       />
     </>

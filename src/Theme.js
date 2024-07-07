@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 export const generateThemeOptions = (appTheme) => {
   const mode = appTheme.mode || "light";
-  const primaryColor = "#000000";
-  const secondaryColor = "#000000";
+  const primaryColor = "#1434A4";
+  const secondaryColor = "#000";
   const backgroundColor = mode === "light" ? "#ffffff" : "#010101";
   const cardBackgroundColor = mode === "light" ? "#f2f2f2" : "#272727";
 
@@ -60,7 +60,7 @@ export const generateThemeOptions = (appTheme) => {
       MuiIconButton: {
         styleOverrides: {
           root: {
-            color: primaryColor,
+            color: secondaryColor,
             "&:hover": {
               backgroundColor: "#f6f5f4",
             },
@@ -71,22 +71,11 @@ export const generateThemeOptions = (appTheme) => {
         defaultProps: {
           disableRipple: true,
         },
-
         styleOverrides: {
           root: {
             textTransform: "capitalize",
-
-            "&.MuiButton-containedPrimary:hover": {
-              backgroundColor: "#333",
-            },
-
-            "&.MuiButton-containedSecondary:hover": {
-              backgroundColor: "#fafafa",
-            },
-
             "&.MuiTypography-root": {
               fontSize: "18px",
-
               fontWeight: "500",
             },
           },

@@ -15,7 +15,7 @@ import NotificationsOffIcon from "@mui/icons-material/NotificationsOff";
 import UserAvatar from "../shared/UserAvatar";
 import CustomMenu from "../shared/CustomMenu";
 
-const MessageHeader = () => {
+const MessageHeader = ({ user }) => {
   const messageMenu = [
     <Typography
       key="delete"
@@ -137,9 +137,9 @@ const MessageHeader = () => {
             gap={0.5}
             sx={{ cursor: "pointer" }}
           >
-            <UserAvatar username="bob_miller" width={28} height={28} />
+            <UserAvatar username={user?.username} width={28} height={28} />
             <Typography sx={{ fontWeight: 600, fontSize: "16px" }}>
-              Bob Miller
+              {user?.firstname} {user?.lastname}
             </Typography>
             <ArrowDropDownIcon />
           </Stack>

@@ -5,11 +5,11 @@ import { Stack, IconButton } from "@mui/material";
 
 import CommentTextArea from "./CommentTextArea";
 import UserAvatar from "../../shared/UserAvatar";
-import useUser from "../../../hooks/data/useUser";
+import useData from "../../../hooks/data/useData";
 
 const CommentInput = (props) => {
   const { type, closeReply } = props;
-  const user = useUser();
+  const { user } = useData();
 
   return (
     <Stack

@@ -1,42 +1,159 @@
-import React from "react";
+/* eslint-disable operator-linebreak */
+import React, { useState } from "react";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ReactJson from "react-json-view";
+import { useSelector } from "react-redux";
 
-import { Stack, Divider, Container, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { Stack, Button, Divider } from "@mui/material";
 
 import "./App.css";
 import Post from "./components/Post/Post";
+import useData from "./hooks/data/useData";
+import { appState } from "./state/appSlice";
+import Drawer from "./components/Drawer/Drawer";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MessageBox from "./components/MessageBox/MessageBox";
-import WhatsOnyourMind from "./components/CreatePost/CreatePost";
+import CreatePost from "./components/CreatePost/CreatePost";
+
+const drawerWidth = 240;
 
 const App = () => {
+  const { post, conversation, historyResults } = useData();
+  const { activeComponent } = useSelector(appState);
+  const [collapseJson, setCollapseJson] = useState(false);
+
+  const components = {
+    search: { name: "Search", data: historyResults, component: <SearchBar /> },
+    create_post: {
+      data: {},
+      name: "Create Post",
+      component: <CreatePost />,
+    },
+    message_box: {
+      data: conversation,
+      name: "Message Box",
+      component: <MessageBox />,
+    },
+    post: {
+      data: post,
+      name: "Post",
+      component: <Post />,
+      fields: [
+        "hashtags",
+        "post_location",
+        "location",
+        "media",
+        "user",
+        "status",
+        "mentions",
+        "subscriptions",
+        "tags",
+        "engagement",
+        "comments",
+      ],
+    },
+  };
+
   return (
-    <Container
-      sx={{ py: 4, display: "flex", justifyContent: "center" }}
-      disableGutters
-    >
+    <Box sx={{ display: "flex" }}>
       <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        gap={4}
+        component="nav"
         sx={{
-          py: 6,
+          overflowY: "auto",
+          maxHeight: "100vh",
+          flexShrink: { sm: 0 },
+          width: { sm: drawerWidth },
         }}
       >
-        <Typography variant="h4">Post Component</Typography>
-        <Divider sx={{ width: "100%" }} />
-        <Post />
-        <Typography variant="h4">Search Component</Typography>
-        <Divider sx={{ width: "100%" }} />
-        <SearchBar />
-        <Typography variant="h4">Message Box Component</Typography>
-        <Divider sx={{ width: "100%" }} />
-        <MessageBox />
-        <Typography variant="h4">Create Post Component</Typography>
-        <Divider sx={{ width: "100%" }} />
-        <WhatsOnyourMind />
+        <Drawer />
       </Stack>
-    </Container>
+      <Stack
+        sx={{
+          width: "100%",
+          height: "100vh",
+          maxHeight: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        <Stack
+          sx={{
+            top: 0,
+            zIndex: 1201,
+            boxShadow: "none",
+            position: "sticky",
+            width: { sm: `100%` },
+            backgroundColor: "#1434A4",
+          }}
+        >
+          <Typography variant="h6" sx={{ p: 1, color: "white" }}>
+            Social Media
+          </Typography>
+        </Stack>
+        <Stack
+          component="main"
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+          sx={{
+            flexGrow: 1,
+          }}
+        >
+          <Stack
+            justifyContent="flex-start"
+            alignItems="center"
+            width="50%"
+            flexGrow={1}
+            sx={{
+              p: 3,
+              width: "50%",
+              height: "100%",
+              overflowY: "auto",
+              maxHeight: "calc(100vh - 50px)",
+            }}
+          >
+            {components[activeComponent].component}
+          </Stack>
+          <Divider orientation="vertical" flexItem />
+          <Stack
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            flexGrow={1}
+            sx={{
+              p: 3,
+              width: "50%",
+              overflowY: "auto",
+              maxHeight: "calc(100vh - 50px)",
+            }}
+          >
+            <Button
+              size="small"
+              variant="contained"
+              disableElevation
+              sx={{ mb: 2, ml: "auto" }}
+              onClick={() => {
+                setCollapseJson(!collapseJson);
+              }}
+            >
+              Collapse All
+            </Button>
+            <ReactJson
+              src={components[activeComponent].data}
+              name={components[activeComponent].name}
+              shouldCollapse={({ name }) => {
+                return components[activeComponent]?.fields?.includes(name);
+              }}
+              collapsed={collapseJson}
+              enableClipboard={false}
+              displayDataTypes={false}
+              displayObjectSize={false}
+              collapseStringsAfterLength={60}
+            />
+          </Stack>
+        </Stack>
+      </Stack>
+    </Box>
   );
 };
 
