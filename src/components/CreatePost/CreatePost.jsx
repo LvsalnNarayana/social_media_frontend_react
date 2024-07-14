@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Stack, Button, Divider } from "@mui/material";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
@@ -12,7 +12,6 @@ import CreatePostDialog from "./CreatePostDialog";
 
 const CreatePost = () => {
   const { user } = useData();
-  const [createPostDialogOpen, setCreatePostDialogOpen] = useState(false);
 
   return (
     <>
@@ -38,12 +37,7 @@ const CreatePost = () => {
           gap={2}
         >
           <UserAvatar username={user.username} width={38} height={38} />
-          <PostInput
-            user={user}
-            handleCreatePostOpen={() => {
-              return setCreatePostDialogOpen(true);
-            }}
-          />
+          <PostInput user={user} />
         </Stack>
         <Divider sx={{ my: 2, width: "100%" }} />
         <Stack
@@ -66,12 +60,7 @@ const CreatePost = () => {
           </Button>
         </Stack>
       </Stack>
-      <CreatePostDialog
-        dialogOpen={createPostDialogOpen}
-        handleCreatePostClose={() => {
-          setCreatePostDialogOpen(false);
-        }}
-      />
+      <CreatePostDialog />
     </>
   );
 };

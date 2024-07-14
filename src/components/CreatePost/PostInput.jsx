@@ -1,15 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import { TextField } from "@mui/material";
 
-const PostInput = ({ user, handleCreatePostOpen }) => {
+import useData from "../../hooks/data/useData";
+import { setCreatePostDialogOpen } from "../../state/appSlice";
+
+const PostInput = () => {
+  const { user } = useData();
+  const dispatch = useDispatch();
+
   return (
     <TextField
       size="small"
       id="whats_on_you_mind_input"
       placeholder={`what's on your mind, ${user?.firstname}?`}
       onFocus={() => {
-        return handleCreatePostOpen(true);
+        dispatch(setCreatePostDialogOpen(true));
       }}
       sx={{
         width: "100%",

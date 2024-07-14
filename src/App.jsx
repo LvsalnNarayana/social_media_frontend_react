@@ -11,8 +11,9 @@ import { Stack, Button, Divider } from "@mui/material";
 import "./App.css";
 import Post from "./components/Post/Post";
 import useData from "./hooks/data/useData";
-import { appState } from "./state/appSlice";
 import Drawer from "./components/Drawer/Drawer";
+import { selectAppState } from "./state/appSlice";
+import { selectPostDraft } from "./state/createPost";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MessageBox from "./components/MessageBox/MessageBox";
 import CreatePost from "./components/CreatePost/CreatePost";
@@ -21,13 +22,14 @@ const drawerWidth = 240;
 
 const App = () => {
   const { post, conversation, historyResults } = useData();
-  const { activeComponent } = useSelector(appState);
+  const { activeComponent } = useSelector(selectAppState);
   const [collapseJson, setCollapseJson] = useState(false);
+  const draftPost = useSelector(selectPostDraft);
 
   const components = {
     search: { name: "Search", data: historyResults, component: <SearchBar /> },
     create_post: {
-      data: {},
+      data: draftPost,
       name: "Create Post",
       component: <CreatePost />,
     },

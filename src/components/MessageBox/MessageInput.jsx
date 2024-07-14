@@ -51,7 +51,6 @@ const MessageInput = () => {
           setMessageText(e.target.value);
         }}
         multiline
-        minRows={1}
         maxRows={3}
         InputProps={{
           endAdornment: (

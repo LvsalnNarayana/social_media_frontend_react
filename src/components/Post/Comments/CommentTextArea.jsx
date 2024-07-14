@@ -21,7 +21,6 @@ const CommentTextArea = ({ type }) => {
       id="comment_input"
       multiline
       maxRows={3}
-      minRows={1}
       value={textInput}
       InputProps={{
         endAdornment: (

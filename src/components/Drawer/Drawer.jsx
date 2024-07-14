@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { Stack } from "@mui/material";
 
 import DrawerItem from "./DrawerItem";
-import { appState } from "../../state/appSlice";
+import { selectAppState } from "../../state/appSlice";
 
 const Drawer = () => {
-  const { activeComponent } = useSelector(appState);
+  const { activeComponent } = useSelector(selectAppState);
   const menu = [
     {
       id: "post",

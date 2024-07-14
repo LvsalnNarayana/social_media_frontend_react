@@ -3,9 +3,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import appReducer from "./state/appSlice";
+import createPostReducer from "./state/createPost";
 
 export const store = configureStore({
   reducer: {
     app: appReducer,
+    createPost: createPostReducer,
   },
 });

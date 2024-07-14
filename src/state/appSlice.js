@@ -3,7 +3,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  activeComponent: "post",
+  selectedFriends: [],
+  createPostDialogOpen: true,
+  postDraftScreen: "feelings",
+  activeComponent: "create_post",
 };
 
 export const appSlice = createSlice({
@@ -13,12 +16,26 @@ export const appSlice = createSlice({
     setActiveComponent: (state, action) => {
       state.activeComponent = action.payload;
     },
+    setPostDraftScreen: (state, action) => {
+      state.postDraftScreen = action.payload;
+    },
+    setSelectedFriends: (state, action) => {
+      state.selectedFriends = action.payload;
+    },
+    setCreatePostDialogOpen: (state, action) => {
+      state.createPostDialogOpen = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setActiveComponent } = appSlice.actions;
-export const appState = (state) => {
+export const {
+  setActiveComponent,
+  setPostDraftScreen,
+  setSelectedFriends,
+  setCreatePostDialogOpen,
+} = appSlice.actions;
+export const selectAppState = (state) => {
   return state.app;
 };
 export default appSlice.reducer;
