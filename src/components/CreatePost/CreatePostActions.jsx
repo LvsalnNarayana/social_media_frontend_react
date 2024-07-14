@@ -9,12 +9,13 @@ import { Stack, Tooltip, Typography, IconButton } from "@mui/material";
 import PhotoCameraFrontIcon from "@mui/icons-material/PhotoCameraFront";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
+import { setMedia } from "../../state/createPost";
 import { setPostDraftScreen } from "../../state/appSlice";
 
 const CreatePostActions = () => {
   const dispatch = useDispatch();
   const handleFileInputChange = (event) => {
-    console.log(event.target.files);
+    dispatch(setMedia(event.target.files));
   };
 
   return (

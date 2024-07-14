@@ -50,7 +50,7 @@ const CreatePostInput = () => {
           fontSize: "14px",
         },
         "& .MuiInputBase-input::placeholder": {
-          fontSize: "20px",
+          fontSize: "16px",
         },
         "& .MuiInputBase-root:focus": {
           border: 0,

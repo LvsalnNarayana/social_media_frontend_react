@@ -63,8 +63,8 @@ export const createPostSlice = createSlice({
     publish(state) {
       state.status.is_published = true;
     },
-    addMedia(state, action) {
-      state.media.push(action.payload);
+    setMedia(state, action) {
+      state.media = action.payload;
     },
     setFeeling(state, action) {
       state.feeling = action.payload;
@@ -128,7 +128,7 @@ export const {
   submit,
   setTags,
   publish,
-  addMedia,
+  setMedia,
   schedule,
   removeTag,
   setFeeling,
