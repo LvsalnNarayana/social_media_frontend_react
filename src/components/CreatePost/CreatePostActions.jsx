@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -12,6 +13,9 @@ import { setPostDraftScreen } from "../../state/appSlice";
 
 const CreatePostActions = () => {
   const dispatch = useDispatch();
+  const handleFileInputChange = (event) => {
+    console.log(event.target.files);
+  };
 
   return (
     <Stack
@@ -37,8 +41,14 @@ const CreatePostActions = () => {
         alignItems="center"
       >
         <Tooltip title="Photo / Video" arrow placement="top">
-          <IconButton component="label">
-            <input type="file" style={{ display: "none" }} />
+          <IconButton component="label" style={{ cursor: "pointer" }}>
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleFileInputChange}
+              accept="image/*,video/*"
+              multiple
+            />
             <AddPhotoAlternateIcon />
           </IconButton>
         </Tooltip>

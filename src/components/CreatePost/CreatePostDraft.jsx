@@ -4,6 +4,7 @@ import { Stack, Button } from "@mui/material";
 
 import CreatePostUser from "./CreatePostUser";
 import CreatePostInput from "./CreatePostInput";
+import CreatePostMedia from "./CreatePostMedia";
 import CreatePostActions from "./CreatePostActions";
 
 const CreatePostDraft = () => {
@@ -32,6 +33,7 @@ const CreatePostDraft = () => {
       >
         <CreatePostUser />
         <CreatePostInput />
+        <CreatePostMedia />
         <div style={{ flexGrow: 1, width: "100%" }} />
         <CreatePostActions />
         <Button variant="contained" disableElevation sx={{ width: "100%" }}>

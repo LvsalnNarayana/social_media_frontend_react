@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable require-unicode-regexp */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

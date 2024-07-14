@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-extra-parens */
 /* eslint-disable operator-linebreak */
 import React, { useState } from "react";
@@ -43,40 +44,72 @@ const CreatePostUser = () => {
         justifyContent="flex-start"
         alignItems="flex-start"
       >
-        <Typography variant="body1" sx={{ fontWeight: 500, fontSize: "15px" }}>
+        <Typography
+          variant="body1"
+          sx={{
+            fontWeight: 500,
+            fontSize: "15px",
+            display: "inline",
+            verticalAlign: "middle",
+          }}
+        >
           <span style={{ fontWeight: 600 }}>
             {user?.firstname} {user?.lastname}
           </span>
           {(Object.keys(postDraft?.location || {}).length > 0 ||
-            postDraft.tags.length > 0) && <span> is </span>}
+            postDraft.tags.length > 0 ||
+            Object.keys(postDraft?.feeling || {}).length > 0) && (
+            <span>&nbsp;is&nbsp;</span>
+          )}
+          {Object.keys(postDraft?.feeling || {}).length > 0 && (
+            <>
+              <span> feeling </span>
+              <span
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  margin: "0px 5px",
+                  alignItems: "center",
+                  display: "inline-block",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  alt={postDraft?.feeling?.feeling}
+                  src={postDraft?.feeling?.image}
+                />
+              </span>
+              <span>{postDraft?.feeling?.feeling}</span>
+            </>
+          )}
+          {postDraft.tags.length > 0 && (
+            <>
+              <span> with </span>
+              {postDraft.tags.slice(0, 2).map((tag, index) => {
+                return (
+                  <span key={tag.id} style={{ fontWeight: 600 }}>
+                    {tag.firstname} {tag.lastname}
+                    {index < postDraft.tags.slice(0, 2).length - 1 ? ", " : ""}
+                  </span>
+                );
+              })}
+              {postDraft.tags.length > 2 && (
+                <span> and {postDraft.tags.length - 2} others</span>
+              )}
+            </>
+          )}
           {Object.keys(postDraft?.location || {}).length > 0 && (
             <>
-              at{" "}
+              &nbsp;at&nbsp;
               <span style={{ fontWeight: 600 }}>
                 {postDraft.location.place}, {postDraft.location.city},{" "}
                 {postDraft.location.country}
               </span>
             </>
           )}
-          {postDraft.tags.length > 0 && (
-            <>
-              <span> with </span>
-              {postDraft?.tags?.slice(0, 2)?.map((tag, index) => {
-                return (
-                  <span key={tag.id} style={{ fontWeight: 600 }}>
-                    {tag.firstname} {tag.lastname}
-                    {index < 1 && postDraft.tags.length > 1 ? ", " : ""}
-                  </span>
-                );
-              })}
-              {postDraft?.tags?.length > 2 ? (
-                <span> and {postDraft.tags.length - 2} others</span>
-              ) : (
-                ""
-              )}
-            </>
-          )}
         </Typography>
+
         <Button
           sx={{
             p: 0.4,
