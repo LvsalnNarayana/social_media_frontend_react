@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from "react";
 import { useDispatch } from "react-redux";
 
@@ -15,7 +14,19 @@ import { setPostDraftScreen } from "../../state/appSlice";
 const CreatePostActions = () => {
   const dispatch = useDispatch();
   const handleFileInputChange = (event) => {
-    dispatch(setMedia(event.target.files));
+    const files = Array.from(event.target.files).map((file) => {
+      const fileData = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        url: URL.createObjectURL(file),
+        lastModified: file.lastModified,
+      };
+
+      return fileData;
+    });
+
+    dispatch(setMedia([...files]));
   };
 
   return (

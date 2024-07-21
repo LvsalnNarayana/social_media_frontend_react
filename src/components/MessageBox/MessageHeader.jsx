@@ -123,7 +123,8 @@ const MessageHeader = ({ user }) => {
       sx={{
         px: 1,
         py: 1,
-        backgroundColor: "#1F8FFF50",
+        color: "white",
+        backgroundColor: "#1434A4",
       }}
     >
       <CustomMenu
@@ -157,6 +158,7 @@ const MessageHeader = ({ user }) => {
           disableFocusRipple
           disableRipple
           size="small"
+          sx={{ color: "white" }}
         >
           <VideocamIcon fontSize="small" />
         </IconButton>
@@ -165,6 +167,7 @@ const MessageHeader = ({ user }) => {
           disableFocusRipple
           disableRipple
           size="small"
+          sx={{ color: "white" }}
         >
           <PhoneEnabledIcon fontSize="small" />
         </IconButton>
@@ -173,6 +176,7 @@ const MessageHeader = ({ user }) => {
           disableFocusRipple
           disableRipple
           size="small"
+          sx={{ color: "white" }}
         >
           <RemoveIcon fontSize="small" />
         </IconButton>
@@ -181,6 +185,7 @@ const MessageHeader = ({ user }) => {
           disableFocusRipple
           disableRipple
           size="small"
+          sx={{ color: "white" }}
         >
           <Close fontSize="small" />
         </IconButton>

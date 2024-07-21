@@ -4,9 +4,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedFriends: [],
-  createPostDialogOpen: true,
-  postDraftScreen: "feelings",
-  activeComponent: "create_post",
+  postDraftScreen: "draft",
+  activeComponent: "signup",
+  createPostDialogOpen: false,
 };
 
 export const appSlice = createSlice({

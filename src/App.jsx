@@ -11,7 +11,9 @@ import { Stack, Button, Divider } from "@mui/material";
 import "./App.css";
 import Post from "./components/Post/Post";
 import useData from "./hooks/data/useData";
+import Login from "./components/Login/Login";
 import Drawer from "./components/Drawer/Drawer";
+import Signup from "./components/Signup/Signup";
 import { selectAppState } from "./state/appSlice";
 import { selectPostDraft } from "./state/createPost";
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -27,6 +29,14 @@ const App = () => {
   const draftPost = useSelector(selectPostDraft);
 
   const components = {
+    login: {
+      name: "Login",
+      component: <Login />,
+    },
+    signup: {
+      name: "Signup",
+      component: <Signup />,
+    },
     search: { name: "Search", data: historyResults, component: <SearchBar /> },
     create_post: {
       data: draftPost,

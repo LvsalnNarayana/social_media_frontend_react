@@ -81,6 +81,55 @@ export const generateThemeOptions = (appTheme) => {
           },
         },
       },
+      MuiSelect: {
+        styleOverrides: {
+          root: {
+            border: "none",
+            outline: "none",
+            "& .MuiInputBase-root:placeholder": {
+              fontSize: "13px",
+            },
+            "& .MuiInputBase-root:focus": {
+              border: 0,
+              outline: "none",
+            },
+            "& .MuiInputBase-root:focusVisible": {
+              border: 0,
+              outline: "none",
+            },
+            "& .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                border: "1px solid dodgerblue",
+              },
+          },
+        },
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            border: "none",
+            outline: "none",
+            "& .MuiInputBase-root": {
+              fontSize: "13px",
+            },
+            "& .MuiInputBase-root:placeholder": {
+              fontSize: "13px",
+            },
+            "& .MuiInputBase-root:focus": {
+              border: 0,
+              outline: "none",
+            },
+            "& .MuiInputBase-root:focusVisible": {
+              border: 0,
+              outline: "none",
+            },
+            "& .MuiInputBase-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                border: "1px solid dodgerblue",
+              },
+          },
+        },
+      },
 
       MuiCssBaseline: {
         styleOverrides: {
