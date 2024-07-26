@@ -58,9 +58,11 @@ export const generateThemeOptions = (appTheme) => {
         },
       },
       MuiIconButton: {
+        defaultProps: {
+          color: secondaryColor,
+        },
         styleOverrides: {
           root: {
-            color: secondaryColor,
             "&:hover": {
               backgroundColor: "#f6f5f4",
             },

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-console */
 /* eslint-disable require-unicode-regexp */
@@ -8,53 +9,26 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines */
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import {
-  Stack,
-  Button,
-  Select,
-  MenuItem,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Stack, Button, Select, MenuItem, Typography } from "@mui/material";
 
+import InputField from "../shared/InputField";
 import useData from "../../hooks/data/useData";
+import passwordChecker from "../../utilities/passwordCheker";
+import {
+  setSignup,
+  selectAuthState,
+  setSignupErrors,
+} from "../../state/authSlice";
 
 const Signup = () => {
   const { countries } = useData();
-  const [inputs, setInputs] = useState({
-    email: "",
-    phone: "",
-    lastname: "",
-    birthday: "",
-    password: "",
-    location: "",
-    firstname: "",
-    countryCode: "",
-    confirmPassword: "",
-  });
+  const dispatch = useDispatch();
+  const { signup, signup_errors } = useSelector(selectAuthState);
+
   const [formIsValid, setFormIsValid] = useState(false);
   const [validating, setValidating] = useState(false);
-  const [passwordCriteria, setPasswordCriteria] = useState({
-    small: false,
-    number: false,
-    symbol: false,
-    length: false,
-    capital: false,
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    phone: "",
-    lastname: "",
-    birthday: "",
-    password: "",
-    location: "",
-    firstname: "",
-    countryCode: "",
-    confirmPassword: "",
-  });
 
   const validateInput = () => {
     setFormIsValid(true);
@@ -70,82 +44,59 @@ const Signup = () => {
       confirmPassword: "",
     };
 
-    if (inputs.firstname === "") {
+    if (signup.firstname === "") {
       tempErrors.firstname = "Firstname is required";
       setFormIsValid(false);
     }
-    if (inputs.lastname === "") {
+    if (signup.lastname === "") {
       tempErrors.lastname = "Lastname is required";
       setFormIsValid(false);
     }
-    if (inputs.phone === "" && inputs.countryCode === "") {
+    if (signup.phone === "" && signup.countryCode === "") {
       tempErrors.phone = "Phone & Country code is required";
       setFormIsValid(false);
     }
-    if (inputs.phone === "" && inputs.countryCode !== "") {
+    if (signup.phone === "" && signup.countryCode !== "") {
       tempErrors.phone = "Phone is required";
       setFormIsValid(false);
     }
-    if (inputs.countryCode === "" && inputs.phone !== "") {
+    if (signup.countryCode === "" && signup.phone !== "") {
       tempErrors.phone = "Country code is required";
       setFormIsValid(false);
     }
-    if (inputs.email === "") {
+    if (signup.email === "") {
       tempErrors.email = "Email is required";
       setFormIsValid(false);
-    } else if (!/\S+@\S+\.\S+/.test(inputs.email)) {
+    } else if (!/\S+@\S+\.\S+/.test(signup.email)) {
       tempErrors.email = "Invalid email address";
       setFormIsValid(false);
     }
-    if (inputs.password === "") {
+    if (signup.password === "") {
       tempErrors.password = "Password is required";
       setFormIsValid(false);
-    } else if (
-      !Object.values(passwordCriteria).every((x) => {
-        return x === true;
-      })
-    ) {
+    } else if (!passwordChecker(signup.password)) {
       tempErrors.password = "Password does not meet all required criteria.";
       setFormIsValid(false);
     }
-    if (inputs.confirmPassword === "") {
+    if (signup.confirmPassword === "") {
       tempErrors.confirmPassword = "Password must be re-entered";
       setFormIsValid(false);
-    } else if (inputs.confirmPassword !== inputs.password) {
+    } else if (signup.confirmPassword !== signup.password) {
       tempErrors.confirmPassword = "Password did not match";
       setFormIsValid(false);
     }
-    if (inputs.birthday === "") {
+    if (signup.birthday === "") {
       tempErrors.birthday = "Birthday is required";
       setFormIsValid(false);
     }
-    if (inputs.location === "") {
+    if (signup.location === "") {
       tempErrors.location = "Location is required";
       setFormIsValid(false);
     }
-
-    setErrors(tempErrors);
+    dispatch(setSignupErrors(tempErrors));
     setValidating(false);
 
     return formIsValid;
-  };
-
-  const handleInputChange = (event, fieldName) => {
-    const { value } = event.target;
-
-    if (fieldName === "password") {
-      setPasswordCriteria({
-        number: /\d/.test(value),
-        length: value.length >= 8,
-        small: /[a-z]/.test(value),
-        capital: /[A-Z]/.test(value),
-        symbol: /[!@#$%^&*(),.?":{}|<>]/.test(value),
-      });
-    }
-
-    setInputs((prev) => {
-      return { ...prev, [fieldName]: value };
-    });
   };
 
   const handleSubmit = (event) => {
@@ -181,426 +132,154 @@ const Signup = () => {
         width="100%"
         gap={1}
       >
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          sx={{ mb: 2, width: "100%" }}
-          gap={0}
-        >
-          <TextField
-            id="firstname_input"
-            placeholder="Firstname"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            value={inputs.firstname}
-            onChange={(e) => {
-              return handleInputChange(e, "firstname");
-            }}
-            sx={{
-              p: 0.2,
-              my: 0.5,
-            }}
-          />
-          {errors.firstname !== "" &&
-            errors.firstname !== null &&
-            errors.firstname !== undefined && (
-              <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-                {errors.firstname}
-              </Typography>
-            )}
-        </Stack>
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          sx={{ mb: 2, width: "100%" }}
-          gap={0}
-        >
-          <TextField
-            id="lastname_input"
-            placeholder="Lastname"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            value={inputs.lastname}
-            onChange={(e) => {
-              return handleInputChange(e, "lastname");
-            }}
-            sx={{
-              p: 0.2,
-              my: 0.5,
-            }}
-          />
-          {errors.lastname !== "" &&
-            errors.lastname !== null &&
-            errors.lastname !== undefined && (
-              <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-                {errors.lastname}
-              </Typography>
-            )}
-        </Stack>
+        <InputField
+          name="firstname"
+          disabled={validating}
+          value={signup.firstname}
+          changeValue={(value) => {
+            dispatch(setSignup({ ...signup, firstname: value }));
+            dispatch(setSignupErrors({ ...signup_errors, firstname: "" }));
+          }}
+          placeholder="Firstname"
+          error={signup_errors.firstname}
+        />
+        <InputField
+          name="firstname"
+          disabled={validating}
+          value={signup.lastname}
+          changeValue={(value) => {
+            dispatch(setSignup({ ...signup, lastname: value }));
+            dispatch(setSignupErrors({ ...signup_errors, lastname: "" }));
+          }}
+          placeholder="Lastname"
+          error={signup_errors.lastname}
+        />
       </Stack>
+      <InputField
+        name="email"
+        disabled={validating}
+        value={signup.lastname}
+        changeValue={(value) => {
+          dispatch(setSignup({ ...signup, email: value }));
+          dispatch(setSignupErrors({ ...signup_errors, email: "" }));
+        }}
+        placeholder="Email"
+        error={signup_errors.email}
+      />
       <Stack
-        direction="column"
+        direction="row"
         justifyContent="flex-start"
         alignItems="flex-start"
-        sx={{ mb: 2, width: "100%" }}
-        gap={0}
+        width="100%"
+        gap={2}
       >
-        <TextField
-          id="email_input"
-          placeholder="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          size="small"
-          value={inputs.email}
+        <Select
+          id="country_code_select"
+          value={signup.countryCode}
+          displayEmpty
+          disabled={validating}
+          MenuProps={{
+            PaperProps: {
+              elevation: 0,
+              sx: {
+                mt: 1,
+                py: 0.4,
+                maxHeight: "200px",
+                backgroundColor: "#fff",
+                border: "1px solid #ccc",
+              },
+            },
+          }}
           onChange={(e) => {
-            return handleInputChange(e, "email");
+            dispatch(setSignup({ ...signup, countryCode: e.target.value }));
           }}
           sx={{
-            p: 0.2,
             my: 0.5,
+            width: "150px",
+            "& .MuiSelect-select": {
+              p: 0.85,
+            },
           }}
-        />
-        {errors.email !== "" &&
-          errors.email !== null &&
-          errors.email !== undefined && (
-            <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {errors.email}
-            </Typography>
-          )}
-      </Stack>
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        sx={{ mb: 2, width: "100%" }}
-        gap={0}
-      >
-        <Stack
-          direction="row"
-          justifyContent="flex-start"
-          alignItems="center"
-          width="100%"
-          gap={2}
+          size="small"
         >
-          <Select
-            id="country_code_select"
-            value={inputs.countryCode}
-            displayEmpty
-            MenuProps={{
-              PaperProps: {
-                elevation: 0,
-                sx: {
-                  mt: 1,
-                  py: 0.4,
-                  maxHeight: "200px",
-                  backgroundColor: "#fff",
-                  border: "1px solid #ccc",
-                },
-              },
-            }}
-            onChange={(e) => {
-              setInputs({ ...inputs, location: e.target.value });
-            }}
-            sx={{
-              p: 0.1,
-              my: 0.5,
-              width: "150px",
-            }}
-            size="small"
-          >
-            <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
-              <Typography sx={{ fontSize: "13px", textTransform: "uppercase" }}>
-                _______
-              </Typography>
-            </MenuItem>
-            {countries?.map((country, index) => {
-              return (
-                <MenuItem
-                  key={index}
-                  sx={{ px: 0.8, py: 0.2 }}
-                  value={country.alpha2}
+          <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
+            <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
+              code
+            </Typography>
+          </MenuItem>
+          {countries?.map((country, index) => {
+            return (
+              <MenuItem
+                key={index}
+                sx={{ px: 0.8, py: 0.2 }}
+                value={country.alpha2}
+              >
+                <Stack
+                  direction="row"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  gap={1}
                 >
-                  <Stack
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    gap={1}
+                  <img
+                    alt={country.name}
+                    src={`/flags/${country.alpha2}.png`}
+                    style={{ width: 20, height: 20, maxWidth: "100%" }}
+                  />
+                  <Typography
+                    sx={{ fontSize: "13px", textTransform: "uppercase" }}
                   >
-                    <img
-                      alt={country.name}
-                      src={`/flags/${country.alpha2}.png`}
-                      style={{ width: 20, height: 20, maxWidth: "100%" }}
-                    />
-                    <Typography
-                      sx={{ fontSize: "13px", textTransform: "uppercase" }}
-                    >
-                      {country.alpha2}
-                    </Typography>
-                  </Stack>
-                </MenuItem>
-              );
-            })}
-          </Select>
-          <TextField
-            id="phone_input"
-            placeholder="Phone number"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            size="small"
-            value={inputs.phone}
-            onChange={(e) => {
-              return handleInputChange(e, "phone");
-            }}
-            sx={{
-              p: 0.2,
-              my: 0.5,
-            }}
-          />
-        </Stack>
-        {errors.phone !== "" &&
-          errors.phone !== null &&
-          errors.phone !== undefined && (
-            <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {errors.phone}
-            </Typography>
-          )}
-      </Stack>
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        sx={{ mb: 2, width: "100%" }}
-        gap={0}
-      >
-        <TextField
-          id="birthday_input"
-          placeholder="Birthday"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          size="small"
-          value={inputs.birthday}
-          onChange={(e) => {
-            return handleInputChange(e, "birthday");
+                    {country.alpha2}
+                  </Typography>
+                </Stack>
+              </MenuItem>
+            );
+          })}
+        </Select>
+        <InputField
+          name="phone"
+          disabled={validating}
+          value={signup.phone}
+          changeValue={(value) => {
+            dispatch(setSignup({ ...signup, phone: value }));
+            dispatch(setSignupErrors({ ...signup_errors, phone: "" }));
           }}
-          sx={{
-            p: 0.2,
-            my: 0.5,
-          }}
+          placeholder="Phone"
+          error={signup_errors.phone}
         />
-        {errors.birthday !== "" &&
-          errors.birthday !== null &&
-          errors.birthday !== undefined && (
-            <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {errors.birthday}
-            </Typography>
-          )}
       </Stack>
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        sx={{ mb: 2, width: "100%" }}
-        gap={0}
-      >
-        <TextField
-          id="password_input"
-          placeholder="Password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          size="small"
-          value={inputs.password}
-          onChange={(e) => {
-            return handleInputChange(e, "password");
-          }}
-          sx={{
-            p: 0.2,
-            my: 0.5,
-          }}
-        />
-        {errors.password !== "" &&
-          errors.password !== null &&
-          errors.password !== undefined && (
-            <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {errors.password}
-            </Typography>
-          )}
-        <Stack
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          sx={{ my: 1, width: "100%" }}
-          gap={1}
-        >
-          <Typography
-            sx={{
-              gap: 1,
-              ml: 0.5,
-              display: "flex",
-              fontSize: "12px",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              color: passwordCriteria.capital ? "green" : "#00000060",
-            }}
-          >
-            {passwordCriteria.capital ? (
-              <CheckCircleIcon fontSize="small" sx={{ fontSize: "18px" }} />
-            ) : (
-              <CheckCircleOutlineIcon
-                fontSize="small"
-                sx={{ fontSize: "18px" }}
-              />
-            )}
-            At least one uppercase letter
-          </Typography>
-          <Typography
-            sx={{
-              gap: 1,
-              ml: 0.5,
-              display: "flex",
-              fontSize: "12px",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              color: passwordCriteria.small ? "green" : "#00000060",
-            }}
-          >
-            {passwordCriteria.small ? (
-              <CheckCircleIcon fontSize="small" sx={{ fontSize: "18px" }} />
-            ) : (
-              <CheckCircleOutlineIcon
-                fontSize="small"
-                sx={{ fontSize: "18px" }}
-              />
-            )}
-            At least one lowercase letter
-          </Typography>
-          <Typography
-            sx={{
-              gap: 1,
-              ml: 0.5,
-              display: "flex",
-              fontSize: "12px",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              color: passwordCriteria.number ? "green" : "#00000060",
-            }}
-          >
-            {passwordCriteria.number ? (
-              <CheckCircleIcon fontSize="small" sx={{ fontSize: "18px" }} />
-            ) : (
-              <CheckCircleOutlineIcon
-                fontSize="small"
-                sx={{ fontSize: "18px" }}
-              />
-            )}
-            At least one number
-          </Typography>
-          <Typography
-            sx={{
-              gap: 1,
-              ml: 0.5,
-              display: "flex",
-              fontSize: "12px",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              color: passwordCriteria.symbol ? "green" : "#00000060",
-            }}
-          >
-            {passwordCriteria.symbol ? (
-              <CheckCircleIcon fontSize="small" sx={{ fontSize: "18px" }} />
-            ) : (
-              <CheckCircleOutlineIcon
-                fontSize="small"
-                sx={{ fontSize: "18px" }}
-              />
-            )}
-            At least one symbol
-          </Typography>
-          <Typography
-            sx={{
-              gap: 1,
-              ml: 0.5,
-              display: "flex",
-              fontSize: "12px",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              color: passwordCriteria.length ? "green" : "#00000060",
-            }}
-          >
-            {passwordCriteria.length ? (
-              <CheckCircleIcon fontSize="small" sx={{ fontSize: "18px" }} />
-            ) : (
-              <CheckCircleOutlineIcon
-                fontSize="small"
-                sx={{ fontSize: "18px" }}
-              />
-            )}
-            Minimum 8 characters
-          </Typography>
-        </Stack>
-      </Stack>
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        sx={{ mb: 2, width: "100%" }}
-        gap={0}
-      >
-        <TextField
-          id="confirm_password_input"
-          placeholder="Confirm password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          size="small"
-          value={inputs.confirmPassword}
-          onChange={(e) => {
-            return handleInputChange(e, "confirmPassword");
-          }}
-          sx={{
-            p: 0.2,
-            my: 0.5,
-            width: "100%",
-            border: "none",
-            outline: "none",
-            "& .MuiInputBase-root": {
-              fontSize: "13px",
-            },
-            "& .MuiInputBase-root:placeholder": {
-              fontSize: "13px",
-            },
-            "& .MuiInputBase-root:focus": {
-              border: 0,
-              outline: "none",
-            },
-            "& .MuiInputBase-root:focusVisible": {
-              border: 0,
-              outline: "none",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                border: 1,
-                borderColor: "dodgerblue",
-              },
-          }}
-        />
-        {errors.confirmPassword !== "" &&
-          errors.confirmPassword !== null &&
-          errors.confirmPassword !== undefined && (
-            <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {errors.confirmPassword}
-            </Typography>
-          )}
-      </Stack>
+      <InputField
+        name="birthday"
+        disabled={validating}
+        value={signup.birthday}
+        changeValue={(value) => {
+          dispatch(setSignup({ ...signup, birthday: value }));
+          dispatch(setSignupErrors({ ...signup_errors, birthday: "" }));
+        }}
+        placeholder="Birthday"
+        error={signup_errors.birthday}
+      />
+      <InputField
+        name="passowrd"
+        disabled={validating}
+        value={signup.passowrd}
+        changeValue={(value) => {
+          dispatch(setSignup({ ...signup, passowrd: value }));
+          dispatch(setSignupErrors({ ...signup_errors, passowrd: "" }));
+        }}
+        placeholder="Password"
+        error={signup_errors.password}
+      />
+      <InputField
+        name="confirm_password"
+        disabled={validating}
+        value={signup.confirmPassword}
+        changeValue={(value) => {
+          dispatch(setSignup({ ...signup, confirmPassword: value }));
+          dispatch(setSignupErrors({ ...signup_errors, confirmPassword: "" }));
+        }}
+        placeholder="Confirm Password"
+        error={signup_errors.confirmPassword}
+      />
       <Stack
         direction="column"
         justifyContent="flex-start"
@@ -610,9 +289,10 @@ const Signup = () => {
       >
         <Select
           id="country_code_select"
-          value={inputs.location}
+          value={signup.location}
           displayEmpty
           fullWidth
+          disabled={validating}
           MenuProps={{
             PaperProps: {
               elevation: 0,
@@ -627,12 +307,15 @@ const Signup = () => {
             },
           }}
           onChange={(e) => {
-            setInputs({ ...inputs, location: e.target.value });
+            dispatch(setSignup({ ...signup, location: e.target.value }));
           }}
           sx={{
             p: 0.1,
             my: 0.5,
             width: "100%",
+            "& .MuiSelect-select": {
+              p: 0.7,
+            },
           }}
           size="small"
         >
@@ -667,11 +350,11 @@ const Signup = () => {
             );
           })}
         </Select>
-        {errors.location !== "" &&
-          errors.location !== null &&
-          errors.location !== undefined && (
+        {signup_errors.location !== "" &&
+          signup_errors.location !== null &&
+          signup_errors.location !== undefined && (
             <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {errors.location}
+              {signup_errors.location}
             </Typography>
           )}
       </Stack>

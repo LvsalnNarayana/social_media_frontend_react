@@ -2081,8 +2081,220 @@ const useData = () => {
     { id: 894, alpha2: "zm", alpha3: "zmb", name: "Zambia" },
     { id: 716, alpha2: "zw", alpha3: "zwe", name: "Zimbabwe" },
   ];
+  const story = {
+    id: 1,
+    user: {
+      id: "user_1234",
+      lastname: "Doe",
+      firstname: "John",
+      username: "john_doe",
+      profile_picture: "https://example.com/profile.jpg",
+    },
+    stories: [
+      {
+        id: "attachment_1",
+        duration: 7,
+        type: "image",
+        url: "story.jpg",
+        timestamp: "2023-07-23T10:00:00Z",
+        expiration: "2023-07-24T10:00:00Z",
+        viewedBy: [
+          {
+            id: "user_5678",
+            lastname: "Smith",
+            firstname: "Jane",
+            username: "jane_smith",
+            viewed_at: "2023-07-23T11:00:00Z",
+            profile_picture: "https://example.com/jane_profile.jpg",
+          },
+          {
+            id: "user_91011",
+            lastname: "Brown",
+            firstname: "Charlie",
+            username: "charlie_brown",
+            viewed_at: "2023-07-23T12:00:00Z",
+            profile_picture: "https://example.com/charlie_profile.jpg",
+          },
+        ],
+        reactions: [
+          {
+            id: "reaction_1",
+            type: "like",
+            reacted_at: "2023-07-23T11:05:00Z",
+            user: {
+              id: "user_5678",
+              lastname: "Smith",
+              firstname: "Jane",
+              username: "jane_smith",
+              profile_picture: "https://example.com/jane_profile.jpg",
+            },
+          },
+          {
+            id: "reaction_2",
+            type: "love",
+            reacted_at: "2023-07-23T12:10:00Z",
+            user: {
+              id: "user_91011",
+              lastname: "Brown",
+              firstname: "Charlie",
+              username: "charlie_brown",
+              profile_picture: "https://example.com/charlie_profile.jpg",
+            },
+          },
+        ],
+      },
+      {
+        id: "attachment_2",
+        duration: 3,
+        type: "image",
+        url: "ape.png",
+        timestamp: "2023-07-23T10:00:00Z",
+        expiration: "2023-07-24T10:00:00Z",
+        viewedBy: [
+          {
+            id: "user_5678",
+            lastname: "Smith",
+            firstname: "Jane",
+            username: "jane_smith",
+            viewed_at: "2023-07-23T11:00:00Z",
+            profile_picture: "https://example.com/jane_profile.jpg",
+          },
+          {
+            id: "user_91011",
+            lastname: "Brown",
+            firstname: "Charlie",
+            username: "charlie_brown",
+            viewed_at: "2023-07-23T12:00:00Z",
+            profile_picture: "https://example.com/charlie_profile.jpg",
+          },
+        ],
+        reactions: [
+          {
+            id: "reaction_1",
+            type: "like",
+            reacted_at: "2023-07-23T11:05:00Z",
+            user: {
+              id: "user_5678",
+              lastname: "Smith",
+              firstname: "Jane",
+              username: "jane_smith",
+              profile_picture: "https://example.com/jane_profile.jpg",
+            },
+          },
+          {
+            id: "reaction_2",
+            type: "love",
+            reacted_at: "2023-07-23T12:10:00Z",
+            user: {
+              id: "user_91011",
+              lastname: "Brown",
+              firstname: "Charlie",
+              username: "charlie_brown",
+              profile_picture: "https://example.com/charlie_profile.jpg",
+            },
+          },
+        ],
+      },
+    ],
+  };
+  const notification = {
+    id: "notification_1",
+    read: false,
+    type: "comment",
+    created_at: "2023-07-23T12:00:00Z",
+    content: "Harry Potter has commented on your post: 'Nice Place..!'",
+    target: {
+      id: "post_5678",
+      type: "post",
+      created_at: "2023-07-22T10:00:00Z",
+      content: "Visiting the beautiful landscapes of Scotland.",
+    },
+    user: {
+      id: "user_1234",
+      lastname: "Doe",
+      firstname: "John",
+      username: "john_doe",
+      mutual_friends_count: 5,
+      friendship_status: "friends",
+      profile_picture: "https://example.com/profile.jpg",
+    },
+  };
 
-  return { post, user, feelings, countries, conversation, historyResults };
+  const notifications = [
+    {
+      id: "notification_1",
+      read: false,
+      type: "comment",
+      created_at: "2023-07-23T12:00:00Z",
+      content: "Harry Potter has commented on your post: 'Nice Place..!'",
+      target: {
+        id: "post_5678",
+        type: "post",
+        created_at: "2023-07-22T10:00:00Z",
+        content: "Visiting the beautiful landscapes of Scotland.",
+      },
+      user: {
+        id: "user_1234",
+        lastname: "Potter",
+        firstname: "Harry",
+        username: "harry_potter",
+        mutual_friends_count: 10,
+        friendship_status: "friends",
+        profile_picture: "https://example.com/harry_profile.jpg",
+      },
+    },
+    {
+      id: "notification_2",
+      read: true,
+      type: "like",
+      created_at: "2023-07-23T14:00:00Z",
+      content: "Ron Weasley liked your photo.",
+      target: {
+        id: "photo_1234",
+        type: "photo",
+        created_at: "2023-07-21T15:00:00Z",
+        content: "At the Quidditch World Cup!",
+      },
+      user: {
+        id: "user_5678",
+        firstname: "Ron",
+        lastname: "Weasley",
+        username: "ron_weasley",
+        mutual_friends_count: 8,
+        friendship_status: "friends",
+        profile_picture: "https://example.com/ron_profile.jpg",
+      },
+    },
+    {
+      id: "notification_3",
+      read: false,
+      target: null,
+      type: "friend_request",
+      created_at: "2023-07-23T16:00:00Z",
+      content: "Hermione Granger sent you a friend request.",
+      user: {
+        id: "user_91011",
+        lastname: "Granger",
+        firstname: "Hermione",
+        mutual_friends_count: 15,
+        username: "hermione_granger",
+        friendship_status: "not_friends",
+        profile_picture: "https://example.com/hermione_profile.jpg",
+      },
+    },
+  ];
+
+  return {
+    post,
+    user,
+    story,
+    feelings,
+    countries,
+    conversation,
+    notification,
+    notifications,
+    historyResults,
+  };
 };
 
 export default useData;

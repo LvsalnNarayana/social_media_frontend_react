@@ -86,6 +86,7 @@ const Login = () => {
       </Typography>
       <InputField
         label="Email"
+        name="email"
         value={login.email}
         changeValue={(value) => {
           dispatch(setLogin({ ...login, email: value }));
@@ -96,6 +97,7 @@ const Login = () => {
       />
       <InputField
         label="Password"
+        name="password"
         value={login.password}
         changeValue={(value) => {
           dispatch(setLogin({ ...login, password: value }));

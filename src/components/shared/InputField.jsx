@@ -8,9 +8,11 @@ import { Stack, TextField, Typography, IconButton } from "@mui/material";
 
 const InputField = ({
   type,
+  name,
   label,
   error,
   value,
+  disabled,
   placeholder,
   changeValue,
 }) => {
@@ -30,7 +32,7 @@ const InputField = ({
       sx={{ mb: 2, width: "100%" }}
       gap={0}
     >
-      {label && (
+      {label !== "" && (
         <Typography sx={{ ml: 0.5, fontSize: "14px" }}>{label}</Typography>
       )}
       <TextField
@@ -44,13 +46,14 @@ const InputField = ({
         onChange={(e) => {
           return changeValue(e.target.value);
         }}
-        id={`${label.toLowerCase()}_input`}
+        id={`${name?.toLowerCase()}_input`}
         placeholder={placeholder}
         variant="outlined"
         fullWidth
         margin="normal"
         size="small"
         value={value}
+        disabled={disabled || false}
         sx={{
           p: 0.2,
           my: 0.5,

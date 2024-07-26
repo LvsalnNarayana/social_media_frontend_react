@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   selectedFriends: [],
   postDraftScreen: "draft",
-  activeComponent: "signup",
+  activeComponent: "story",
   createPostDialogOpen: false,
 };
 

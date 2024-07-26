@@ -41,6 +41,34 @@ const Drawer = () => {
       id: "signup",
       name: "Signup",
     },
+    {
+      id: "forgot_password",
+      name: "Forgot Password",
+    },
+    {
+      id: "otp",
+      name: "O T P",
+    },
+    {
+      id: "reset_password",
+      name: "Reset Password",
+    },
+    {
+      id: "story",
+      name: "Story",
+    },
+    {
+      id: "create_story",
+      name: "Create Story",
+    },
+    {
+      id: "notification",
+      name: "Notification",
+    },
+    {
+      id: "notification_container",
+      name: "Notification Container",
+    },
   ];
 
   return (

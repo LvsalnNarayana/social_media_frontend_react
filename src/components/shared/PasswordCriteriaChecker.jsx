@@ -6,7 +6,7 @@ import { Stack, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-const PasswordCriteriaChecker = ({ password }) => {
+const PasswordCriteriaChecker = ({ sx, password }) => {
   const [passwordCriteria, setPasswordCriteria] = useState({
     small: false,
     number: false,
@@ -30,7 +30,7 @@ const PasswordCriteriaChecker = ({ password }) => {
       direction="column"
       justifyContent="flex-start"
       alignItems="flex-start"
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", ...sx }}
       gap={1}
     >
       <Typography
