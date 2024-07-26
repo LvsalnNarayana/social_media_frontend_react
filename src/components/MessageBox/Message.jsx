@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable max-lines */
 /* eslint-disable max-statements */
 import React, { useRef, useState } from "react";

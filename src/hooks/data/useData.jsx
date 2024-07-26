@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /* eslint-disable max-lines */
 
 const useData = () => {
@@ -2219,7 +2220,6 @@ const useData = () => {
       profile_picture: "https://example.com/profile.jpg",
     },
   };
-
   const notifications = [
     {
       id: "notification_1",
@@ -2283,11 +2283,104 @@ const useData = () => {
       },
     },
   ];
+  const friends = [
+    {
+      id: "user_2",
+      firstname: "Ron",
+      lastname: "Weasley",
+      username: "ron_weasley",
+      mutual_friends_count: 100,
+      friendship_status: "friends",
+      profile_picture: "https://example.com/ron_profile.jpg",
+    },
+    {
+      id: "user_3",
+      lastname: "Granger",
+      firstname: "Hermione",
+      mutual_friends_count: 150,
+      username: "hermione_granger",
+      friendship_status: "friends",
+      profile_picture: "https://example.com/hermione_profile.jpg",
+    },
+    {
+      id: "user_4",
+      firstname: "Ginny",
+      lastname: "Weasley",
+      mutual_friends_count: 80,
+      username: "ginny_weasley",
+      friendship_status: "friends",
+      profile_picture: "https://example.com/ginny_profile.jpg",
+    },
+    {
+      id: "user_5",
+      firstname: "Neville",
+      lastname: "Longbottom",
+      mutual_friends_count: 60,
+      friendship_status: "friends",
+      username: "neville_longbottom",
+      profile_picture: "https://example.com/neville_profile.jpg",
+    },
+    {
+      id: "user_6",
+      firstname: "Luna",
+      lastname: "Lovegood",
+      mutual_friends_count: 70,
+      username: "luna_lovegood",
+      friendship_status: "friends",
+      profile_picture: "https://example.com/luna_profile.jpg",
+    },
+    {
+      id: "user_7",
+      firstname: "Draco",
+      lastname: "Malfoy",
+      username: "draco_malfoy",
+      mutual_friends_count: 50,
+      friendship_status: "friends",
+      profile_picture: "https://example.com/draco_profile.jpg",
+    },
+    {
+      id: "user_8",
+      firstname: "Fred",
+      lastname: "Weasley",
+      username: "fred_weasley",
+      mutual_friends_count: 90,
+      friendship_status: "friends",
+      profile_picture: "https://example.com/fred_profile.jpg",
+    },
+    {
+      id: "user_9",
+      firstname: "George",
+      lastname: "Weasley",
+      mutual_friends_count: 90,
+      username: "george_weasley",
+      friendship_status: "friends",
+      profile_picture: "https://example.com/george_profile.jpg",
+    },
+    {
+      id: "user_10",
+      firstname: "Cho",
+      lastname: "Chang",
+      username: "cho_chang",
+      mutual_friends_count: 40,
+      friendship_status: "friends",
+      profile_picture: "https://example.com/cho_profile.jpg",
+    },
+    {
+      id: "user_11",
+      firstname: "Cedric",
+      lastname: "Diggory",
+      mutual_friends_count: 30,
+      username: "cedric_diggory",
+      friendship_status: "friends",
+      profile_picture: "https://example.com/cedric_profile.jpg",
+    },
+  ];
 
   return {
     post,
     user,
     story,
+    friends,
     feelings,
     countries,
     conversation,
