@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-binary-expression */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable operator-linebreak */
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -16,6 +17,7 @@ import Post from "./components/Post/Post";
 import useData from "./hooks/data/useData";
 import Login from "./components/Login/Login";
 import Story from "./components/Story/Story";
+import About from "./components/Profile/About";
 import Drawer from "./components/Drawer/Drawer";
 import Signup from "./components/Signup/Signup";
 import { selectAppState } from "./state/appSlice";
@@ -53,6 +55,10 @@ const App = () => {
     login: {
       name: "Login",
       component: <Login />,
+    },
+    about: {
+      name: "About",
+      component: <About />,
     },
     signup: {
       name: "Signup",
@@ -181,43 +187,46 @@ const App = () => {
               {components[activeComponent].component}
             </Stack>
             <Divider orientation="vertical" flexItem />
-            {components[activeComponent].name !== "Profile" && (
-              <Stack
-                justifyContent="flex-start"
-                alignItems="flex-start"
-                flexGrow={1}
-                sx={{
-                  p: 3,
-                  width: "50%",
-                  overflowY: "auto",
-                  maxHeight: "calc(100vh - 50px)",
-                }}
-              >
-                <Button
-                  size="small"
-                  variant="contained"
-                  disableElevation
-                  sx={{ mb: 2, ml: "auto" }}
-                  onClick={() => {
-                    setCollapseJson(!collapseJson);
+            {components[activeComponent].name !== "Profile" &&
+              components[activeComponent].name !== "About" && (
+                <Stack
+                  justifyContent="flex-start"
+                  alignItems="flex-start"
+                  flexGrow={1}
+                  sx={{
+                    p: 3,
+                    width: "50%",
+                    overflowY: "auto",
+                    maxHeight: "calc(100vh - 50px)",
                   }}
                 >
-                  Collapse All
-                </Button>
-                <ReactJson
-                  src={components[activeComponent].data}
-                  name={components[activeComponent].name}
-                  shouldCollapse={({ name }) => {
-                    return components[activeComponent]?.fields?.includes(name);
-                  }}
-                  collapsed={collapseJson}
-                  enableClipboard={false}
-                  displayDataTypes={false}
-                  displayObjectSize={false}
-                  collapseStringsAfterLength={60}
-                />
-              </Stack>
-            )}
+                  <Button
+                    size="small"
+                    variant="contained"
+                    disableElevation
+                    sx={{ mb: 2, ml: "auto" }}
+                    onClick={() => {
+                      setCollapseJson(!collapseJson);
+                    }}
+                  >
+                    Collapse All
+                  </Button>
+                  <ReactJson
+                    src={components[activeComponent].data}
+                    name={components[activeComponent].name}
+                    shouldCollapse={({ name }) => {
+                      return components[activeComponent]?.fields?.includes(
+                        name,
+                      );
+                    }}
+                    collapsed={collapseJson}
+                    enableClipboard={false}
+                    displayDataTypes={false}
+                    displayObjectSize={false}
+                    collapseStringsAfterLength={60}
+                  />
+                </Stack>
+              )}
           </Stack>
         </Stack>
       </Box>

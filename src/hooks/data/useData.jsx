@@ -1,6 +1,16 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines */
 
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
+import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
+import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import SportsMartialArtsOutlinedIcon from "@mui/icons-material/SportsMartialArtsOutlined";
+
 const useData = () => {
   const post = {
     id: "post_1234",
@@ -671,23 +681,13 @@ const useData = () => {
     gender: "male",
     firstname: "Harry",
     lastname: "Potter",
-    birthday: "1980-07-31",
     username: "harry_potter",
-    phone_number: "+1234567890",
-    relationship_status: "single",
-    email: "harry.potter@example.com",
     website: "https://harrypotter.example.com",
     posts: ["post_1234", "post_5678", "post_91011"],
     cover_photo: "https://example.com/harry_cover.jpg",
     profile_picture: "https://example.com/harry_profile.jpg",
     bio: "Wizard at Hogwarts, Seeker for Gryffindor Quidditch team.",
     interests: ["Quidditch", "Defense Against the Dark Arts", "Wizard Chess"],
-    location: {
-      lat: 56.8185,
-      lon: -5.0035,
-      city: "Hogsmeade",
-      country: "Scotland",
-    },
     groups: [
       {
         id: "group_1234",
@@ -705,14 +705,6 @@ const useData = () => {
         id: "page_1234",
         liked_at: "2023-01-01",
         name: "Hogwarts School of Witchcraft and Wizardry",
-      },
-    ],
-    work: [
-      {
-        end_date: null,
-        position: "Auror",
-        start_date: "1998-08-01",
-        company: "Ministry of Magic",
       },
     ],
     subscriptions: [
@@ -747,15 +739,6 @@ const useData = () => {
         profile_picture: "https://example.com/voldemort_profile.jpg",
       },
     ],
-    education: [
-      {
-        degree: "N.E.W.T.s",
-        end_date: "1997-06-30",
-        start_date: "1991-09-01",
-        field_of_study: "Defense Against the Dark Arts",
-        school: "Hogwarts School of Witchcraft and Wizardry",
-      },
-    ],
     friend_requests: [
       {
         id: "user_4",
@@ -764,6 +747,38 @@ const useData = () => {
         username: "draco_malfoy",
         mutual_friends_count: 50,
         profile_picture: "https://example.com/draco_profile.jpg",
+      },
+    ],
+    work: [
+      {
+        current: false,
+        city: "Bangalore",
+        tooltip: "Global",
+        position: "Auror",
+        visibility: "public",
+        endDate: "2023-12-31",
+        icon: WorkOutlineIcon,
+        startDate: "2021-01-01",
+        company: "Ministry of Magic",
+        description: "Working on cloud computing technologies.",
+      },
+    ],
+    places: [
+      {
+        endDate: "",
+        current: true,
+        visibility: "public",
+        startDate: "2018-01-01",
+        icon: CottageOutlinedIcon,
+        location: {
+          state: "",
+          country: "",
+          city: "London",
+          coOrdinates: {
+            lat: 56.8185,
+            lon: -5.0035,
+          },
+        },
       },
     ],
     notifications: [
@@ -802,6 +817,68 @@ const useData = () => {
         profile_picture: "https://example.com/hermione_profile.jpg",
       },
     ],
+    education: [
+      {
+        city: "London",
+        graduated: true,
+        tooltip: "Global",
+        position: "Student",
+        visibility: "public",
+        endDate: "2015-06-30",
+        startDate: "2010-09-01",
+        icon: SchoolOutlinedIcon,
+        attendedFor: "Post Graduate",
+        school: "Hogwarts School of Witchcraft and Wizardry",
+        description: "Studied various computer science subjects.",
+        courses: [
+          {
+            grade: "A",
+            name: "Defense Against the Dark Arts",
+          },
+          {
+            grade: "A+",
+            name: "Potions",
+          },
+        ],
+      },
+    ],
+    contactInfo: {
+      birthdate: {
+        date: "24-10-2023",
+        visibility: "public",
+        icon: CakeOutlinedIcon,
+      },
+
+      relation: {
+        status: "Single",
+        visibility: "public",
+        icon: FavoriteBorderOutlinedIcon,
+      },
+      languages: {
+        visibility: "public",
+        icon: LanguageOutlinedIcon,
+        languages: ["English", "Spanish", "French"],
+      },
+      phone: [
+        {
+          phone: "+1234567890",
+          visibility: "public",
+          icon: LocalPhoneOutlinedIcon,
+        },
+      ],
+      email: [
+        {
+          visibility: "public",
+          email: "narayana@example.com",
+          icon: MailOutlineOutlinedIcon,
+        },
+      ],
+      hobbies: {
+        visibility: "friends",
+        icon: SportsMartialArtsOutlinedIcon,
+        hobbies: ["Reading", "Traveling", "Photography", "Cooking"],
+      },
+    },
   };
   const conversation = {
     id: "conversation_1234",
@@ -2375,6 +2452,52 @@ const useData = () => {
       profile_picture: "https://example.com/cedric_profile.jpg",
     },
   ];
+  const relationship = [
+    {
+      id: "single",
+      value: "Single",
+    },
+    {
+      id: "in_a_relationship",
+      value: "In a Relationship",
+    },
+    {
+      id: "engaged",
+      value: "Engaged",
+    },
+    {
+      id: "married",
+      value: "Married",
+    },
+    {
+      id: "it_s_complicated",
+      value: "It's Complicated",
+    },
+    {
+      id: "open_relationship",
+      value: "In an Open Relationship",
+    },
+    {
+      id: "widowed",
+      value: "Widowed",
+    },
+    {
+      id: "separated",
+      value: "Separated",
+    },
+    {
+      id: "divorced",
+      value: "Divorced",
+    },
+    {
+      id: "in_a_civil_union",
+      value: "In a Civil Union",
+    },
+    {
+      id: "in_a_domestic_partnership",
+      value: "In a Domestic Partnership",
+    },
+  ];
 
   return {
     post,
@@ -2384,6 +2507,7 @@ const useData = () => {
     feelings,
     countries,
     conversation,
+    relationship,
     notification,
     notifications,
     historyResults,

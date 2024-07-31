@@ -7,6 +7,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { Stack, TextField, Typography, IconButton } from "@mui/material";
 
 const InputField = ({
+  sx,
   type,
   name,
   label,
@@ -15,6 +16,8 @@ const InputField = ({
   disabled,
   placeholder,
   changeValue,
+  multiple,
+  rows,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,13 +32,15 @@ const InputField = ({
       direction="column"
       justifyContent="flex-start"
       alignItems="flex-start"
-      sx={{ mb: 2, width: "100%" }}
+      sx={{ width: "100%", ...sx }}
       gap={0}
     >
       {label !== "" && (
         <Typography sx={{ ml: 0.5, fontSize: "14px" }}>{label}</Typography>
       )}
       <TextField
+        multiline={multiple || false}
+        rows={rows || 1}
         type={
           type === "password"
             ? showPassword

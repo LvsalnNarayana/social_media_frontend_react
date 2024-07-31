@@ -58,6 +58,10 @@ const Drawer = () => {
       name: "Story",
     },
     {
+      id: "about",
+      name: "About",
+    },
+    {
       id: "create_story",
       name: "Create Story",
     },

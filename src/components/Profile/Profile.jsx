@@ -46,9 +46,9 @@ const Profile = () => {
           justifyContent="flex-start"
           alignItems="flex-end"
           gap={2}
-          sx={{ mt: -11, width: "100%" }}
+          sx={{ mt: -9, width: "100%" }}
         >
-          <UserAvatar username={user.username} width={180} />
+          <UserAvatar username={user.username} width={160} />
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -61,7 +61,10 @@ const Profile = () => {
               alignItems="flex-start"
               gap={1}
             >
-              <Typography variant="h4" sx={{ fontWeight: 600 }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 600, fontSize: "30px" }}
+              >
                 {user.firstname} {user.lastname}
               </Typography>
               <Stack
