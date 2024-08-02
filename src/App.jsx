@@ -17,7 +17,7 @@ import Post from "./components/Post/Post";
 import useData from "./hooks/data/useData";
 import Login from "./components/Login/Login";
 import Story from "./components/Story/Story";
-import About from "./components/Profile/About";
+import About from "./components/About/About";
 import Drawer from "./components/Drawer/Drawer";
 import Signup from "./components/Signup/Signup";
 import { selectAppState } from "./state/appSlice";

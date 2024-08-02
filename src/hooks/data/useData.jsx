@@ -1,16 +1,6 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines */
 
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import SportsMartialArtsOutlinedIcon from "@mui/icons-material/SportsMartialArtsOutlined";
-
 const useData = () => {
   const post = {
     id: "post_1234",
@@ -678,33 +668,29 @@ const useData = () => {
   ];
   const user = {
     id: "user_1",
-    gender: "male",
     firstname: "Harry",
     lastname: "Potter",
     username: "harry_potter",
-    website: "https://harrypotter.example.com",
     posts: ["post_1234", "post_5678", "post_91011"],
     cover_photo: "https://example.com/harry_cover.jpg",
-    profile_picture: "https://example.com/harry_profile.jpg",
-    bio: "Wizard at Hogwarts, Seeker for Gryffindor Quidditch team.",
-    interests: ["Quidditch", "Defense Against the Dark Arts", "Wizard Chess"],
-    groups: [
-      {
-        id: "group_1234",
-        joined_at: "2023-01-01",
-        name: "Dumbledore's Army",
-      },
-    ],
+    gender: {
+      value: "male",
+      visibility: "global",
+    },
+    interests: {
+      visibility: "global",
+      intrests: ["Quidditch", "Defense Against the Dark Arts", "Wizard Chess"],
+    },
     privacy_settings: {
       message_privacy: "friends",
       profile_visibility: "friends",
       timeline_post_privacy: "friends",
     },
-    pages: [
+    websites: [
       {
-        id: "page_1234",
-        liked_at: "2023-01-01",
-        name: "Hogwarts School of Witchcraft and Wizardry",
+        id: "websites_id_1",
+        visibility: "global",
+        link: "https://harrypotter.example.com",
       },
     ],
     subscriptions: [
@@ -749,34 +735,19 @@ const useData = () => {
         profile_picture: "https://example.com/draco_profile.jpg",
       },
     ],
-    work: [
-      {
-        current: false,
-        city: "Bangalore",
-        tooltip: "Global",
-        position: "Auror",
-        visibility: "public",
-        endDate: "2023-12-31",
-        icon: WorkOutlineIcon,
-        startDate: "2021-01-01",
-        company: "Ministry of Magic",
-        description: "Working on cloud computing technologies.",
-      },
-    ],
     places: [
       {
-        endDate: "",
+        id: "place_id_1",
         current: true,
-        visibility: "public",
-        startDate: "2018-01-01",
-        icon: CottageOutlinedIcon,
+        visibility: "global",
         location: {
+          id: "location_id_1",
           state: "",
-          country: "",
-          city: "London",
+          country: "India",
+          city: "Hyderabad",
           coOrdinates: {
-            lat: 56.8185,
-            lon: -5.0035,
+            lat: "",
+            long: "",
           },
         },
       },
@@ -817,17 +788,91 @@ const useData = () => {
         profile_picture: "https://example.com/hermione_profile.jpg",
       },
     ],
+    info: {
+      birthdate: {
+        visibility: "global",
+        date: "1997-11-11T14:10:30Z",
+      },
+      relationship: {
+        status: "Single",
+        relationId: "single",
+        visibility: "global",
+      },
+      hobbies: {
+        visibility: "friends",
+        hobbies: ["Reading", "Traveling", "Photography", "Cooking"],
+      },
+      languages: {
+        visibility: "public",
+        // icon: LanguageOutlinedIcon,
+        value: ["English", "Spanish", "French"],
+      },
+      email: [
+        {
+          id: "email_id_1",
+          primary: true,
+          verified: false,
+          visibility: "global",
+          email: "narayana@example.com",
+        },
+      ],
+      phone: [
+        {
+          id: "phone_id_1",
+          country: "IN",
+          primary: true,
+          verified: false,
+          phone: "34567890",
+          countryCode: "+91",
+          visibility: "global",
+        },
+      ],
+    },
+    work: [
+      {
+        id: "workplace_item_1",
+        current: false,
+        city: "Bangalore",
+        company: "Amazon",
+        visibility: "global",
+        position: "Software Engineer",
+        endDate: "2019-05-18T14:10:30Z",
+        startDate: "2018-05-18T14:10:30Z",
+        description: "Working on cloud computing technologies.",
+      },
+      {
+        id: "workplace_item_2",
+        current: false,
+        company: "Google",
+        city: "San Francisco",
+        visibility: "friends",
+        endDate: "2021-05-18T14:10:30Z",
+        startDate: "2019-05-18T14:10:30Z",
+        position: "Senior Software Engineer",
+        description: "Leading the development of scalable web applications.",
+      },
+      {
+        id: "workplace_item_3",
+        endDate: "",
+        current: true,
+        city: "New York",
+        company: "Facebook",
+        visibility: "public",
+        position: "Frontend Developer",
+        startDate: "2021-05-18T14:10:30Z",
+        description:
+          "Developed interactive user interfaces for Facebook's web applications.",
+      },
+    ],
     education: [
       {
+        id: "school_id_1",
+        endDate: "",
         city: "London",
-        graduated: true,
-        tooltip: "Global",
-        position: "Student",
+        graduated: false,
         visibility: "public",
-        endDate: "2015-06-30",
-        startDate: "2010-09-01",
-        icon: SchoolOutlinedIcon,
-        attendedFor: "Post Graduate",
+        attendedFor: "University",
+        startDate: "2022-05-18T14:10:30Z",
         school: "Hogwarts School of Witchcraft and Wizardry",
         description: "Studied various computer science subjects.",
         courses: [
@@ -841,44 +886,215 @@ const useData = () => {
           },
         ],
       },
+      {
+        id: "school_id_2",
+        city: "London",
+        graduated: true,
+        visibility: "public",
+        endDate: "2023-05-18T14:10:30Z",
+        startDate: "2022-05-18T14:10:30Z",
+        attendedFor: "University(postgraduate)",
+        school: "Hogwarts School of Witchcraft and Wizardry",
+        description: "Studied various computer science subjects.",
+        courses: [
+          {
+            grade: "A",
+            name: "Defense Against the Dark Arts",
+          },
+          {
+            grade: "A+",
+            name: "Potions",
+          },
+        ],
+      },
+      {
+        id: "school_id_3",
+        city: "London",
+        graduated: true,
+        visibility: "public",
+        attendedFor: "High School",
+        endDate: "2019-05-18T14:10:30Z",
+        startDate: "2018-05-18T14:10:30Z",
+        school: "Hogwarts School of Witchcraft and Wizardry",
+        description: "Studied various computer science subjects.",
+      },
     ],
-    contactInfo: {
-      birthdate: {
-        date: "24-10-2023",
-        visibility: "public",
-        icon: CakeOutlinedIcon,
-      },
-
-      relation: {
-        status: "Single",
-        visibility: "public",
-        icon: FavoriteBorderOutlinedIcon,
-      },
-      languages: {
-        visibility: "public",
-        icon: LanguageOutlinedIcon,
-        languages: ["English", "Spanish", "French"],
-      },
-      phone: [
-        {
-          phone: "+1234567890",
-          visibility: "public",
-          icon: LocalPhoneOutlinedIcon,
+    pages: [
+      {
+        id: "page_91011",
+        privacy: "public",
+        liked_at: "2023-03-15",
+        followers_count: 350000,
+        name: "The Daily Prophet",
+        category: "Media/News Company",
+        website: "https://www.dailyprophet.com",
+        description:
+          "Official page for The Daily Prophet, the most widely read daily newspaper in Britain's wizard community.",
+        contact_info: {
+          phone: "+44 1234 567892",
+          email: "editor@dailyprophet.com",
+          address: "Diagon Alley, London, UK",
         },
-      ],
-      email: [
-        {
-          visibility: "public",
-          email: "narayana@example.com",
-          icon: MailOutlineOutlinedIcon,
+        social_links: {
+          twitter: "https://twitter.com/dailyprophet",
+          facebook: "https://www.facebook.com/dailyprophet",
+          instagram: "https://www.instagram.com/dailyprophet",
         },
-      ],
-      hobbies: {
-        visibility: "friends",
-        icon: SportsMartialArtsOutlinedIcon,
-        hobbies: ["Reading", "Traveling", "Photography", "Cooking"],
       },
-    },
+      {
+        id: "page_121314",
+        privacy: "public",
+        liked_at: "2023-04-20",
+        followers_count: 150000,
+        category: "Pet Services",
+        name: "Magical Menagerie",
+        website: "https://www.magicalmenagerie.com",
+        description:
+          "Official page for Magical Menagerie, the best place to find magical pets and supplies in Diagon Alley.",
+        contact_info: {
+          phone: "+44 1234 567893",
+          email: "info@magicalmenagerie.com",
+          address: "Diagon Alley, London, UK",
+        },
+        social_links: {
+          twitter: "https://twitter.com/magicalmenagerie",
+          facebook: "https://www.facebook.com/magicalmenagerie",
+          instagram: "https://www.instagram.com/magicalmenagerie",
+        },
+      },
+    ],
+    groups: [
+      {
+        id: "group_1234",
+        role: "Member",
+        members_count: 28,
+        privacy: "private",
+        max_members_count: 1000,
+        joined_at: "2023-01-01",
+        name: "Dumbledore's Army",
+        activity_status: "active",
+        icon: "https://example.com/dumbledores_army_icon.jpg",
+        description:
+          "A secret student organization founded by Harry Potter to stand against the Dark Arts.",
+      },
+      {
+        id: "group_5678",
+        role: "Admin",
+        members_count: 15,
+        privacy: "private",
+        max_members_count: 1000,
+        joined_at: "2022-05-15",
+        activity_status: "active",
+        name: "Order of the Phoenix",
+        icon: "https://example.com/order_of_phoenix_icon.jpg",
+        description:
+          "A group of wizards and witches dedicated to fighting Lord Voldemort.",
+      },
+      {
+        id: "group_91011",
+        role: "Moderator",
+        privacy: "public",
+        members_count: 2000,
+        max_members_count: 1000,
+        joined_at: "2021-08-10",
+        name: "Hogwarts Alumni",
+        activity_status: "active",
+        icon: "https://example.com/hogwarts_alumni_icon.jpg",
+        description:
+          "A group for all the alumni of Hogwarts School of Witchcraft and Wizardry to reconnect.",
+      },
+      {
+        id: "group_121314",
+        role: "Member",
+        privacy: "public",
+        members_count: 500,
+        name: "Quidditch Fans",
+        max_members_count: 1000,
+        joined_at: "2023-02-25",
+        activity_status: "active",
+        icon: "https://example.com/quidditch_fans_icon.jpg",
+        description:
+          "A group for all Quidditch enthusiasts to discuss matches and share their love for the sport.",
+      },
+      {
+        id: "group_151617",
+        role: "Member",
+        privacy: "public",
+        members_count: 150,
+        max_members_count: 1000,
+        joined_at: "2022-11-05",
+        name: "Wizard Chess Club",
+        activity_status: "active",
+        icon: "https://example.com/wizard_chess_club_icon.jpg",
+        description:
+          "A group for those who enjoy playing and discussing Wizard Chess.",
+      },
+      {
+        id: "group_181920",
+        role: "Member",
+        members_count: 75,
+        privacy: "private",
+        max_members_count: 1000,
+        joined_at: "2021-12-12",
+        activity_status: "active",
+        name: "Magical Creatures Enthusiasts",
+        icon: "https://example.com/magical_creatures_icon.jpg",
+        description:
+          "A group dedicated to the study and care of magical creatures.",
+      },
+      {
+        id: "group_212223",
+        role: "Member",
+        privacy: "public",
+        members_count: 220,
+        name: "Potion Masters",
+        max_members_count: 1000,
+        joined_at: "2023-04-18",
+        activity_status: "active",
+        icon: "https://example.com/potion_masters_icon.jpg",
+        description:
+          "A group for those who love brewing potions and sharing recipes.",
+      },
+      {
+        id: "group_242526",
+        role: "Member",
+        privacy: "public",
+        members_count: 300,
+        max_members_count: 1000,
+        joined_at: "2022-09-29",
+        activity_status: "inactive",
+        name: "Defense Against the Dark Arts Study Group",
+        icon: "https://example.com/dada_study_group_icon.jpg",
+        description:
+          "A study group focused on learning and mastering Defense Against the Dark Arts.",
+      },
+      {
+        id: "group_272829",
+        role: "Member",
+        privacy: "private",
+        members_count: 100,
+        max_members_count: 1000,
+        joined_at: "2023-03-17",
+        activity_status: "active",
+        name: "Hogsmeade Weekend Trips",
+        icon: "https://example.com/hogsmeade_trips_icon.jpg",
+        description:
+          "Organizing weekend trips to Hogsmeade for all interested students.",
+      },
+      {
+        id: "group_303132",
+        role: "Moderator",
+        members_count: 50,
+        privacy: "private",
+        max_members_count: 1000,
+        joined_at: "2021-10-20",
+        activity_status: "active",
+        name: "Hogwarts Professors' Forum",
+        icon: "https://example.com/professors_forum_icon.jpg",
+        description:
+          "A forum for Hogwarts professors to discuss academic matters and share knowledge.",
+      },
+    ],
   };
   const conversation = {
     id: "conversation_1234",

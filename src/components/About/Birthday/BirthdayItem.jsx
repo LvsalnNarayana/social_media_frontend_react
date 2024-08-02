@@ -1,43 +1,44 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable max-lines */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable function-paren-newline */
 /* eslint-disable arrow-body-style */
 /* eslint-disable operator-linebreak */
+import moment from "moment";
 import React, { useState } from "react";
 
 import LockIcon from "@mui/icons-material/Lock";
 import GroupIcon from "@mui/icons-material/Group";
 import PublicIcon from "@mui/icons-material/Public";
+import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import {
   Stack,
-  Button,
   Select,
+  Button,
   MenuItem,
   Typography,
   IconButton,
 } from "@mui/material";
 
-import useData from "../../hooks/data/useData";
-import CustomTooltip from "../shared/CustomTooltip";
+import CustomTooltip from "../../shared/CustomTooltip";
 
-const RelationItem = () => {
-  const { relationship } = useData();
-  const [editRelationOpen, setEditRelationOpen] = useState(false);
-
-  const relationItem = {
-    id: "relation_id_1",
-    status: "Single",
-    relationId: "single",
+const BirthdayItem = () => {
+  const birthdayItem = {
     visibility: "global",
-    icon: FavoriteBorderOutlinedIcon,
+    icon: CakeOutlinedIcon,
+    date: "2024-11-11T14:10:30Z",
   };
+  const [editBirthdayOpen, setEditBirthdayMenu] = useState(false);
+  const monthsInYear = Array.from({ length: 13 }, (_, i) =>
+    (i + 1).toString().padStart(2, "0"),
+  );
+  const daysInMonth = Array.from({ length: 31 }, (_, i) =>
+    (i + 1).toString().padStart(2, "0"),
+  );
 
   return (
     <>
-      {!editRelationOpen && (
+      {!editBirthdayOpen && (
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -50,7 +51,7 @@ const RelationItem = () => {
             alignItems="center"
             gap={2}
           >
-            <relationItem.icon sx={{ fontSize: "40px" }} />
+            <birthdayItem.icon sx={{ fontSize: "40px" }} />
             <Stack
               gap={0.2}
               direction="column"
@@ -58,8 +59,9 @@ const RelationItem = () => {
               alignItems="flex-start"
             >
               <Typography sx={{ fontSize: "14px" }}>
-                {relationItem.status}
+                {moment(birthdayItem.date).format("DD MMMM")}
               </Typography>
+              <Typography sx={{ fontSize: "12px" }}>Birth date</Typography>
             </Stack>
           </Stack>
           <Stack
@@ -71,18 +73,17 @@ const RelationItem = () => {
             <CustomTooltip
               padding={4}
               title={
-                relationItem.visibility[0].toUpperCase() +
-                relationItem.visibility.slice(1)
+                birthdayItem.visibility[0].toUpperCase() +
+                birthdayItem.visibility.slice(1)
               }
               color="#000"
             >
-              {relationItem.visibility === "global" && <PublicIcon />}
+              {birthdayItem.visibility === "global" && <PublicIcon />}
             </CustomTooltip>
-
             <IconButton
               disableRipple
               onClick={() => {
-                setEditRelationOpen(true);
+                setEditBirthdayMenu(true);
               }}
             >
               <EditOutlinedIcon fontSize="small" />
@@ -90,8 +91,9 @@ const RelationItem = () => {
           </Stack>
         </Stack>
       )}
-      {editRelationOpen && (
+      {editBirthdayOpen && (
         <Stack
+          gap={1}
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
@@ -102,21 +104,19 @@ const RelationItem = () => {
             justifyContent="flex-start"
             alignItems="center"
             gap={2}
-            sx={{ width: "100%" }}
           >
             <Stack
-              width="100%"
+              gap={0.2}
               direction="column"
               justifyContent="flex-start"
               alignItems="flex-start"
-              gap={1}
             >
               <Typography sx={{ fontWeight: 600, fontSize: "16px" }}>
-                Relationship Status
+                Birthday
               </Typography>
               <Select
                 id="birthday_visibility_select"
-                value={relationItem.visibility}
+                value={birthdayItem.visibility}
                 displayEmpty
                 MenuProps={{
                   PaperProps: {
@@ -174,23 +174,22 @@ const RelationItem = () => {
                 </MenuItem>
               </Select>
               <Stack
+                gap={2}
                 direction="row"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                width="100%"
-                gap={2}
               >
                 <Select
-                  id={`relation_status_select_${relationItem.id}`}
-                  value={relationItem.relationId}
+                  id="birthday_year_select"
+                  value={moment(birthdayItem.date).format("YYYY")}
                   displayEmpty
                   MenuProps={{
                     PaperProps: {
                       elevation: 0,
                       sx: {
-                        mt: 1,
-                        py: 0.4,
-                        maxHeight: "200px",
+                        mt: 0.2,
+                        py: 0.6,
+                        width: "80px",
                         backgroundColor: "#fff",
                         border: "1px solid #ccc",
                       },
@@ -198,32 +197,108 @@ const RelationItem = () => {
                   }}
                   onChange={() => {}}
                   sx={{
-                    my: 0.5,
-                    width: "100%",
+                    my: 1,
+                    width: "80px",
                     "& .MuiSelect-select": {
-                      p: 0.85,
+                      p: 0.6,
                     },
                   }}
                   size="small"
                 >
-                  <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
-                    <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-                      Relationship Status
-                    </Typography>
+                  <MenuItem sx={{ px: 0.8, py: 0.8 }} value="" disabled>
+                    <Typography sx={{ fontSize: "14px" }}>Year</Typography>
                   </MenuItem>
-                  {relationship?.map((relation, index) => {
+                  <MenuItem sx={{ px: 0.8, py: 0.8 }} value="2024">
+                    <Typography sx={{ fontSize: "14px" }}>2024</Typography>
+                  </MenuItem>
+                  <MenuItem sx={{ px: 0.8, py: 0.8 }} value="2023">
+                    <Typography sx={{ fontSize: "14px" }}>2023</Typography>
+                  </MenuItem>
+                  <MenuItem sx={{ px: 0.8, py: 0.8 }} value="2022">
+                    <Typography sx={{ fontSize: "14px" }}>2022</Typography>
+                  </MenuItem>
+                </Select>
+                <Select
+                  id="birthday_month_select"
+                  value={moment(birthdayItem.date).format("MM")}
+                  displayEmpty
+                  MenuProps={{
+                    PaperProps: {
+                      elevation: 0,
+                      sx: {
+                        mt: 0.2,
+                        py: 0.6,
+                        width: "80px",
+                        backgroundColor: "#fff",
+                        border: "1px solid #ccc",
+                      },
+                    },
+                  }}
+                  onChange={() => {}}
+                  sx={{
+                    my: 1,
+                    width: "80px",
+                    "& .MuiSelect-select": {
+                      p: 0.6,
+                    },
+                  }}
+                  size="small"
+                >
+                  <MenuItem sx={{ px: 0.8, py: 0.8 }} value="" disabled>
+                    <Typography sx={{ fontSize: "14px" }}>Month</Typography>
+                  </MenuItem>
+                  {monthsInYear.map((day) => {
                     return (
                       <MenuItem
-                        key={index}
+                        key={day}
                         sx={{ px: 0.8, py: 0.8 }}
-                        value={relation.id}
+                        value={day.toString().padStart(2, "0")}
                       >
-                        <Typography
-                          sx={{
-                            fontSize: "13px",
-                          }}
-                        >
-                          {relation.value}
+                        <Typography sx={{ fontSize: "14px" }}>
+                          {day.toString().padStart(2, "0")}
+                        </Typography>
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+                <Select
+                  id="birthday_month_select"
+                  value={moment(birthdayItem.date).format("MM")}
+                  displayEmpty
+                  MenuProps={{
+                    PaperProps: {
+                      elevation: 0,
+                      sx: {
+                        mt: 0.2,
+                        py: 0.6,
+                        width: "80px",
+                        backgroundColor: "#fff",
+                        border: "1px solid #ccc",
+                      },
+                    },
+                  }}
+                  onChange={() => {}}
+                  sx={{
+                    my: 1,
+                    width: "80px",
+                    "& .MuiSelect-select": {
+                      p: 0.6,
+                    },
+                  }}
+                  size="small"
+                >
+                  <MenuItem sx={{ px: 0.8, py: 0.8 }} value="" disabled>
+                    <Typography sx={{ fontSize: "14px" }}>Month</Typography>
+                  </MenuItem>
+                  {daysInMonth.map((day) => {
+                    return (
+                      <MenuItem
+                        key={day}
+                        sx={{ px: 0.8, py: 0.8 }}
+                        value={day.toString().padStart(2, "0")}
+                      >
+                        <Typography sx={{ fontSize: "14px" }}>
+                          {day.toString().padStart(2, "0")}
                         </Typography>
                       </MenuItem>
                     );
@@ -237,14 +312,14 @@ const RelationItem = () => {
             justifyContent="flex-end"
             alignItems="center"
             gap={2}
-            sx={{ mt: 2, width: "100%" }}
+            sx={{ width: "100%" }}
           >
             <Button disableElevation size="small" variant="contained">
               Save
             </Button>
             <Button
               onClick={() => {
-                return setEditRelationOpen(false);
+                return setEditBirthdayMenu(false);
               }}
               disableElevation
               size="small"
@@ -259,4 +334,4 @@ const RelationItem = () => {
   );
 };
 
-export default RelationItem;
+export default BirthdayItem;

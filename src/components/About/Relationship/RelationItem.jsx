@@ -6,52 +6,38 @@
 /* eslint-disable operator-linebreak */
 import React, { useState } from "react";
 
+import LockIcon from "@mui/icons-material/Lock";
+import GroupIcon from "@mui/icons-material/Group";
 import PublicIcon from "@mui/icons-material/Public";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import {
-  Menu,
   Stack,
   Button,
   Select,
   MenuItem,
   Typography,
   IconButton,
-  ListItemIcon,
 } from "@mui/material";
 
-import useData from "../../hooks/data/useData";
-import CustomTooltip from "../shared/CustomTooltip";
+import useData from "../../../hooks/data/useData";
+import CustomTooltip from "../../shared/CustomTooltip";
 
-const PlacesItem = () => {
-  const { countries } = useData();
-  const [editPlaceOpen, setEditPlaceOpen] = useState(false);
-  const [placeMenuAnchor, setPlaceMenuAnchor] = useState(null);
-  const placeMenuOpen = Boolean(placeMenuAnchor);
-  const handleclosePlaceMenu = () => {
-    setPlaceMenuAnchor(null);
-  };
-  const placeItem = {
-    id: "place_id_1",
-    current: true,
+const RelationItem = () => {
+  const { relationship } = useData();
+  const [editRelationOpen, setEditRelationOpen] = useState(false);
+
+  const relationItem = {
+    id: "relation_id_1",
+    status: "Single",
+    relationId: "single",
     visibility: "global",
-    icon: CottageOutlinedIcon,
-    location: {
-      state: "",
-      country: "",
-      city: "London",
-      coOrdinates: {
-        lat: "",
-        long: "",
-      },
-    },
+    icon: FavoriteBorderOutlinedIcon,
   };
 
   return (
     <>
-      {!editPlaceOpen && (
+      {!editRelationOpen && (
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -64,7 +50,7 @@ const PlacesItem = () => {
             alignItems="center"
             gap={2}
           >
-            <placeItem.icon sx={{ fontSize: "40px" }} />
+            <relationItem.icon sx={{ fontSize: "40px" }} />
             <Stack
               gap={0.2}
               direction="column"
@@ -72,10 +58,7 @@ const PlacesItem = () => {
               alignItems="flex-start"
             >
               <Typography sx={{ fontSize: "14px" }}>
-                {placeItem.current && `Lives in`} {placeItem.location.city}
-                {/* {placeItem.location.state && `, ${placeItem.location.state}`}
-                {placeItem.location.country &&
-                  `, ${placeItem.location.country}`} */}
+                {relationItem.status}
               </Typography>
             </Stack>
           </Stack>
@@ -88,73 +71,26 @@ const PlacesItem = () => {
             <CustomTooltip
               padding={4}
               title={
-                placeItem.visibility[0].toUpperCase() +
-                placeItem.visibility.slice(1)
+                relationItem.visibility[0].toUpperCase() +
+                relationItem.visibility.slice(1)
               }
               color="#000"
             >
-              {placeItem.visibility === "global" && <PublicIcon />}
+              {relationItem.visibility === "global" && <PublicIcon />}
             </CustomTooltip>
+
             <IconButton
               disableRipple
-              onClick={(e) => {
-                setPlaceMenuAnchor(e.currentTarget);
+              onClick={() => {
+                setEditRelationOpen(true);
               }}
             >
-              <MoreHorizIcon fontSize="small" />
+              <EditOutlinedIcon fontSize="small" />
             </IconButton>
-            <Menu
-              elevation={1}
-              id="work-menu"
-              anchorEl={placeMenuAnchor}
-              open={placeMenuOpen}
-              onClose={handleclosePlaceMenu}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  mt: 1,
-                  width: "auto",
-                  borderRadius: 2,
-                  overflow: "visible",
-                  backgroundColor: "white",
-                  border: "1px solid #ccc",
-                },
-              }}
-            >
-              <MenuItem
-                sx={{ p: 1, px: 1.5, fontSize: "13px" }}
-                onClick={() => {
-                  setEditPlaceOpen(true);
-                  setPlaceMenuAnchor(null);
-                }}
-              >
-                <ListItemIcon>
-                  <EditOutlinedIcon fontSize="small" />
-                </ListItemIcon>
-                Edit place
-              </MenuItem>
-              <MenuItem sx={{ p: 1, px: 1.5, fontSize: "13px" }}>
-                <ListItemIcon>
-                  <DeleteOutlineIcon fontSize="small" />
-                </ListItemIcon>
-                Delete place
-              </MenuItem>
-            </Menu>
           </Stack>
         </Stack>
       )}
-      {editPlaceOpen && (
+      {editRelationOpen && (
         <Stack
           direction="column"
           justifyContent="flex-start"
@@ -176,8 +112,67 @@ const PlacesItem = () => {
               gap={1}
             >
               <Typography sx={{ fontWeight: 600, fontSize: "16px" }}>
-                Place
+                Relationship Status
               </Typography>
+              <Select
+                id="birthday_visibility_select"
+                value={relationItem.visibility}
+                displayEmpty
+                MenuProps={{
+                  PaperProps: {
+                    elevation: 0,
+                    sx: {
+                      mt: 0.2,
+                      py: 0.6,
+                      backgroundColor: "#fff",
+                      border: "1px solid #ccc",
+                    },
+                  },
+                }}
+                onChange={() => {}}
+                sx={{
+                  my: 1,
+                  width: "140px",
+                  "& .MuiSelect-select": {
+                    p: 0.6,
+                  },
+                }}
+                size="small"
+              >
+                <MenuItem sx={{ px: 0.8, py: 0.8 }} value="only_me">
+                  <Stack
+                    gap={2}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <LockIcon fontSize="small" />
+                    <Typography sx={{ fontSize: "14px" }}>Only Me</Typography>
+                  </Stack>
+                </MenuItem>
+                <MenuItem sx={{ px: 0.8, py: 0.8 }} value="friends">
+                  <Stack
+                    gap={2}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <GroupIcon fontSize="small" />
+                    <Typography sx={{ fontSize: "14px" }}>Friends</Typography>
+                  </Stack>
+                </MenuItem>
+                <MenuItem sx={{ px: 0.8, py: 0.8 }} value="global">
+                  <Stack
+                    gap={2}
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <PublicIcon fontSize="small" />
+                    <Typography sx={{ fontSize: "14px" }}>Global</Typography>
+                  </Stack>
+                </MenuItem>
+              </Select>
               <Stack
                 direction="row"
                 justifyContent="flex-start"
@@ -186,8 +181,8 @@ const PlacesItem = () => {
                 gap={2}
               >
                 <Select
-                  id={`country_code_select_${placeItem.id}`}
-                  value={placeItem.location.country}
+                  id={`relation_status_select_${relationItem.id}`}
+                  value={relationItem.relationId}
                   displayEmpty
                   MenuProps={{
                     PaperProps: {
@@ -213,36 +208,23 @@ const PlacesItem = () => {
                 >
                   <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
                     <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-                      Country
+                      Relationship Status
                     </Typography>
                   </MenuItem>
-                  {countries?.map((country, index) => {
+                  {relationship?.map((relation, index) => {
                     return (
                       <MenuItem
                         key={index}
-                        sx={{ px: 0.8, py: 0.2 }}
-                        value={country.name}
+                        sx={{ px: 0.8, py: 0.8 }}
+                        value={relation.id}
                       >
-                        <Stack
-                          direction="row"
-                          justifyContent="flex-start"
-                          alignItems="center"
-                          gap={1}
+                        <Typography
+                          sx={{
+                            fontSize: "13px",
+                          }}
                         >
-                          <img
-                            alt={country.name}
-                            src={`/flags/${country.alpha2}.png`}
-                            style={{ width: 20, height: 20, maxWidth: "100%" }}
-                          />
-                          <Typography
-                            sx={{
-                              fontSize: "13px",
-                              textTransform: "uppercase",
-                            }}
-                          >
-                            {country.name}
-                          </Typography>
-                        </Stack>
+                          {relation.value}
+                        </Typography>
                       </MenuItem>
                     );
                   })}
@@ -262,7 +244,7 @@ const PlacesItem = () => {
             </Button>
             <Button
               onClick={() => {
-                return setEditPlaceOpen(false);
+                return setEditRelationOpen(false);
               }}
               disableElevation
               size="small"
@@ -277,4 +259,4 @@ const PlacesItem = () => {
   );
 };
 
-export default PlacesItem;
+export default RelationItem;

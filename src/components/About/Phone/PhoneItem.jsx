@@ -23,9 +23,9 @@ import {
   ListItemIcon,
 } from "@mui/material";
 
-import InputField from "../shared/InputField";
-import useData from "../../hooks/data/useData";
-import CustomTooltip from "../shared/CustomTooltip";
+import InputField from "../../shared/InputField";
+import useData from "../../../hooks/data/useData";
+import CustomTooltip from "../../shared/CustomTooltip";
 
 const PhoneItem = () => {
   const { countries } = useData();

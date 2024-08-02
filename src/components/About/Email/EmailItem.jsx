@@ -21,8 +21,8 @@ import {
   ListItemIcon,
 } from "@mui/material";
 
-import InputField from "../shared/InputField";
-import CustomTooltip from "../shared/CustomTooltip";
+import InputField from "../../shared/InputField";
+import CustomTooltip from "../../shared/CustomTooltip";
 
 const EmailItem = () => {
   const [editEmailOpen, setEditEmailOpen] = useState(false);
