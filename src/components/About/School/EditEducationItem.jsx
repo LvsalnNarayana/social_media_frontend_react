@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable max-lines */
 /* eslint-disable no-undefined */
 /* eslint-disable no-negated-condition */
 /* eslint-disable multiline-ternary */
@@ -7,8 +9,6 @@ import React, { useState } from "react";
 import {
   Stack,
   Radio,
-  Select,
-  MenuItem,
   Checkbox,
   Typography,
   FormControlLabel,
@@ -16,12 +16,9 @@ import {
 
 import InputField from "../../shared/InputField";
 import ChangeAudience from "../../shared/ChangeAudience";
+import SelectDateTime from "../../shared/SelectDateTime";
 
 const EditEducationItem = ({ type, schoolItem }) => {
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: currentYear - 1950 + 1 }, (_, index) => {
-    return 1950 + index;
-  });
   const [newSchoolItem, setNewSchoolItem] = useState({
     id: schoolItem?.id || "new",
     city: schoolItem?.city || "",
@@ -75,61 +72,23 @@ const EditEducationItem = ({ type, schoolItem }) => {
         gap={2}
         sx={{ my: 1 }}
       >
-        <Select
+        <SelectDateTime
+          type="year"
           id={`school_from_select_${newSchoolItem?.id}`}
           value={
             newSchoolItem?.startDate !== null && newSchoolItem?.startDate !== ""
               ? moment(newSchoolItem?.startDate).format("YYYY").toString()
               : ""
           }
-          displayEmpty
-          MenuProps={{
-            PaperProps: {
-              elevation: 0,
-              sx: {
-                mt: 0.2,
-                py: 0.4,
-                maxHeight: "200px",
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
-              },
-            },
-          }}
           onChange={(event) => {
             setNewSchoolItem({
               ...newSchoolItem,
               startDate: moment(event.target.value).format("YYYY").toString(),
             });
           }}
-          sx={{
-            my: 0.5,
-            width: "100px",
-            "& .MuiSelect-select": {
-              p: 0.85,
-            },
-          }}
-          size="small"
-        >
-          <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
-            <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-              Year
-            </Typography>
-          </MenuItem>{" "}
-          {years.map((year) => {
-            return (
-              <MenuItem
-                key={year}
-                sx={{ px: 0.8, py: 0.2 }}
-                value={year.toString()}
-              >
-                <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-                  {year.toString()}
-                </Typography>
-              </MenuItem>
-            );
-          })}
-        </Select>
-        <Select
+        />
+        <SelectDateTime
+          type="year"
           id={`school_to_select_${newSchoolItem?.id}`}
           value={
             !newSchoolItem?.graduated
@@ -138,53 +97,13 @@ const EditEducationItem = ({ type, schoolItem }) => {
                 ? moment(newSchoolItem?.endDate).format("YYYY").toString()
                 : moment().format("YYYY").toString()
           }
-          displayEmpty
-          MenuProps={{
-            PaperProps: {
-              elevation: 0,
-              sx: {
-                mt: 0.2,
-                py: 0.4,
-                maxHeight: "200px",
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
-              },
-            },
-          }}
           onChange={(event) => {
             setNewSchoolItem({
               ...newSchoolItem,
               endDate: moment(event.target.value).format("YYYY").toString(),
             });
           }}
-          sx={{
-            my: 0.5,
-            width: "100px",
-            "& .MuiSelect-select": {
-              p: 0.85,
-            },
-          }}
-          size="small"
-        >
-          <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
-            <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-              Year
-            </Typography>
-          </MenuItem>
-          {years.map((year) => {
-            return (
-              <MenuItem
-                key={year}
-                sx={{ px: 0.8, py: 0.2 }}
-                value={year.toString()}
-              >
-                <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-                  {year.toString()}
-                </Typography>
-              </MenuItem>
-            );
-          })}
-        </Select>
+        />
       </Stack>
       <FormControlLabel
         sx={{ "& .MuiTypography-root": { fontSize: "14px" } }}

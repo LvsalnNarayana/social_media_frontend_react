@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable max-lines */
 /* eslint-disable complexity */
 /* eslint-disable no-extra-parens */
@@ -221,7 +222,7 @@ const AboutItem = ({ type, Icon, data }) => {
                   display: "flex",
                   fontSize: "14px",
                   alignItems: "center",
-                  color: emailItem.verified ? "#000" : "#ff000090",
+                  color: data.verified ? "#000" : "#ff000090",
                 }}
               >
                 <ReportProblemIcon fontSize="small" /> Not-verified
@@ -235,7 +236,7 @@ const AboutItem = ({ type, Icon, data }) => {
                   display: "flex",
                   fontSize: "14px",
                   alignItems: "center",
-                  color: emailItem.verified ? "#000" : "#ff000090",
+                  color: data.verified ? "#000" : "#ff000090",
                 }}
               >
                 <ReportProblemIcon fontSize="small" /> Not-verified

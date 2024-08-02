@@ -428,11 +428,14 @@ const About = () => {
               Icon={FavoriteBorderOutlinedIcon}
               type="relationship"
             />
+            <AboutItem
+              key={user?.id}
+              data={user?.info?.birthdate}
+              Icon={CakeOutlinedIcon}
+              type="birthday"
+            />
           </>
         )}
-        <Stack />
-        <Stack />
-        <Stack />
       </Stack>
     </Stack>
   );
