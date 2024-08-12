@@ -58,7 +58,7 @@ const AboutMenu = ({ activeMenu, setActiveMenu }) => {
         </MenuItem>
         <MenuItem
           disableRipple
-          selected={activeMenu === "contact"}
+          selected={activeMenu === "basic_info"}
           onClick={() => {
             return setActiveMenu("basic_info");
           }}

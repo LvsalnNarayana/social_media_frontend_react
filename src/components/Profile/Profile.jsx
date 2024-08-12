@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import About from "../About/About";
 import ProfileMenu from "./ProfileMenu";
 import UserGroup from "../shared/UserGroup";
 import UserAvatar from "../shared/UserAvatar";
@@ -21,6 +22,8 @@ import useData from "../../hooks/data/useData";
 
 const Profile = () => {
   const { user } = useData();
+
+  const [activeTab, setActiveTab] = useState("posts");
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const profileMenuOpen = Boolean(profileMenuAnchor);
   const handleProfileMenuClick = (event) => {
@@ -140,7 +143,9 @@ const Profile = () => {
           </Stack>
         </Stack>
         <Divider sx={{ mt: 8, mb: 2 }} />
-        <ProfileMenu />
+        <ProfileMenu activeTab={activeTab} setActiveTab={setActiveTab} />
+        {activeTab === "posts" && <About />}
+        {activeTab === "about" && <About />}
       </Container>
     </Stack>
   );

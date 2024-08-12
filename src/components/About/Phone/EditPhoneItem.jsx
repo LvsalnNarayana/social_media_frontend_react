@@ -10,13 +10,13 @@ import ChangeAudience from "../../shared/ChangeAudience";
 const EditPhoneItem = ({ phoneItem }) => {
   const { countries } = useData();
   const [newPhoneItem, setNewPhoneItem] = useState({
-    id: phoneItem.id || "",
-    phone: phoneItem.phone || "",
-    country: phoneItem.country || "",
-    primary: phoneItem.primary || false,
-    verified: phoneItem.verified || false,
-    countryCode: phoneItem.countryCode || "",
-    visibility: phoneItem.visibility || "global",
+    id: phoneItem?.id || "",
+    phone: phoneItem?.phone || "",
+    country: phoneItem?.country || "",
+    primary: phoneItem?.primary || false,
+    verified: phoneItem?.verified || false,
+    countryCode: phoneItem?.countryCode || "",
+    visibility: phoneItem?.visibility || "global",
   });
 
   return (
@@ -44,8 +44,8 @@ const EditPhoneItem = ({ phoneItem }) => {
           gap={2}
         >
           <Select
-            id={`country_code_select_${newPhoneItem.id}`}
-            value={newPhoneItem.country}
+            id={`country_code_select_${newPhoneItem?.id}`}
+            value={newPhoneItem?.country}
             displayEmpty
             MenuProps={{
               PaperProps: {
@@ -112,7 +112,7 @@ const EditPhoneItem = ({ phoneItem }) => {
           </Select>
           <InputField
             name="phone"
-            value={newPhoneItem.phone}
+            value={newPhoneItem?.phone}
             changeValue={(value) => {
               setNewPhoneItem({ ...newPhoneItem, phone: value });
             }}

@@ -1,11 +1,9 @@
 /* eslint-disable multiline-ternary */
-import React, { useState } from "react";
+import React from "react";
 
 import { Stack, Button } from "@mui/material";
 
-const ProfileMenu = () => {
-  const [activeTab, setActiveTab] = useState("posts");
-
+const ProfileMenu = ({ activeTab, setActiveTab }) => {
   return (
     <Stack
       direction="row"

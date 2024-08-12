@@ -33,7 +33,7 @@ const UserGroup = ({ sx, users, length }) => {
                 border: "3px solid white",
               }}
             >
-              <UserAvatar username={friend.username} width={24} />
+              <UserAvatar username={friend.username} width={32} />
             </div>
           </CustomTooltip>
         );

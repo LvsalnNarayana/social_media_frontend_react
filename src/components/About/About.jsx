@@ -2,6 +2,8 @@
 /* eslint-disable operator-linebreak */
 import React, { useState } from "react";
 
+import MaleIcon from "@mui/icons-material/Male";
+import FemaleIcon from "@mui/icons-material/Female";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
@@ -15,6 +17,8 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import AboutItem from "./AboutItem";
 import AboutMenu from "./AboutMenu";
 import useData from "../../hooks/data/useData";
+import EditEmailItem from "./Email/EditEmailItem";
+import EditPhoneItem from "./Phone/EditPhoneItem";
 import EditPlacesItem from "./Places/EditPlacesItem";
 import EditWorkplaceItem from "./Work/EditWorkplaceItem";
 import EditEducationItem from "./School/EditEducationItem";
@@ -25,6 +29,8 @@ const About = () => {
   const [addUniversityOpen, setAddUniversityOpen] = useState(false);
   const [addWorkOpen, setAddWorkOpen] = useState(false);
   const [addPlaceOpen, setAddPlaceOpen] = useState(false);
+  const [addEmailOpen, setAddEmailOpen] = useState(false);
+  const [addPhoneOpen, setAddPhoneOpen] = useState(false);
   const { user } = useData();
 
   return (
@@ -33,7 +39,13 @@ const About = () => {
       direction="row"
       justifyContent="flex-start"
       alignItems="flex-start"
-      sx={{ px: 2, width: "100%", borderRadius: 2, border: "1px solid #ccc" }}
+      sx={{
+        my: 3,
+        px: 2,
+        width: "100%",
+        borderRadius: 2,
+        border: "1px solid #ccc",
+      }}
     >
       <AboutMenu
         activeMenu={activeMenu}
@@ -398,6 +410,65 @@ const About = () => {
         )}
         {activeMenu === "basic_info" && (
           <>
+            <AboutItem
+              data={user?.gender}
+              Icon={user?.gender === "Male" ? MaleIcon : FemaleIcon}
+              type="gender"
+            />
+            {!addEmailOpen && (
+              <>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: 600, fontSize: "18px" }}
+                >
+                  Email
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  onClick={() => {
+                    return setAddEmailOpen(true);
+                  }}
+                  sx={{
+                    gap: 1,
+                    color: "blue",
+                    display: "flex",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                    alignItems: "center",
+                  }}
+                >
+                  <ControlPointIcon />
+                  Add Email
+                </Typography>
+              </>
+            )}
+            {addEmailOpen && (
+              <>
+                <EditEmailItem /> <Divider sx={{ width: "100%" }} />
+                <Stack
+                  width="100%"
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Button disableElevation size="small" variant="contained">
+                    Save
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setAddEmailOpen(false);
+                    }}
+                    disableElevation
+                    size="small"
+                    variant="outlined"
+                  >
+                    Cancel
+                  </Button>
+                </Stack>
+              </>
+            )}
             {user?.info?.email
               ?.filter((email) => {
                 return email?.primary === true;
@@ -412,6 +483,61 @@ const About = () => {
                   />
                 );
               })}
+            {!addPhoneOpen && (
+              <>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: 600, fontSize: "18px" }}
+                >
+                  Phone
+                </Typography>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  onClick={() => {
+                    return setAddPhoneOpen(true);
+                  }}
+                  sx={{
+                    gap: 1,
+                    color: "blue",
+                    display: "flex",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                    alignItems: "center",
+                  }}
+                >
+                  <ControlPointIcon />
+                  Add Phone
+                </Typography>
+              </>
+            )}
+            {addPhoneOpen && (
+              <>
+                <EditPhoneItem />
+                <Divider sx={{ width: "100%" }} />
+                <Stack
+                  width="100%"
+                  direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Button disableElevation size="small" variant="contained">
+                    Save
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setAddPhoneOpen(false);
+                    }}
+                    disableElevation
+                    size="small"
+                    variant="outlined"
+                  >
+                    Cancel
+                  </Button>
+                </Stack>
+              </>
+            )}
             {user?.info?.phone?.map((phoneItem) => {
               return (
                 <AboutItem
@@ -423,13 +549,11 @@ const About = () => {
               );
             })}
             <AboutItem
-              key={user?.id}
               data={user?.info?.relationship}
               Icon={FavoriteBorderOutlinedIcon}
               type="relationship"
             />
             <AboutItem
-              key={user?.id}
               data={user?.info?.birthdate}
               Icon={CakeOutlinedIcon}
               type="birthday"

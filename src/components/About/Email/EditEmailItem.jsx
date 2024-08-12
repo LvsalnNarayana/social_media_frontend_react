@@ -8,10 +8,10 @@ import ChangeAudience from "../../shared/ChangeAudience";
 const EditEmailItem = ({ emailItem }) => {
   const [newEmailItem, setNewEmailItem] = useState({
     id: emailItem?.id || "",
-    email: emailItem.email || "",
-    primary: emailItem.primary || false,
-    verified: emailItem.verified || false,
-    visibility: emailItem.visibility || "global",
+    email: emailItem?.email || "",
+    primary: emailItem?.primary || false,
+    verified: emailItem?.verified || false,
+    visibility: emailItem?.visibility || "global",
   });
 
   return (
@@ -34,8 +34,8 @@ const EditEmailItem = ({ emailItem }) => {
         </Typography>
         <ChangeAudience label />
         <InputField
-          value={newEmailItem.email}
-          name={`email__${newEmailItem.id}`}
+          value={newEmailItem?.email}
+          name={`email__${newEmailItem?.id}`}
           placeholder="Email"
           sx={{ width: "100%" }}
           changeValue={(value) => {

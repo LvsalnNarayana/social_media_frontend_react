@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable max-lines */
 /* eslint-disable complexity */
 /* eslint-disable no-extra-parens */
@@ -7,18 +6,9 @@ import moment from "moment";
 import React, { useState } from "react";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import SportsMartialArtsOutlinedIcon from "@mui/icons-material/SportsMartialArtsOutlined";
 import {
   Menu,
   Stack,
@@ -30,6 +20,7 @@ import {
   ListItemIcon,
 } from "@mui/material";
 
+import EditGender from "./Gender/EditGender";
 import EditEmailItem from "./Email/EditEmailItem";
 import EditPhoneItem from "./Phone/EditPhoneItem";
 import EditPlacesItem from "./Places/EditPlacesItem";
@@ -45,87 +36,6 @@ const AboutItem = ({ type, Icon, data }) => {
   const menuOpen = Boolean(menuAnchor);
   const handleCloseMenu = () => {
     setMenuAnchor(null);
-  };
-  const workItem = {
-    current: true,
-    city: "Bangalore",
-    tooltip: "Global",
-    visibility: "public",
-    endDate: "2023-12-31",
-    startDate: "2021-01-01",
-    icon: <WorkOutlineIcon />,
-    position: "Software Engineer",
-    title: "Works at Amazon India",
-    description: "Working on cloud computing technologies.",
-  };
-
-  const schoolItem = {
-    city: "London",
-    graduated: true,
-    tooltip: "Global",
-    position: "Student",
-    visibility: "public",
-    endDate: "2015-06-30",
-    startDate: "2010-09-01",
-    school: "King's College",
-    icon: <SchoolOutlinedIcon />,
-    attendedFor: "BSc Computer Science",
-    description: "Studied various computer science subjects.",
-    courses: [
-      {
-        grade: "A",
-        name: "Introduction to Programming",
-      },
-      {
-        grade: "A+",
-        name: "Data Structures and Algorithms",
-      },
-    ],
-  };
-
-  const cityItem = {
-    endDate: "",
-    position: "",
-    current: true,
-    city: "London",
-    tooltip: "Global",
-    visibility: "public",
-    startDate: "2018-01-01",
-    title: "Lives in London",
-    icon: <CottageOutlinedIcon />,
-    description: "Living in the heart of the city.",
-  };
-
-  const relationItem = {
-    status: "Single",
-    visibility: "public",
-    icon: <FavoriteBorderOutlinedIcon />,
-  };
-
-  const hobbiesItem = {
-    visibility: "friends",
-    icon: <SportsMartialArtsOutlinedIcon />,
-    hobbies: ["Reading", "Traveling", "Photography", "Cooking"],
-  };
-  const languagesItem = {
-    visibility: "public",
-    icon: <LanguageOutlinedIcon />,
-    languages: ["English", "Spanish", "French"],
-  };
-  const phoneItem = {
-    phone: "+1234567890",
-    visibility: "public",
-    icon: <LocalPhoneOutlinedIcon />,
-  };
-  const emailItem = {
-    visibility: "public",
-    email: "narayana@example.com",
-    icon: <MailOutlineOutlinedIcon />,
-  };
-  const birthdayItem = {
-    date: "24-10-2023",
-    visibility: "public",
-    icon: <CakeOutlinedIcon />,
   };
 
   return (
@@ -193,6 +103,14 @@ const AboutItem = ({ type, Icon, data }) => {
               {type === "email" && (
                 <Typography sx={{ fontSize: "14px" }}>{data.email}</Typography>
               )}
+              {type === "gender" && (
+                <>
+                  <Typography sx={{ fontSize: "14px" }}>
+                    {data.value}
+                  </Typography>
+                  <Typography sx={{ fontSize: "12px" }}>Gender</Typography>
+                </>
+              )}
               {type === "phone" && (
                 <Typography sx={{ fontSize: "14px" }}>
                   {data.countryCode} {data.phone}
@@ -242,15 +160,29 @@ const AboutItem = ({ type, Icon, data }) => {
                 <ReportProblemIcon fontSize="small" /> Not-verified
               </Typography>
             )}
-            <ChangeAudience />
-            <IconButton
-              disableRipple
-              onClick={(event) => {
-                return setMenuAnchor(event.currentTarget);
-              }}
-            >
-              <MoreHorizIcon fontSize="small" />
-            </IconButton>
+            {type === "gender" && (
+              <IconButton
+                disableRipple
+                onClick={() => {
+                  return setEditItem(true);
+                }}
+              >
+                <EditOutlinedIcon fontSize="small" />
+              </IconButton>
+            )}
+            {type !== "gender" && (
+              <>
+                <ChangeAudience />
+                <IconButton
+                  disableRipple
+                  onClick={(event) => {
+                    return setMenuAnchor(event.currentTarget);
+                  }}
+                >
+                  <MoreHorizIcon fontSize="small" />
+                </IconButton>
+              </>
+            )}
             <Menu
               elevation={1}
               id="work-menu"
@@ -317,6 +249,7 @@ const AboutItem = ({ type, Icon, data }) => {
           {type === "email" && <EditEmailItem emailItem={data} />}
           {type === "place" && <EditPlacesItem placeItem={data} />}
           {type === "phone" && <EditPhoneItem phoneItem={data} />}
+          {type === "gender" && <EditGender gender={data} />}
           {type === "birthday" && <EditBirthdayItem birthdayItem={data} />}
           {type === "relationship" && <EditRelationItem relationItem={data} />}
           <Divider sx={{ width: "100%" }} />
