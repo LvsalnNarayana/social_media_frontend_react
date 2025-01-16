@@ -294,7 +294,7 @@
 			"error"
 		],
 		"no-console": [
-			"error"
+			"off"
 		],
 		"no-const-assign": [
 			"error"

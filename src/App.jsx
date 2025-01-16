@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import ReactJson from "react-json-view";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
+import { Route, Routes } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,11 +16,11 @@ import "./App.css";
 import OTP from "./components/OTP/OTP";
 import Post from "./components/Post/Post";
 import useData from "./hooks/data/useData";
-import Login from "./components/Login/Login";
 import Story from "./components/Story/Story";
 import About from "./components/About/About";
 import Drawer from "./components/Drawer/Drawer";
 import Signup from "./components/Signup/Signup";
+import Signin from "./components/Signin/Signin";
 import { selectAppState } from "./state/appSlice";
 import Profile from "./components/Profile/Profile";
 import { selectPostDraft } from "./state/createPost";
@@ -31,6 +32,7 @@ import Notification from "./components/Notifications/Notification";
 import ResetPassword from "./components/Reset Password/ResetPassword";
 import ForgotPassword from "./components/Forgot Password/ForgotPassword";
 import NotificationContainer from "./components/Notifications/NotificationContainer";
+import Feed from "./pages/Feed";
 
 const drawerWidth = 320;
 
@@ -51,10 +53,6 @@ const App = () => {
     otp: {
       name: "O T P",
       component: <OTP />,
-    },
-    login: {
-      name: "Login",
-      component: <Login />,
     },
     about: {
       name: "About",
@@ -126,110 +124,20 @@ const App = () => {
     },
   };
 
+  const routerComponent = () => {
+    return (
+      <Routes>
+        <Route path="/" element={<Feed />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<Typography>Not Found</Typography>} />
+      </Routes>
+    );
+  };
+
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        <Stack
-          component="nav"
-          sx={{
-            overflowY: "auto",
-            maxHeight: "100vh",
-            flexShrink: { sm: 0 },
-            width: { sm: drawerWidth },
-          }}
-        >
-          <Drawer />
-        </Stack>
-        <Stack
-          sx={{
-            width: "100%",
-            height: "100vh",
-            maxHeight: "100vh",
-            overflow: "hidden",
-          }}
-        >
-          <Stack
-            sx={{
-              top: 0,
-              zIndex: 1201,
-              boxShadow: "none",
-              position: "sticky",
-              width: { sm: `100%` },
-              backgroundColor: "#1434A4",
-            }}
-          >
-            <Typography variant="h6" sx={{ p: 1, color: "white" }}>
-              Social Media
-            </Typography>
-          </Stack>
-          <Stack
-            component="main"
-            direction="row"
-            justifyContent="center"
-            alignItems="flex-start"
-            sx={{
-              flexGrow: 1,
-            }}
-          >
-            <Stack
-              justifyContent="flex-start"
-              alignItems="center"
-              width="50%"
-              flexGrow={1}
-              sx={{
-                p: 3,
-                width: "50%",
-                height: "100%",
-                overflowY: "auto",
-                maxHeight: "calc(100vh - 50px)",
-              }}
-            >
-              {components[activeComponent].component}
-            </Stack>
-            <Divider orientation="vertical" flexItem />
-            {components[activeComponent].name !== "Profile" &&
-              components[activeComponent].name !== "About" && (
-                <Stack
-                  justifyContent="flex-start"
-                  alignItems="flex-start"
-                  flexGrow={1}
-                  sx={{
-                    p: 3,
-                    width: "50%",
-                    overflowY: "auto",
-                    maxHeight: "calc(100vh - 50px)",
-                  }}
-                >
-                  <Button
-                    size="small"
-                    variant="contained"
-                    disableElevation
-                    sx={{ mb: 2, ml: "auto" }}
-                    onClick={() => {
-                      setCollapseJson(!collapseJson);
-                    }}
-                  >
-                    Collapse All
-                  </Button>
-                  <ReactJson
-                    src={components[activeComponent].data}
-                    name={components[activeComponent].name}
-                    shouldCollapse={({ name }) => {
-                      return components[activeComponent]?.fields?.includes(
-                        name,
-                      );
-                    }}
-                    collapsed={collapseJson}
-                    enableClipboard={false}
-                    displayDataTypes={false}
-                    displayObjectSize={false}
-                    collapseStringsAfterLength={60}
-                  />
-                </Stack>
-              )}
-          </Stack>
-        </Stack>
-      </Box>
+      {routerComponent()}
       <Toaster
         position="top-center"
         reverseOrder={false}

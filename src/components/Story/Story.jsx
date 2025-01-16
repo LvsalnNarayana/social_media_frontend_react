@@ -59,9 +59,10 @@ const Story = () => {
         direction="row"
         justifyContent="flex-start"
         alignItems="center"
+        flexShrink={0}
         sx={{
           width: 160,
-          height: 260,
+          height: 230,
           borderRadius: 5,
           cursor: "pointer",
           overflow: "hidden",
@@ -81,7 +82,7 @@ const Story = () => {
             height: "100%",
             borderRadius: 5,
             position: "absolute",
-            backgroundColor: "#00000040",
+            backgroundColor: "#00000080",
           }}
         />
         <Stack
@@ -91,7 +92,7 @@ const Story = () => {
           sx={{
             top: 12,
             left: 12,
-            zIndex: 1000,
+            zIndex: 100,
             position: "absolute",
           }}
           gap={1}

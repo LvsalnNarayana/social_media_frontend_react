@@ -136,15 +136,10 @@ export const generateThemeOptions = (appTheme) => {
       MuiCssBaseline: {
         styleOverrides: {
           body: {
-            scrollbarColor: "#dadada",
+            scrollbarColor: "#fff",
 
             "&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner": {
-              backgroundColor: "#dadada",
-            },
-
-            "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
-              width: "8px",
-              backgroundColor: "#dadada",
+              backgroundColor: "#fff",
             },
 
             "&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus":
@@ -162,11 +157,15 @@ export const generateThemeOptions = (appTheme) => {
                 backgroundColor: "#A7A7A7",
               },
 
+            "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+              height: 8,
+              width: "8px",
+              backgroundColor: "#fff",
+            },
+
             "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
               borderRadius: 8,
-
               backgroundColor: "#A7A7A7",
-
               border: "3px solid #A7A7A7",
             },
           },

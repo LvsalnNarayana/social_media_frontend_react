@@ -62,10 +62,8 @@ const SearchBar = () => {
         sx={{
           width: "100%",
           border: "none",
+          borderRadius: 2,
           outline: "none",
-          "& .MuiInputBase-root": {
-            fontSize: "14px",
-          },
           "& .MuiInputBase-root:placeholder": {
             fontSize: "14px",
           },
@@ -77,9 +75,18 @@ const SearchBar = () => {
             border: 0,
             outline: "none",
           },
+          "& .MuiInputBase-root": {
+            fontSize: "14px",
+            backgroundColor: "#fff",
+          },
+          "& .MuiInputBase-input": {
+            px: 1.2,
+            py: 0.7,
+            outline: "none",
+          },
           "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
             {
-              border: 1,
+              border: 0,
               borderColor: "dodgerblue",
             },
         }}

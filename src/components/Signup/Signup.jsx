@@ -9,6 +9,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines */
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Stack, Button, Select, MenuItem, Typography } from "@mui/material";
@@ -111,266 +112,276 @@ const Signup = () => {
 
   return (
     <Stack
-      direction="column"
+      width="100vw"
+      height="100vh"
       justifyContent="center"
       alignItems="center"
-      gap={0}
-      sx={{ p: 2, width: 450, borderRadius: 5, border: "1px solid #ccc" }}
+      sx={{ overflowY: "auto", overflowX: "hidden" }}
     >
-      <Typography
-        variant="h3"
-        sx={{ mb: 6, fontWeight: 600, fontSize: "20px" }}
-      >
-        Signup
-      </Typography>
-
       <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        flex="1 1 0"
-        width="100%"
-        gap={1}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+        sx={{ p: 3, width: 450, borderRadius: 5, border: "1px solid #ccc" }}
       >
+        <Typography variant="h3" sx={{ fontWeight: 600, fontSize: "20px" }}>
+          Signup
+        </Typography>
+
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          flex="1 1 0"
+          width="100%"
+          gap={1}
+        >
+          <InputField
+            name="firstname"
+            disabled={validating}
+            value={signup.firstname}
+            changeValue={(value) => {
+              dispatch(setSignup({ ...signup, firstname: value }));
+              dispatch(setSignupErrors({ ...signup_errors, firstname: "" }));
+            }}
+            placeholder="Firstname"
+            error={signup_errors.firstname}
+          />
+          <InputField
+            name="firstname"
+            disabled={validating}
+            value={signup.lastname}
+            changeValue={(value) => {
+              dispatch(setSignup({ ...signup, lastname: value }));
+              dispatch(setSignupErrors({ ...signup_errors, lastname: "" }));
+            }}
+            placeholder="Lastname"
+            error={signup_errors.lastname}
+          />
+        </Stack>
         <InputField
-          name="firstname"
-          disabled={validating}
-          value={signup.firstname}
-          changeValue={(value) => {
-            dispatch(setSignup({ ...signup, firstname: value }));
-            dispatch(setSignupErrors({ ...signup_errors, firstname: "" }));
-          }}
-          placeholder="Firstname"
-          error={signup_errors.firstname}
-        />
-        <InputField
-          name="firstname"
+          name="email"
           disabled={validating}
           value={signup.lastname}
           changeValue={(value) => {
-            dispatch(setSignup({ ...signup, lastname: value }));
-            dispatch(setSignupErrors({ ...signup_errors, lastname: "" }));
+            dispatch(setSignup({ ...signup, email: value }));
+            dispatch(setSignupErrors({ ...signup_errors, email: "" }));
           }}
-          placeholder="Lastname"
-          error={signup_errors.lastname}
+          placeholder="Email"
+          error={signup_errors.email}
         />
-      </Stack>
-      <InputField
-        name="email"
-        disabled={validating}
-        value={signup.lastname}
-        changeValue={(value) => {
-          dispatch(setSignup({ ...signup, email: value }));
-          dispatch(setSignupErrors({ ...signup_errors, email: "" }));
-        }}
-        placeholder="Email"
-        error={signup_errors.email}
-      />
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        width="100%"
-        gap={2}
-      >
-        <Select
-          id="country_code_select"
-          value={signup.countryCode}
-          displayEmpty
-          disabled={validating}
-          MenuProps={{
-            PaperProps: {
-              elevation: 0,
-              sx: {
-                mt: 1,
-                py: 0.4,
-                maxHeight: "200px",
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
-              },
-            },
-          }}
-          onChange={(e) => {
-            dispatch(setSignup({ ...signup, countryCode: e.target.value }));
-          }}
-          sx={{
-            my: 0.5,
-            width: "150px",
-            "& .MuiSelect-select": {
-              p: 0.85,
-            },
-          }}
-          size="small"
+        <Stack
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          width="100%"
+          gap={2}
         >
-          <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
-            <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
-              code
-            </Typography>
-          </MenuItem>
-          {countries?.map((country, index) => {
-            return (
-              <MenuItem
-                key={index}
-                sx={{ px: 0.8, py: 0.2 }}
-                value={country.alpha2}
-              >
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  gap={1}
+          <Select
+            id="country_code_select"
+            value={signup.countryCode}
+            displayEmpty
+            disabled={validating}
+            MenuProps={{
+              PaperProps: {
+                elevation: 0,
+                sx: {
+                  mt: 1,
+                  py: 0.4,
+                  maxHeight: "200px",
+                  backgroundColor: "#fff",
+                  border: "1px solid #ccc",
+                },
+              },
+            }}
+            onChange={(e) => {
+              dispatch(setSignup({ ...signup, countryCode: e.target.value }));
+            }}
+            sx={{
+              my: 0.5,
+              width: "150px",
+              "& .MuiSelect-select": {
+                p: 0.85,
+              },
+            }}
+            size="small"
+          >
+            <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
+              <Typography sx={{ fontSize: "13px", textAlign: "center" }}>
+                code
+              </Typography>
+            </MenuItem>
+            {countries?.map((country, index) => {
+              return (
+                <MenuItem
+                  key={index}
+                  sx={{ px: 0.8, py: 0.2 }}
+                  value={country.alpha2}
                 >
-                  <img
-                    alt={country.name}
-                    src={`/flags/${country.alpha2}.png`}
-                    style={{ width: 20, height: 20, maxWidth: "100%" }}
-                  />
-                  <Typography
-                    sx={{ fontSize: "13px", textTransform: "uppercase" }}
+                  <Stack
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    gap={1}
                   >
-                    {country.alpha2}
-                  </Typography>
-                </Stack>
-              </MenuItem>
-            );
-          })}
-        </Select>
+                    <img
+                      alt={country.name}
+                      src={`/flags/${country.alpha2}.png`}
+                      style={{ width: 20, height: 20, maxWidth: "100%" }}
+                    />
+                    <Typography
+                      sx={{ fontSize: "13px", textTransform: "uppercase" }}
+                    >
+                      {country.alpha2}
+                    </Typography>
+                  </Stack>
+                </MenuItem>
+              );
+            })}
+          </Select>
+          <InputField
+            name="phone"
+            disabled={validating}
+            value={signup.phone}
+            changeValue={(value) => {
+              dispatch(setSignup({ ...signup, phone: value }));
+              dispatch(setSignupErrors({ ...signup_errors, phone: "" }));
+            }}
+            placeholder="Phone"
+            error={signup_errors.phone}
+          />
+        </Stack>
         <InputField
-          name="phone"
+          name="birthday"
           disabled={validating}
-          value={signup.phone}
+          value={signup.birthday}
           changeValue={(value) => {
-            dispatch(setSignup({ ...signup, phone: value }));
-            dispatch(setSignupErrors({ ...signup_errors, phone: "" }));
+            dispatch(setSignup({ ...signup, birthday: value }));
+            dispatch(setSignupErrors({ ...signup_errors, birthday: "" }));
           }}
-          placeholder="Phone"
-          error={signup_errors.phone}
+          placeholder="Birthday"
+          error={signup_errors.birthday}
         />
-      </Stack>
-      <InputField
-        name="birthday"
-        disabled={validating}
-        value={signup.birthday}
-        changeValue={(value) => {
-          dispatch(setSignup({ ...signup, birthday: value }));
-          dispatch(setSignupErrors({ ...signup_errors, birthday: "" }));
-        }}
-        placeholder="Birthday"
-        error={signup_errors.birthday}
-      />
-      <InputField
-        name="passowrd"
-        disabled={validating}
-        value={signup.passowrd}
-        changeValue={(value) => {
-          dispatch(setSignup({ ...signup, passowrd: value }));
-          dispatch(setSignupErrors({ ...signup_errors, passowrd: "" }));
-        }}
-        placeholder="Password"
-        error={signup_errors.password}
-      />
-      <InputField
-        name="confirm_password"
-        disabled={validating}
-        value={signup.confirmPassword}
-        changeValue={(value) => {
-          dispatch(setSignup({ ...signup, confirmPassword: value }));
-          dispatch(setSignupErrors({ ...signup_errors, confirmPassword: "" }));
-        }}
-        placeholder="Confirm Password"
-        error={signup_errors.confirmPassword}
-      />
-      <Stack
-        direction="column"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        sx={{ mb: 2, width: "100%" }}
-        gap={0}
-      >
-        <Select
-          id="country_code_select"
-          value={signup.location}
-          displayEmpty
-          fullWidth
+        <InputField
+          name="passowrd"
           disabled={validating}
-          MenuProps={{
-            PaperProps: {
-              elevation: 0,
-              sx: {
-                mt: 1,
-                py: 0.4,
-                maxWidth: "100%",
-                maxHeight: "200px",
-                backgroundColor: "#fff",
-                border: "1px solid #ccc",
-              },
-            },
+          value={signup.passowrd}
+          changeValue={(value) => {
+            dispatch(setSignup({ ...signup, passowrd: value }));
+            dispatch(setSignupErrors({ ...signup_errors, passowrd: "" }));
           }}
-          onChange={(e) => {
-            dispatch(setSignup({ ...signup, location: e.target.value }));
-          }}
-          sx={{
-            p: 0.1,
-            my: 0.5,
-            width: "100%",
-            "& .MuiSelect-select": {
-              p: 0.7,
-            },
-          }}
-          size="small"
-        >
-          <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
-            <Typography sx={{ fontSize: "13px", color: "#00000060" }}>
-              Location
-            </Typography>
-          </MenuItem>
-          {countries?.map((country, index) => {
-            return (
-              <MenuItem
-                key={index}
-                sx={{ px: 0.8, py: 0.2 }}
-                value={country.alpha2}
-              >
-                <Stack
-                  direction="row"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                  gap={1}
-                >
-                  <img
-                    alt={country.name}
-                    src={`/flags/${country.alpha2}.png`}
-                    style={{ width: 20, height: 20, maxWidth: "100%" }}
-                  />
-                  <Typography sx={{ fontSize: "13px" }}>
-                    {country.name}
-                  </Typography>
-                </Stack>
-              </MenuItem>
+          placeholder="Password"
+          error={signup_errors.password}
+        />
+        <InputField
+          name="confirm_password"
+          disabled={validating}
+          value={signup.confirmPassword}
+          changeValue={(value) => {
+            dispatch(setSignup({ ...signup, confirmPassword: value }));
+            dispatch(
+              setSignupErrors({ ...signup_errors, confirmPassword: "" }),
             );
-          })}
-        </Select>
-        {signup_errors.location !== "" &&
-          signup_errors.location !== null &&
-          signup_errors.location !== undefined && (
-            <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
-              {signup_errors.location}
-            </Typography>
-          )}
+          }}
+          placeholder="Confirm Password"
+          error={signup_errors.confirmPassword}
+        />
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          sx={{ width: "100%" }}
+          gap={0}
+        >
+          <Select
+            id="country_code_select"
+            value={signup.location}
+            displayEmpty
+            fullWidth
+            disabled={validating}
+            MenuProps={{
+              PaperProps: {
+                elevation: 0,
+                sx: {
+                  mt: 1,
+                  py: 0.4,
+                  maxWidth: "100%",
+                  maxHeight: "200px",
+                  backgroundColor: "#fff",
+                  border: "1px solid #ccc",
+                },
+              },
+            }}
+            onChange={(e) => {
+              dispatch(setSignup({ ...signup, location: e.target.value }));
+            }}
+            sx={{
+              p: 0.1,
+              my: 0.5,
+              width: "100%",
+              "& .MuiSelect-select": {
+                p: 0.7,
+              },
+            }}
+            size="small"
+          >
+            <MenuItem sx={{ px: 0.8, py: 0.2 }} value="" disabled>
+              <Typography sx={{ fontSize: "13px", color: "#00000060" }}>
+                Location
+              </Typography>
+            </MenuItem>
+            {countries?.map((country, index) => {
+              return (
+                <MenuItem
+                  key={index}
+                  sx={{ px: 0.8, py: 0.2 }}
+                  value={country.alpha2}
+                >
+                  <Stack
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <img
+                      alt={country.name}
+                      src={`/flags/${country.alpha2}.png`}
+                      style={{ width: 20, height: 20, maxWidth: "100%" }}
+                    />
+                    <Typography sx={{ fontSize: "13px" }}>
+                      {country.name}
+                    </Typography>
+                  </Stack>
+                </MenuItem>
+              );
+            })}
+          </Select>
+          {signup_errors.location !== "" &&
+            signup_errors.location !== null &&
+            signup_errors.location !== undefined && (
+              <Typography sx={{ ml: 0.5, color: "red", fontSize: "11px" }}>
+                {signup_errors.location}
+              </Typography>
+            )}
+        </Stack>
+        <Button
+          onClick={(e) => {
+            return handleSubmit(e);
+          }}
+          variant="contained"
+          disableElevation
+          disableRipple
+          size="small"
+          color="success"
+          sx={{ mx: "auto", width: "100%" }}
+        >
+          Signup
+        </Button>
+        <Typography variant="body1" fontSize={12}>
+          Already have an account? <Link to="/signin">Signin</Link>
+        </Typography>
       </Stack>
-      <Button
-        onClick={(e) => {
-          return handleSubmit(e);
-        }}
-        variant="contained"
-        disableElevation
-        disableRipple
-        size="small"
-        color="success"
-        sx={{ mt: 3, mx: "auto", width: "80%" }}
-      >
-        Signup
-      </Button>
     </Stack>
   );
 };

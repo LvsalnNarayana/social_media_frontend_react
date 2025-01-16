@@ -1,3 +1,4 @@
+/* eslint-disable wrap-regex */
 /* eslint-disable prettier/prettier */
 /* eslint-disable require-unicode-regexp */
 import React, { useState, useEffect } from "react";
@@ -17,11 +18,11 @@ const PasswordCriteriaChecker = ({ sx, password }) => {
 
   useEffect(() => {
     setPasswordCriteria({
+      number: /\d/.test(password),
       length: password.length >= 8,
-      number: (/\d/).test(password),
-      small: (/[a-z]/).test(password),
-      capital: (/[A-Z]/).test(password),
-      symbol: (/[!@#$%^&*(),.?":{}|<>]/).test(password),
+      small: /[a-z]/.test(password),
+      capital: /[A-Z]/.test(password),
+      symbol: /[!@#$%^&*(),.?":{}|<>]/.test(password),
     });
   }, [password]);
 
