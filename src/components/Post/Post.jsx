@@ -23,7 +23,7 @@ const Post = () => {
       sx={{
         p: 2,
         boxShadow: 1,
-        maxWidth: 450,
+        maxWidth: "100%",
         borderRadius: 2,
       }}
     >

@@ -21,9 +21,9 @@ const CreatePost = () => {
         alignItems="column"
         sx={{
           p: 3,
-          width: "500px",
+          width: "100%",
           borderRadius: 3,
-          maxWidth: "500px",
+          maxWidth: "100%",
           border: "1px solid #00000030",
         }}
       >
