@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Box,
@@ -11,50 +12,85 @@ import {
   ListItemButton,
 } from "@mui/material";
 
-import UserAvatar from "../shared/UserAvatar";
-
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   return (
     <Stack direction="row" flexGrow={1} sx={{ top: 0, position: "sticky" }}>
       <Stack width="100%" p={2}>
         <List>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            sx={{ borderRadius: 2 }}
+            onClick={() => {
+              return navigate("/");
+            }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
-              <UserAvatar username="harry_potter" width={30} height={30} />
+              <Box component="img" src="/home.png" width={30} height={30} />
             </ListItemIcon>
-            <ListItemText>Harry Potter</ListItemText>
+            <ListItemText>Home</ListItemText>
           </ListItemButton>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/friends");
+            }}
+            sx={{ borderRadius: 2 }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
               <Box component="img" src="/friends.png" width={30} height={30} />
             </ListItemIcon>
             <ListItemText>Friends</ListItemText>
           </ListItemButton>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/stories");
+            }}
+            sx={{ borderRadius: 2 }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
               <Box component="img" src="/stories.png" width={30} height={30} />
             </ListItemIcon>
             <ListItemText>Stories</ListItemText>
           </ListItemButton>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/groups");
+            }}
+            sx={{ borderRadius: 2 }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
               <Box component="img" src="/groups.png" width={30} height={30} />
             </ListItemIcon>
             <ListItemText>Groups</ListItemText>
           </ListItemButton>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/memories");
+            }}
+            sx={{ borderRadius: 2 }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
               <Box component="img" src="/memories.png" width={30} height={30} />
             </ListItemIcon>
             <ListItemText>Memories</ListItemText>
           </ListItemButton>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/saved-posts");
+            }}
+            sx={{ borderRadius: 2 }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
               <Box component="img" src="/saved.png" width={30} height={30} />
             </ListItemIcon>
             <ListItemText>Saved</ListItemText>
           </ListItemButton>
-          <ListItemButton sx={{ borderRadius: 2 }}>
+          <ListItemButton
+            onClick={() => {
+              navigate("/birthdays");
+            }}
+            sx={{ borderRadius: 2 }}
+          >
             <ListItemIcon sx={{ mr: 2, minWidth: "30px" }}>
               <Box
                 component="img"

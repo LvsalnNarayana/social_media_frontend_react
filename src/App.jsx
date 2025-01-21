@@ -6,16 +6,23 @@ import React, { useState } from "react";
 import ReactJson from "react-json-view";
 import { useSelector } from "react-redux";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { Route, Outlet, Routes } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Stack, Button, Divider } from "@mui/material";
 
 import "./App.css";
+import Feed from "./pages/Feed";
+import Groups from "./pages/Groups";
+import Friends from "./pages/Friends";
+import Stories from "./pages/Stories";
 import OTP from "./components/OTP/OTP";
+import Memories from "./pages/Memories";
 import Post from "./components/Post/Post";
+import Birthdays from "./pages/Birthdays";
 import useData from "./hooks/data/useData";
+import SavedPosts from "./pages/SavedPosts";
 import Story from "./components/Story/Story";
 import About from "./components/About/About";
 import Drawer from "./components/Drawer/Drawer";
@@ -28,11 +35,9 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import CreateStory from "./components/Story/CreateStory";
 import MessageBox from "./components/MessageBox/MessageBox";
 import CreatePost from "./components/CreatePost/CreatePost";
-import Notification from "./components/Notifications/Notification";
 import ResetPassword from "./components/Reset Password/ResetPassword";
 import ForgotPassword from "./components/Forgot Password/ForgotPassword";
-import NotificationContainer from "./components/Notifications/NotificationContainer";
-import Feed from "./pages/Feed";
+import MainLayout from "./layouts/MainLayout";
 
 const drawerWidth = 320;
 
@@ -94,16 +99,6 @@ const App = () => {
       name: "Message Box",
       component: <MessageBox />,
     },
-    notification: {
-      data: notification,
-      name: "Notification",
-      component: <Notification />,
-    },
-    notification_container: {
-      data: notifications,
-      name: "Notification Container",
-      component: <NotificationContainer />,
-    },
     post: {
       data: post,
       name: "Post",
@@ -127,7 +122,15 @@ const App = () => {
   const routerComponent = () => {
     return (
       <Routes>
-        <Route path="/" element={<Feed />} />
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Feed />} />
+          <Route path="/friends" element={<Friends />} />
+          <Route path="/stories" element={<Stories />} />
+          <Route path="/groups" element={<Groups />} />
+          <Route path="/memories" element={<Memories />} />
+          <Route path="/saved-posts" element={<SavedPosts />} />
+          <Route path="/birthdays" element={<Birthdays />} />
+        </Route>
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Typography>Not Found</Typography>} />

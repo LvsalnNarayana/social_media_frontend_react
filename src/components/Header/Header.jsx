@@ -1,18 +1,12 @@
 import React from "react";
 
-import GroupIcon from "@mui/icons-material/Group";
-import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import {
-  Stack,
-  useTheme,
-  Container,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Stack, useTheme, Container, Typography } from "@mui/material";
 
-import UserAvatar from "../shared/UserAvatar";
+import UserMenu from "./UserMenu";
+import MessageMenu from "./MessageMenu";
 import SearchBar from "../SearchBar/SearchBar";
+import NotificationMenu from "./NotificationMenu";
+import FriendRequestMenu from "./FriendRequestMenu";
 
 const Header = () => {
   const theme = useTheme();
@@ -39,16 +33,10 @@ const Header = () => {
             <SearchBar />
           </Stack>
           <Stack direction="row" gap={2} alignItems="center">
-            <IconButton sx={{ "&:hover": { backgroundColor: "transparent" } }}>
-              <GroupIcon sx={{ color: "white" }} />
-            </IconButton>
-            <IconButton sx={{ "&:hover": { backgroundColor: "transparent" } }}>
-              <ChatBubbleIcon sx={{ color: "white" }} />
-            </IconButton>
-            <IconButton sx={{ "&:hover": { backgroundColor: "transparent" } }}>
-              <NotificationsIcon sx={{ color: "white" }} />
-            </IconButton>
-            <UserAvatar username="hello worls" width={32} height={32} />
+            <FriendRequestMenu />
+            <MessageMenu />
+            <NotificationMenu />
+            <UserMenu />
           </Stack>
         </Stack>
       </Container>

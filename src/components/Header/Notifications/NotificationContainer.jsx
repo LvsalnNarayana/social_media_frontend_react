@@ -3,11 +3,11 @@
 /* eslint-disable multiline-ternary */
 import React, { useState } from "react";
 
-import { Chip, Stack, IconButton } from "@mui/material";
+import { Chip, Stack, Divider, IconButton } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import Notification from "./Notification";
-import useData from "../../hooks/data/useData";
+import useData from "../../../hooks/data/useData";
 
 const NotificationContainer = () => {
   const { notifications } = useData();
@@ -39,13 +39,12 @@ const NotificationContainer = () => {
       justifyContent="flex-start"
       alignItems="flex-start"
       gap={1}
-      sx={{ pb: 2, borderRadius: 2, border: "1px solid #ccc" }}
     >
       <Stack
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: 2, pb: 0, mb: 1, width: "100%" }}
+        sx={{ px: 2, pb: 0, width: "100%" }}
       >
         <Stack
           direction="row"
@@ -89,6 +88,7 @@ const NotificationContainer = () => {
           <DeleteOutlineIcon fontSize="small" />
         </IconButton>
       </Stack>
+      <Divider flexItem />
       <Stack
         direction="column"
         justifyContent="flex-start"
